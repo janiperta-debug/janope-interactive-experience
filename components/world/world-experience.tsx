@@ -25,18 +25,21 @@ export function WorldExperience() {
   if (view === 'arrival') {
     return (
       <main className="arrival-screen">
-        <div className="arrival-noise" aria-hidden="true" />
-        <div className="arrival-stars" aria-hidden="true" />
-        <header className="site-mark"><span className="mark-glyph">◌</span><span>Janope</span></header>
+        <div className="arrival-image" aria-hidden="true" />
+        <div className="arrival-vignette" aria-hidden="true" />
+        <header className="site-mark"><span className="mark-glyph">M</span><span>Janope</span></header>
         <div className="arrival-content">
-          <p className="kicker">A living archive of the almost-known</p>
-          <h1>There is a world<br /><em>beneath the world.</em></h1>
-          <p className="arrival-copy">Somewhere beyond the edge of the ordinary, a door has been left open.</p>
+          <p className="arrival-crest" aria-hidden="true">♔</p>
+          <p className="kicker">An interactive mystery</p>
+          <h1><span>The</span> Manor</h1>
+          <p className="arrival-subtitle">Unwritten</p>
+          <div className="arrival-divider" aria-hidden="true" />
+          <p className="arrival-copy">Every place holds a story.<br />Every discovery reveals a deeper truth.<br />And some answers are still unwritten.</p>
           <button className="enter-button" onClick={() => setView('room')}>
-            <span>Enter the archive</span><ArrowRight aria-hidden="true" />
+            <span>Enter the manor</span><ArrowRight aria-hidden="true" />
           </button>
         </div>
-        <div className="arrival-footer"><span>VOL. I — THE BEGINNING</span><span>01 / 07</span></div>
+        <div className="arrival-footer"><span>THE MANOR · UNWRITTEN</span><span>01 / 07</span></div>
       </main>
     )
   }
