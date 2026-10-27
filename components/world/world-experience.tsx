@@ -45,8 +45,7 @@ export function WorldExperience() {
         <div className="arrival-content">
           <p className="arrival-crest" aria-hidden="true">♔</p>
           <p className="kicker">An interactive mystery</p>
-          <h1><span>The</span> Manor</h1>
-          <p className="arrival-subtitle">Unwritten</p>
+          <img className="arrival-logo" src="/brand/the-manor-unwritten.png" alt="The Manor — Unwritten" />
           <div className="arrival-divider" aria-hidden="true" />
           <p className="arrival-copy">Every place holds a story.<br />Every discovery reveals a deeper truth.<br />And some answers are still unwritten.</p>
           <ArchiveFrame weight="thin" cornerSize="sm" className="enter-frame"><button className="enter-button enter-button--framed" onClick={() => setView('journey')}>
