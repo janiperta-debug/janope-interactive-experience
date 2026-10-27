@@ -5,11 +5,12 @@ import { ArrowLeft, ArrowRight, Shield, Sparkles, BookOpen, LockKeyhole, ScanSea
 import { artifacts, discoveries, firstRoom } from '@/content/world'
 import { markDiscovered, readDiscoveries } from '@/lib/discovery-state'
 import { ArchiveFrame } from '@/components/ui/archive-frame'
+import { ConservatoryExperience } from '@/components/world/conservatory-experience'
 
 const artifact = artifacts[0]
 const discovery = discoveries.find((item) => item.id === artifact.discoveryId) ?? discoveries[0]
 
-type View = 'arrival' | 'journey' | 'fragment' | 'threshold' | 'room'
+type View = 'arrival' | 'journey' | 'fragment' | 'threshold' | 'room' | 'conservatory' | 'library'
 type ResearchPoint = 'portrait' | 'staircase' | 'table' | 'cabinet' | 'seed' | null
 
 const fragmentTiles = [
@@ -136,6 +137,18 @@ export function WorldExperience() {
     )
   }
 
+  if (view === 'conservatory') {
+    return <ConservatoryExperience onBack={() => setView('room')} onLibrary={() => setView('library')} />
+  }
+
+  if (view === 'library') {
+    return <main className="conservatory-screen library-unlocked-screen">
+      <div className="conservatory-backdrop library-placeholder-backdrop" aria-hidden="true" />
+      <header className="conservatory-header"><button className="back-button" onClick={() => setView('conservatory')}><ArrowLeft aria-hidden="true" /><span>Conservatory</span></button><div className="conservatory-title">THE MANOR <i>·</i> LIBRARY</div><div className="conservatory-progress">ROOM UNLOCKED</div></header>
+      <section className="library-unlocked-card"><p className="kicker">The next door has opened</p><h1>The Library</h1><p>Within these walls, countless stories are preserved. Knowledge is the key that unlocks every other door.</p><ArchiveFrame weight="thin"><div className="library-placeholder-art"><BookOpen aria-hidden="true"/><span>LIBRARY SCENE ARTWORK PLACEHOLDER</span><small>/manor-library/library-scene.png</small></div></ArchiveFrame><p className="seed-note">The Archivist’s Quill has been added to your collection. The Library’s mystery awaits.</p><button className="enter-button" onClick={() => setView('room')}><span>Return to the Main Hall</span><ArrowRight/></button></section>
+    </main>
+  }
+
   const collectGroup = (group: 'portrait' | 'staircase' | 'table') => {
     setFoundGroups((current) => current.includes(group) ? current : [...current, group])
   }
@@ -231,7 +244,7 @@ export function WorldExperience() {
           <h2 id="seed-title">Seed of Harmony</h2>
           <p className="research-body">Nestled within the cabinet is a delicate object, warm with a light that seems to breathe. The Manor has entrusted you with something that was meant to be found.</p>
           <div className="seed-art-placeholder"><Sparkles aria-hidden="true" /><span>SEED OF HARMONY <small>ARTWORK PLACEHOLDER</small></span></div>
-          <button className="enter-button hall-modal-action" onClick={() => { setSeedAccepted(true); setResearchPoint(null) }}><span>{seedAccepted ? 'Return to the hall' : 'Accept the Seed'}</span><ArrowRight aria-hidden="true" /></button>
+          <button className="enter-button hall-modal-action" onClick={() => { setSeedAccepted(true); setResearchPoint(null); setView('conservatory') }}><span>{seedAccepted ? 'Return to the hall' : 'Accept the Seed'}</span><ArrowRight aria-hidden="true" /></button>
           <p className="seed-note">The Conservatory remains beyond the next door.</p>
         </section>
       </div>}
