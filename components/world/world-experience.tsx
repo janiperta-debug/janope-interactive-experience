@@ -227,19 +227,21 @@ export function WorldExperience() {
           <p className="kicker">{researchCopy[researchPoint].eyebrow}</p>
           <h2 id="research-title">{researchCopy[researchPoint].title}</h2>
           {researchPoint !== 'cabinet' ? <>
-            <div className="research-intro-layout">
-              <img className="hall-detail-image" src={{
-                portrait: '/manor-main-hall/portrait-detail.png',
-                staircase: '/manor-main-hall/stonework-detail.png',
-                table: '/manor-main-hall/open-book-detail.png',
-              }[researchPoint]} alt="" />
+            <div className="research-card-layout">
+              <div className="research-visual-column">
+                <img className="hall-detail-image" src={{
+                  portrait: '/manor-main-hall/portrait-detail.png',
+                  staircase: '/manor-main-hall/stonework-detail.png',
+                  table: '/manor-main-hall/open-book-detail.png',
+                }[researchPoint]} alt="" />
+                <div className="research-tiles">{researchCopy[researchPoint].tiles.map((index) => <div className="research-tile" key={fragmentTiles[index]}><img src={`/manor-puzzle/fragments/${fragmentTiles[index]}`} alt={`Fragment ${index + 1}`} /><span>Fragment recovered</span></div>)}</div>
+              </div>
               <div className="research-copy-column">
                 <p className="research-body">{researchCopy[researchPoint].body}</p>
                 <p className="research-hint">{researchCopy[researchPoint].hint}</p>
+                <button className="enter-button hall-modal-action" onClick={() => { collectGroup(researchPoint); setResearchPoint(null) }}><span>{foundGroups.includes(researchPoint) ? 'Return to the hall' : 'Collect the fragments'}</span><ArrowRight aria-hidden="true" /></button>
               </div>
             </div>
-            <div className="research-tiles">{researchCopy[researchPoint].tiles.map((index) => <div className="research-tile" key={fragmentTiles[index]}><img src={`/manor-puzzle/fragments/${fragmentTiles[index]}`} alt={`Fragment ${index + 1}`} /><span>Fragment recovered</span></div>)}</div>
-            <button className="enter-button hall-modal-action" onClick={() => { collectGroup(researchPoint); setResearchPoint(null) }}><span>{foundGroups.includes(researchPoint) ? 'Return to the hall' : 'Collect the fragments'}</span><ArrowRight aria-hidden="true" /></button>
           </> : <>
             <img className="hall-detail-image cabinet-detail-image" src="/manor-main-hall/locked-cabinet-detail.png" alt="" />
             <p className="research-body">{researchCopy[researchPoint].body}</p>
