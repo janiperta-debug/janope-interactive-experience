@@ -547,6 +547,13 @@ body { min-height:100dvh; }
 .hotspot-staircase { top:48%; left:20%; }
 .hotspot-table { left:42%; bottom:37%; }
 .hotspot-cabinet { left:56%; right:auto; top:40%; transform:none; }
+
+.hotspot-chandelier { left:50%; top:8%; }
+.hotspot-left-plant { left:4.5%; top:60%; }
+.hotspot-crest { left:46%; top:34%; }
+.hotspot-window { left:77%; top:34%; }
+.hotspot-chair { left:64%; top:82%; }
+.hotspot-sofa { left:90%; top:69%; }
 .hotspot-complete { border-color:#b8c39b; color:#e2edcc; }
 .hall-inventory { position:absolute; z-index:4; right:clamp(16px,3vw,42px); bottom:clamp(14px,2.6vh,28px); width:min(340px,34vw); padding:14px 16px 12px; border:1px solid #b99a5c80; background:linear-gradient(135deg,#0b1113ee,#111a1bee); box-shadow:0 12px 36px #0008; }
 .inventory-heading { display:flex; justify-content:space-between; gap:10px; margin-bottom:10px; color:#d6c9ad; font:9px Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; }
