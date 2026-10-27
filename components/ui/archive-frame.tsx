@@ -6,6 +6,7 @@ type ArchiveFrameProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode
   weight?: "regular" | "thin" | "hairline"
   corners?: boolean
+  cornerSize?: "sm" | "md"
 }
 
 /** The Manor's local adaptation of GameTable's ornamental archive frame. */
@@ -13,11 +14,12 @@ export function ArchiveFrame({
   children,
   weight = "regular",
   corners = true,
+  cornerSize = "md",
   className = "",
   ...props
 }: ArchiveFrameProps) {
   return (
-    <div className={`manor-archive-frame manor-archive-frame--${weight} ${className}`} {...props}>
+    <div className={`manor-archive-frame manor-archive-frame--${weight} manor-archive-frame--corners-${cornerSize} ${className}`} {...props}>
       <div className="manor-archive-frame__channel">
         <div className="manor-archive-frame__surface">
           {corners && <span className="manor-archive-frame__corner manor-archive-frame__corner--tl" aria-hidden="true" />}
