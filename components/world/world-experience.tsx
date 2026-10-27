@@ -179,18 +179,9 @@ export function WorldExperience() {
 
   return (
     <main className="main-hall-screen">
-      <div className="main-hall-scene" role="img" aria-label="Main Hall placeholder artwork">
-        <div className="main-hall-placeholder">
-          <span className="placeholder-moon" />
-          <span className="placeholder-window placeholder-window-one" />
-          <span className="placeholder-window placeholder-window-two" />
-          <span className="placeholder-staircase" />
-          <span className="placeholder-pillar" />
-          <span className="placeholder-table"><BookOpen aria-hidden="true" /></span>
-          <span className="placeholder-cabinet"><LockKeyhole aria-hidden="true" /></span>
-          <p>MAIN HALL <small>SCENE ARTWORK PLACEHOLDER</small></p>
-        </div>
-        <div className="main-hall-vignette" />
+      <div className="main-hall-scene">
+        <img className="main-hall-background" src="/manor-main-hall/main-hall.png" alt="The Manor's Main Hall" />
+        <div className="main-hall-vignette" aria-hidden="true" />
         <header className="hall-header">
           <button className="back-button" onClick={() => setView('threshold')} aria-label="Return to the threshold"><ArrowLeft aria-hidden="true" /><span>The Threshold</span></button>
           <div className="hall-title">THE MANOR <i>·</i> MAIN HALL</div>
