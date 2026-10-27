@@ -433,3 +433,34 @@ body { min-height:100dvh; }
   
   .threshold-card .enter-button { min-height: 50px; padding: 10px 14px; }
 }
+
+
+/* Keep the memory card's ArchiveFrame understated: one fine gold line, no heavy metal/wood surround. */
+.threshold-card.manor-archive-frame {
+  padding: 0;
+  border-radius: 2px;
+  background: transparent;
+  box-shadow: none;
+}
+.threshold-card .manor-archive-frame__channel {
+  border-radius: 2px;
+  box-shadow: none;
+}
+.threshold-card .manor-archive-frame__surface {
+  border-radius: 2px;
+  background: linear-gradient(145deg, #121a1f, #0b1014 78%);
+  box-shadow: none;
+}
+.threshold-card .manor-archive-frame__surface::after {
+  inset: 0;
+  border: 1px solid rgb(217 182 92 / 42%);
+  border-radius: 2px;
+}
+.threshold-card .manor-archive-frame__corner {
+  filter: none;
+}
+.threshold-card .manor-archive-frame__corner::before,
+.threshold-card .manor-archive-frame__corner::after {
+  background: linear-gradient(135deg, #f0dca0, #b88a3e 75%);
+  border-radius: 1px;
+}
