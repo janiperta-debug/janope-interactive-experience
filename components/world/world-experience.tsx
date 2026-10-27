@@ -222,22 +222,27 @@ export function WorldExperience() {
       </div>}
 
       {researchPoint && researchPoint !== 'seed' && <div className="hall-modal-backdrop" role="presentation" onClick={() => setResearchPoint(null)}>
-        <section className="hall-modal" role="dialog" aria-modal="true" aria-labelledby="research-title" onClick={(event) => event.stopPropagation()}>
+        <section className={`hall-modal ${researchPoint === 'cabinet' ? 'cabinet-modal' : 'research-modal'}`} role="dialog" aria-modal="true" aria-labelledby="research-title" onClick={(event) => event.stopPropagation()}>
           <button className="hall-modal-close" onClick={() => setResearchPoint(null)} aria-label="Close"><X aria-hidden="true" /></button>
           <p className="kicker">{researchCopy[researchPoint].eyebrow}</p>
           <h2 id="research-title">{researchCopy[researchPoint].title}</h2>
-          <img className="hall-detail-image" src={{
-            portrait: '/manor-main-hall/portrait-detail.png',
-            staircase: '/manor-main-hall/stonework-detail.png',
-            table: '/manor-main-hall/open-book-detail.png',
-            cabinet: '/manor-main-hall/locked-cabinet-detail.png',
-          }[researchPoint]} alt="" />
-          <p className="research-body">{researchCopy[researchPoint].body}</p>
           {researchPoint !== 'cabinet' ? <>
-            <p className="research-hint">{researchCopy[researchPoint].hint}</p>
+            <div className="research-intro-layout">
+              <img className="hall-detail-image" src={{
+                portrait: '/manor-main-hall/portrait-detail.png',
+                staircase: '/manor-main-hall/stonework-detail.png',
+                table: '/manor-main-hall/open-book-detail.png',
+              }[researchPoint]} alt="" />
+              <div className="research-copy-column">
+                <p className="research-body">{researchCopy[researchPoint].body}</p>
+                <p className="research-hint">{researchCopy[researchPoint].hint}</p>
+              </div>
+            </div>
             <div className="research-tiles">{researchCopy[researchPoint].tiles.map((index) => <div className="research-tile" key={fragmentTiles[index]}><img src={`/manor-puzzle/fragments/${fragmentTiles[index]}`} alt={`Fragment ${index + 1}`} /><span>Fragment recovered</span></div>)}</div>
             <button className="enter-button hall-modal-action" onClick={() => { collectGroup(researchPoint); setResearchPoint(null) }}><span>{foundGroups.includes(researchPoint) ? 'Return to the hall' : 'Collect the fragments'}</span><ArrowRight aria-hidden="true" /></button>
           </> : <>
+            <img className="hall-detail-image cabinet-detail-image" src="/manor-main-hall/locked-cabinet-detail.png" alt="" />
+            <p className="research-body">{researchCopy[researchPoint].body}</p>
             <p className="research-hint">{cabinetSolved ? 'The lock has released.' : selectedTile !== null ? 'Select a square below to place the chosen fragment.' : 'Select a discovered fragment, then choose its place in the frame.'}</p>
             <div className="cabinet-puzzle">
               <div className="cabinet-grid">{placedTiles.map((tile, cell) => <button key={cell} className={`cabinet-cell ${tile !== null ? 'cabinet-cell-filled' : ''} ${selectedTile !== null ? 'cabinet-cell-target' : ''}`} disabled={cabinetSolved || selectedTile === null} onClick={() => placeTile(cell)} aria-label={`Cabinet square ${cell + 1}`}>
