@@ -546,7 +546,7 @@ body { min-height:100dvh; }
 .hotspot-portrait { top:10%; left:20%; }
 .hotspot-staircase { top:48%; left:20%; }
 .hotspot-table { left:42%; bottom:37%; }
-.hotspot-cabinet { right:11%; top:40%; }
+.hotspot-cabinet { right:25%; top:40%; }
 .hotspot-complete { border-color:#b8c39b; color:#e2edcc; }
 .hall-inventory { position:absolute; z-index:4; right:clamp(16px,3vw,42px); bottom:clamp(14px,2.6vh,28px); width:min(340px,34vw); padding:14px 16px 12px; border:1px solid #b99a5c80; background:linear-gradient(135deg,#0b1113ee,#111a1bee); box-shadow:0 12px 36px #0008; }
 .inventory-heading { display:flex; justify-content:space-between; gap:10px; margin-bottom:10px; color:#d6c9ad; font:9px Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; }
