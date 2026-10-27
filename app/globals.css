@@ -543,10 +543,10 @@ body { min-height:100dvh; }
 .hall-hotspot:hover { background:#1b2929f2; border-color:#efd18b; transform:translateY(-2px); }
 .hall-hotspot > span { color:#d5a85f; font-size:9px; }
 .hall-hotspot svg { width:13px; height:13px; color:#d5b777; }
-.hotspot-portrait { top:21%; left:19%; }
-.hotspot-staircase { top:54%; left:25%; }
-.hotspot-table { left:52%; bottom:33%; }
-.hotspot-cabinet { right:9%; top:46%; }
+.hotspot-portrait { top:10%; left:20%; }
+.hotspot-staircase { top:48%; left:20%; }
+.hotspot-table { left:42%; bottom:37%; }
+.hotspot-cabinet { right:11%; top:40%; }
 .hotspot-complete { border-color:#b8c39b; color:#e2edcc; }
 .hall-inventory { position:absolute; z-index:4; right:clamp(16px,3vw,42px); bottom:clamp(14px,2.6vh,28px); width:min(340px,34vw); padding:14px 16px 12px; border:1px solid #b99a5c80; background:linear-gradient(135deg,#0b1113ee,#111a1bee); box-shadow:0 12px 36px #0008; }
 .inventory-heading { display:flex; justify-content:space-between; gap:10px; margin-bottom:10px; color:#d6c9ad; font:9px Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; }
