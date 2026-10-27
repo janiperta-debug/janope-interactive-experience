@@ -103,7 +103,7 @@ export function WorldExperience() {
     return (
       <main className="threshold-screen">
         <div className="threshold-glow" aria-hidden="true" />
-        <div className="threshold-card">
+        <ArchiveFrame className="threshold-card" weight="regular" corners>
           <p className="kicker">The Manor remembers</p>
           <div className="threshold-mark"><Sparkles aria-hidden="true" /></div>
           <h1>A fragment has been entrusted to you.</h1>
@@ -112,7 +112,7 @@ export function WorldExperience() {
           <button className="enter-button" onClick={() => setView('room')}>
             <span>Enter the Main Hall</span><ArrowRight aria-hidden="true" />
           </button>
-        </div>
+        </ArchiveFrame>
       </main>
     )
   }
