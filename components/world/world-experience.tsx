@@ -187,10 +187,10 @@ export function WorldExperience() {
           <div className="hall-title">THE MANOR <i>·</i> MAIN HALL</div>
           <div className="hall-progress">{discoveredTiles.length} <span>/ 9 fragments</span></div>
         </header>
-        <button className="hall-hotspot hotspot-portrait" onClick={() => setResearchPoint('portrait')} aria-label="Examine portrait"><span>01</span><b>Portrait</b>{foundGroups.includes('portrait') && <Check aria-hidden="true" />}</button>
-        <button className="hall-hotspot hotspot-staircase" onClick={() => setResearchPoint('staircase')} aria-label="Examine staircase stonework"><span>02</span><b>Stonework</b>{foundGroups.includes('staircase') && <Check aria-hidden="true" />}</button>
-        <button className="hall-hotspot hotspot-table" onClick={() => setResearchPoint('table')} aria-label="Examine open book"><span>03</span><b>Open book</b>{foundGroups.includes('table') && <Check aria-hidden="true" />}</button>
-        <button className={`hall-hotspot hotspot-cabinet ${cabinetSolved ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('cabinet')} aria-label="Examine locked cabinet"><span>04</span><b>{cabinetSolved ? 'Cabinet opened' : 'Locked cabinet'}</b>{cabinetSolved ? <Check aria-hidden="true" /> : <LockKeyhole aria-hidden="true" />}</button>
+        <button className={`hall-hotspot hotspot-portrait ${foundGroups.includes('portrait') ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('portrait')} aria-label="Examine portrait"><span aria-hidden="true">X</span></button>
+        <button className={`hall-hotspot hotspot-staircase ${foundGroups.includes('staircase') ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('staircase')} aria-label="Examine staircase stonework"><span aria-hidden="true">X</span></button>
+        <button className={`hall-hotspot hotspot-table ${foundGroups.includes('table') ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('table')} aria-label="Examine open book"><span aria-hidden="true">X</span></button>
+        <button className={`hall-hotspot hotspot-cabinet ${cabinetSolved ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('cabinet')} aria-label="Examine locked cabinet"><span aria-hidden="true">X</span></button>
 
       </div>
 
