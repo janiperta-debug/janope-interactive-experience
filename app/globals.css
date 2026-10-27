@@ -581,16 +581,19 @@ body { min-height:100dvh; }
 .research-copy-column .research-body { margin:0; font-size:clamp(13px,1.2vw,16px); line-height:1.55; }
 .research-copy-column .research-hint { margin:14px 0 0; font-size:12px; line-height:1.4; }
 .research-copy-column .hall-modal-action { margin-top:22px; min-height:48px; }
-.cabinet-modal { width:min(1040px,100%); padding-bottom:clamp(16px,2.2vh,26px); }
-.cabinet-artboard { position:relative; width:min(100%,900px); margin:0 auto; line-height:0; }
-.cabinet-artwork { display:block; width:100%; height:auto; object-fit:contain; }
+.cabinet-modal { width:min(1320px,100%); padding-bottom:clamp(12px,1.5vh,18px); }
+.cabinet-puzzle-layout { display:grid; grid-template-columns:minmax(105px,160px) minmax(0,1fr) minmax(85px,140px); align-items:center; gap:clamp(10px,1.8vw,26px); width:100%; margin:0 auto; }
+.cabinet-artboard { position:relative; width:100%; max-height:64vh; margin:0 auto; line-height:0; }
+.cabinet-artwork { display:block; width:100%; max-height:64vh; height:auto; object-fit:contain; }
 .cabinet-overlay-grid { position:absolute; left:26.6%; top:23.8%; width:47.8%; height:54.4%; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:repeat(3,minmax(0,1fr)); gap:1.2%; }
 .cabinet-overlay-cell { min-width:0; min-height:0; display:grid; place-items:center; overflow:hidden; padding:0; border:0; background:transparent; cursor:default; }
 .cabinet-overlay-cell-target { cursor:pointer; }
 .cabinet-overlay-cell-target:focus-visible { outline:2px solid #f1cc82; outline-offset:-4px; background:#e8c37b22; }
 .cabinet-overlay-cell img { display:block; width:100%; height:100%; object-fit:cover; }
-.cabinet-modal-inventory { grid-template-columns:repeat(9,minmax(0,1fr)); gap:6px; width:min(700px,100%); margin:clamp(10px,1.8vh,18px) auto 0; }
-.cabinet-modal-inventory .inventory-tile { aspect-ratio:1; min-width:0; }
+.cabinet-modal-inventory { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; width:100%; margin:0; align-content:center; }
+.cabinet-modal-inventory .inventory-tile { aspect-ratio:1; min-width:0; width:100%; }
+.cabinet-inventory-left { grid-template-rows:repeat(3,minmax(0,1fr)); }
+.cabinet-inventory-right { grid-template-rows:repeat(2,minmax(0,1fr)); }
 .cabinet-success { margin-top:10px; color:#d9e2b8; text-align:center; font-size:13px; }
 .seed-modal { text-align:center; width:min(600px,100%); }
 .seed-modal .kicker { margin-right:0; }
