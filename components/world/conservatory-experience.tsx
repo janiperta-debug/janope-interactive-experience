@@ -95,7 +95,7 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
         <button className="enter-button conservatory-check" onClick={checkArrangement} disabled={solved}><span>{solved ? 'The arrangement is complete' : 'Reflect on the arrangement'}</span>{solved ? <Check/> : <ArrowRight/>}</button>
       </div>
     </section>
-    {inspecting && <div className="hall-modal-backdrop" onClick={() => setInspecting(null)} role="presentation}>
+    {inspecting && <div className="hall-modal-backdrop" onClick={() => setInspecting(null)} role="presentation">
       <section className="hall-modal conservatory-modal" role="dialog" aria-modal="true" aria-labelledby="plant-modal-title" onClick={event => event.stopPropagation()}>
         <button className="hall-modal-close" onClick={() => setInspecting(null)} aria-label="Close"><X/></button>
         <p className="kicker">The Gardener’s field notes</p><h2 id="plant-modal-title">{plants.find(p => p.id === inspecting)?.name}</h2>
