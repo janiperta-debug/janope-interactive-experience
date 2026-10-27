@@ -87,10 +87,10 @@ h1,h2,p { margin:0; }
 .journey-line { position:absolute; width:min(760px,82vw); color:#f0e4d0; font-size:clamp(1.15rem,2.5vw,2rem); line-height:1.7; letter-spacing:.015em; text-shadow:0 2px 24px #000,0 1px 4px #000; opacity:0; animation: welcome-lines 11.2s linear both; }
 .journey-line-one { animation-delay:0s; }
 .journey-line-two { animation-delay:3.1s; }
-.journey-line-three { animation-delay:7.1s; }
+.journey-line-three { animation:welcome-third 4.1s linear both; animation-delay:7.1s; }
 .journey-line-three p + p { margin-top:16px; }
-.journey-last-line { animation: welcome-last 11.2s linear both; animation-delay:7.1s; }
-.journey-emphasis { color:#edc58f; font-size:.83em; letter-spacing:.12em; text-transform:uppercase; animation: welcome-emphasis 11.2s linear both; animation-delay:7.1s; }
+.journey-last-line { animation: welcome-last 4.1s linear both; animation-delay:7.1s; }
+.journey-emphasis { color:#edc58f; font-size:.83em; letter-spacing:.12em; text-transform:uppercase; animation: welcome-emphasis 4.1s linear both; animation-delay:7.1s; }
 .skip-intro { position:absolute; z-index:3; right:7vw; bottom:76px; display:flex; align-items:center; gap:10px; border:0; border-bottom:1px solid #c3a36b77; padding:9px 0; background:transparent; color:#d5c5aa; cursor:pointer; font:10px Arial,sans-serif; letter-spacing:.14em; text-transform:uppercase; }
 .skip-intro svg { width:14px; height:14px; }
 .journey-screen .arrival-footer { position:absolute; z-index:3; right:7vw; bottom:28px; left:7vw; }
@@ -104,14 +104,15 @@ h1,h2,p { margin:0; }
   10%,23% { opacity:1; transform:translateY(0); }
   29%,100% { opacity:0; transform:translateY(-7px); }
 }
+@keyframes welcome-third { 0%,8% { opacity:0; transform:translateY(10px); } 16%,72% { opacity:1; transform:translateY(0); } 92%,100% { opacity:0; transform:translateY(-6px); } }
 @keyframes welcome-last {
-  0%,76% { opacity:0; transform:translateY(10px); }
-  82%,91% { opacity:1; transform:translateY(0); }
-  97%,100% { opacity:0; transform:translateY(-6px); }
+  0%,12% { opacity:0; transform:translateY(10px); }
+  24%,70% { opacity:1; transform:translateY(0); }
+  90%,100% { opacity:0; transform:translateY(-6px); }
 }
 @keyframes welcome-emphasis {
-  0%,88% { opacity:0; transform:translateY(9px); }
-  93%,98% { opacity:1; transform:translateY(0); }
+  0%,45% { opacity:0; transform:translateY(9px); }
+  60%,80% { opacity:1; transform:translateY(0); }
   100% { opacity:0; transform:translateY(-4px); }
 }
 
