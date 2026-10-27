@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ArrowLeft, ArrowRight, Shield, Sparkles } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Shield, Sparkles, BookOpen, LockKeyhole, ScanSearch, Check, X } from 'lucide-react'
 import { artifacts, discoveries, firstRoom } from '@/content/world'
 import { markDiscovered, readDiscoveries } from '@/lib/discovery-state'
 import { ArchiveFrame } from '@/components/ui/archive-frame'
@@ -10,12 +10,31 @@ const artifact = artifacts[0]
 const discovery = discoveries.find((item) => item.id === artifact.discoveryId) ?? discoveries[0]
 
 type View = 'arrival' | 'journey' | 'fragment' | 'threshold' | 'room'
+type ResearchPoint = 'portrait' | 'staircase' | 'table' | 'cabinet' | 'seed' | null
+
+const fragmentTiles = [
+  'manor_fragment_x6p2.png', 'manor_fragment_k8v3.png', 'manor_fragment_m4x9.png',
+  'manor_fragment_r5t2.png', 'manor_fragment_b9n4.png', 'manor_fragment_743g.png',
+  'manor_fragment_q7m2.png', 'manor_fragment_t3w8.png', 'manor_fragment_p2w6.png',
+]
+const researchCopy: Record<Exclude<ResearchPoint, null | 'seed'>, { title: string; eyebrow: string; body: string; hint: string; tiles: number[] }> = {
+  portrait: { title: 'The Portrait', eyebrow: 'Research point 01', body: 'The portrait watches over the landing. The frame is older than the room around it, and faint marks catch the light beneath the varnish.', hint: 'Three fragments rest in the portrait frame.', tiles: [0, 1, 2] },
+  staircase: { title: 'The Stonework', eyebrow: 'Research point 02', body: 'The carved pillar bears a pattern that continues across its worn edges. Someone once meant these marks to be read together.', hint: 'Three fragments are hidden among the carvings.', tiles: [3, 4, 5] },
+  table: { title: 'The Open Book', eyebrow: 'Research point 03', body: 'The book lies open as if its reader has only just stepped away. The page is blank, save for the impression of something pressed against it.', hint: 'Three fragments have been left between the pages.', tiles: [6, 7, 8] },
+  cabinet: { title: 'The Locked Cabinet', eyebrow: 'Research point 04', body: 'Nine empty recesses surround a sealed central panel. Their edges are worn smooth, as though the pieces have been handled many times.', hint: 'Arrange all nine fragments to reveal the shape the Manor has hidden.', tiles: [] },
+}
 
 export function WorldExperience() {
   const [view, setView] = useState<View>('arrival')
   const [isOpen, setIsOpen] = useState(false)
   const [discovered, setDiscovered] = useState<string[]>([])
   const [reducedMotion, setReducedMotion] = useState(false)
+  const [researchPoint, setResearchPoint] = useState<ResearchPoint>(null)
+  const [foundGroups, setFoundGroups] = useState<string[]>([])
+  const [selectedTile, setSelectedTile] = useState<number | null>(null)
+  const [placedTiles, setPlacedTiles] = useState<(number | null)[]>(Array(9).fill(null))
+  const [cabinetSolved, setCabinetSolved] = useState(false)
+  const [seedAccepted, setSeedAccepted] = useState(false)
 
   useEffect(() => {
     setDiscovered(readDiscoveries())
@@ -117,52 +136,104 @@ export function WorldExperience() {
     )
   }
 
-  const revealArtifact = () => {
-    setIsOpen(true)
-    setDiscovered(markDiscovered(artifact.id))
+  const collectGroup = (group: 'portrait' | 'staircase' | 'table') => {
+    setFoundGroups((current) => current.includes(group) ? current : [...current, group])
   }
 
+  const placeTile = (cell: number) => {
+    if (selectedTile === null || cabinetSolved) return
+    setPlacedTiles((current) => {
+      const next = [...current]
+      const previousCell = next.indexOf(selectedTile)
+      if (previousCell >= 0) next[previousCell] = null
+      next[cell] = selectedTile
+      if (next.every((tile, index) => tile === index)) {
+        window.setTimeout(() => { setCabinetSolved(true); setResearchPoint('seed') }, 350)
+      }
+      return next
+    })
+    setSelectedTile(null)
+  }
+
+  const discoveredTiles = [
+    ...(foundGroups.includes('portrait') ? [0, 1, 2] : []),
+    ...(foundGroups.includes('staircase') ? [3, 4, 5] : []),
+    ...(foundGroups.includes('table') ? [6, 7, 8] : []),
+  ]
+
   return (
-    <main className="world-shell">
-      <div className="room-light" aria-hidden="true" />
-      <div className="room-grid" aria-hidden="true" />
-      <header className="room-header">
-        <button className="back-button" onClick={() => setView('arrival')} aria-label="Return to opening screen"><ArrowLeft aria-hidden="true" /><span>Exit to surface</span></button>
-        <div className="room-counter"><span className="counter-dot" /> Discoveries {discovered.length} / 1</div>
-      </header>
-      <section className="room-content" aria-labelledby="room-title">
-        <div className="room-copy">
-          <p className="kicker">{firstRoom.eyebrow.en}</p>
-          <h1 id="room-title">{firstRoom.name.en}</h1>
-          <p>{firstRoom.description.en}</p>
-          <div className="room-rule" />
-          <p className="instruction"><span className="instruction-number">01</span> Look closely. The room gives back what you bring to it.</p>
+    <main className="main-hall-screen">
+      <div className="main-hall-scene" role="img" aria-label="Main Hall placeholder artwork">
+        <div className="main-hall-placeholder">
+          <span className="placeholder-moon" />
+          <span className="placeholder-window placeholder-window-one" />
+          <span className="placeholder-window placeholder-window-two" />
+          <span className="placeholder-staircase" />
+          <span className="placeholder-pillar" />
+          <span className="placeholder-table"><BookOpen aria-hidden="true" /></span>
+          <span className="placeholder-cabinet"><LockKeyhole aria-hidden="true" /></span>
+          <p>MAIN HALL <small>SCENE ARTWORK PLACEHOLDER</small></p>
         </div>
-        <div className="artifact-stage">
-          <button className={`artifact ${isOpen ? 'artifact-open' : ''}`} onClick={revealArtifact} aria-label={`Inspect ${artifact.name.en}`}>
-            <span className="artifact-halo" aria-hidden="true" />
-            <span className="artifact-orbit orbit-one" aria-hidden="true" />
-            <span className="artifact-orbit orbit-two" aria-hidden="true" />
-            <span className="artifact-core"><Shield aria-hidden="true" /></span>
-            <span className="artifact-shadow" aria-hidden="true" />
-          </button>
-          <p className="artifact-label"><span>{artifact.name.en}</span><small>{isOpen ? 'Discovered' : artifact.hint.en}</small></p>
-        </div>
-      </section>
-      <footer className="room-footer">
-        <span><Sparkles aria-hidden="true" /> More doors remain sealed</span>
-        <span className="room-location">The Threshold <i>•</i> North Wing</span>
-      </footer>
-      {isOpen && <div className="discovery-overlay" role="dialog" aria-modal="true" aria-labelledby="discovery-title">
-        <div className="discovery-card">
-          <button className="close-discovery" onClick={() => setIsOpen(false)} aria-label="Close discovery">×</button>
-          <div className="discovery-icon"><Sparkles aria-hidden="true" /></div>
-          <p className="kicker">Discovery 001 / The Threshold</p>
-          <h2 id="discovery-title">{discovery.title.en}</h2>
-          <p className="discovery-body">{discovery.body.en}</p>
-          <blockquote>{discovery.inscription.en}</blockquote>
-          <button className="continue-button" onClick={() => setIsOpen(false)}>Continue exploring <ArrowRight aria-hidden="true" /></button>
-        </div>
+        <div className="main-hall-vignette" />
+        <header className="hall-header">
+          <button className="back-button" onClick={() => setView('threshold')} aria-label="Return to the threshold"><ArrowLeft aria-hidden="true" /><span>The Threshold</span></button>
+          <div className="hall-title">THE MANOR <i>·</i> MAIN HALL</div>
+          <div className="hall-progress">{discoveredTiles.length} <span>/ 9 fragments</span></div>
+        </header>
+        <button className="hall-hotspot hotspot-portrait" onClick={() => setResearchPoint('portrait')} aria-label="Examine portrait"><span>01</span><b>Portrait</b>{foundGroups.includes('portrait') && <Check aria-hidden="true" />}</button>
+        <button className="hall-hotspot hotspot-staircase" onClick={() => setResearchPoint('staircase')} aria-label="Examine staircase stonework"><span>02</span><b>Stonework</b>{foundGroups.includes('staircase') && <Check aria-hidden="true" />}</button>
+        <button className="hall-hotspot hotspot-table" onClick={() => setResearchPoint('table')} aria-label="Examine open book"><span>03</span><b>Open book</b>{foundGroups.includes('table') && <Check aria-hidden="true" />}</button>
+        <button className={`hall-hotspot hotspot-cabinet ${cabinetSolved ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('cabinet')} aria-label="Examine locked cabinet"><span>04</span><b>{cabinetSolved ? 'Cabinet opened' : 'Locked cabinet'}</b>{cabinetSolved ? <Check aria-hidden="true" /> : <LockKeyhole aria-hidden="true" />}</button>
+        <aside className="hall-inventory">
+          <div className="inventory-heading"><span>Collected fragments</span><b>{discoveredTiles.length} / 9</b></div>
+          <div className="inventory-tiles">
+            {fragmentTiles.map((filename, index) => {
+              const available = discoveredTiles.includes(index)
+              return <button key={filename} className={`inventory-tile ${available ? 'tile-available' : ''} ${selectedTile === index ? 'tile-selected' : ''}`} disabled={!available || cabinetSolved} onClick={() => setSelectedTile(selectedTile === index ? null : index)} aria-label={available ? `Select fragment ${index + 1}` : 'Undiscovered fragment'}>
+                {available ? <img src={`/manor-puzzle/fragments/${filename}`} alt="" /> : <span>?</span>}
+              </button>
+            })}
+          </div>
+          <p>{cabinetSolved ? 'The cabinet has yielded its secret.' : selectedTile !== null ? 'Choose a recess in the cabinet for this fragment.' : 'Investigate the room to find all nine fragments.'}</p>
+          <button className="cabinet-open-button" onClick={() => setResearchPoint('cabinet')}><ScanSearch aria-hidden="true" /> Inspect the cabinet</button>
+        </aside>
+      </div>
+
+      {researchPoint && researchPoint !== 'seed' && <div className="hall-modal-backdrop" role="presentation" onClick={() => setResearchPoint(null)}>
+        <section className="hall-modal" role="dialog" aria-modal="true" aria-labelledby="research-title" onClick={(event) => event.stopPropagation()}>
+          <button className="hall-modal-close" onClick={() => setResearchPoint(null)} aria-label="Close"><X aria-hidden="true" /></button>
+          <p className="kicker">{researchCopy[researchPoint].eyebrow}</p>
+          <h2 id="research-title">{researchCopy[researchPoint].title}</h2>
+          <p className="research-body">{researchCopy[researchPoint].body}</p>
+          {researchPoint !== 'cabinet' ? <>
+            <p className="research-hint">{researchCopy[researchPoint].hint}</p>
+            <div className="research-tiles">{researchCopy[researchPoint].tiles.map((index) => <div className="research-tile" key={fragmentTiles[index]}><img src={`/manor-puzzle/fragments/${fragmentTiles[index]}`} alt={`Fragment ${index + 1}`} /><span>Fragment recovered</span></div>)}</div>
+            <button className="enter-button hall-modal-action" onClick={() => { collectGroup(researchPoint); setResearchPoint(null) }}><span>{foundGroups.includes(researchPoint) ? 'Return to the hall' : 'Collect the fragments'}</span><ArrowRight aria-hidden="true" /></button>
+          </> : <>
+            <p className="research-hint">{cabinetSolved ? 'The lock has released.' : selectedTile !== null ? 'Select a square below to place the chosen fragment.' : 'Select a discovered fragment, then choose its place in the frame.'}</p>
+            <div className="cabinet-puzzle">
+              <div className="cabinet-grid">{placedTiles.map((tile, cell) => <button key={cell} className={`cabinet-cell ${tile !== null ? 'cabinet-cell-filled' : ''} ${selectedTile !== null ? 'cabinet-cell-target' : ''}`} disabled={cabinetSolved || selectedTile === null} onClick={() => placeTile(cell)} aria-label={`Cabinet square ${cell + 1}`}>
+                {tile !== null ? <img src={`/manor-puzzle/fragments/${fragmentTiles[tile]}`} alt="" /> : <span>＋</span>}
+              </button>)}</div>
+              <div className="cabinet-symbol" aria-hidden="true"><span>✧</span></div>
+            </div>
+            <div className="cabinet-modal-inventory">{fragmentTiles.map((filename, index) => <button key={filename} className={`inventory-tile ${discoveredTiles.includes(index) ? 'tile-available' : ''} ${selectedTile === index ? 'tile-selected' : ''}`} disabled={!discoveredTiles.includes(index) || cabinetSolved} onClick={() => setSelectedTile(selectedTile === index ? null : index)} aria-label={`Select fragment ${index + 1}`}>{discoveredTiles.includes(index) ? <img src={`/manor-puzzle/fragments/${filename}`} alt="" /> : <span>?</span>}</button>)}</div>
+            {cabinetSolved && <p className="cabinet-success">The hidden shape is complete. The cabinet opens.</p>}
+            <button className="enter-button hall-modal-action" onClick={() => setResearchPoint(null)}><span>Return to the hall</span><ArrowRight aria-hidden="true" /></button>
+          </>}
+        </section>
+      </div>}
+
+      {researchPoint === 'seed' && <div className="hall-modal-backdrop seed-backdrop" role="presentation">
+        <section className="hall-modal seed-modal" role="dialog" aria-modal="true" aria-labelledby="seed-title">
+          <div className="seed-emblem"><Sparkles aria-hidden="true" /></div>
+          <p className="kicker">The first room yields its secret</p>
+          <h2 id="seed-title">Seed of Harmony</h2>
+          <p className="research-body">Nestled within the cabinet is a delicate object, warm with a light that seems to breathe. The Manor has entrusted you with something that was meant to be found.</p>
+          <div className="seed-art-placeholder"><Sparkles aria-hidden="true" /><span>SEED OF HARMONY <small>ARTWORK PLACEHOLDER</small></span></div>
+          <button className="enter-button hall-modal-action" onClick={() => { setSeedAccepted(true); setResearchPoint(null) }}><span>{seedAccepted ? 'Return to the hall' : 'Accept the Seed'}</span><ArrowRight aria-hidden="true" /></button>
+          <p className="seed-note">The Conservatory remains beyond the next door.</p>
+        </section>
       </div>}
     </main>
   )
