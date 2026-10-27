@@ -264,3 +264,8 @@ h1,h2,p { margin:0; }
 .fragment-frame { width: min(100%,626px); animation: fragment-arrive .9s ease both; }
 .fragment-panel { width: 100%; border: 0; background: linear-gradient(150deg,#151e24ee,#090d11f5 75%); box-shadow: inset 0 0 0 4px #b18b4510; animation: none; }
 @media (max-width:700px) { .enter-frame { width: 100%; } }
+
+
+/* Official opening logo asset */
+.arrival-logo { display:block; width:min(100%, 680px); height:auto; margin:18px auto 0; object-fit:contain; filter:drop-shadow(0 5px 14px #0009); }
+@media (max-width:700px) { .arrival-logo { width:min(112%, 560px); margin-top:16px; } }
