@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight, Shield, Sparkles } from 'lucide-react'
 import { artifacts, discoveries, firstRoom } from '@/content/world'
 import { markDiscovered, readDiscoveries } from '@/lib/discovery-state'
+import { ArchiveFrame } from '@/components/ui/archive-frame'
 
 const artifact = artifacts[0]
 const discovery = discoveries.find((item) => item.id === artifact.discoveryId) ?? discoveries[0]
@@ -48,9 +49,9 @@ export function WorldExperience() {
           <p className="arrival-subtitle">Unwritten</p>
           <div className="arrival-divider" aria-hidden="true" />
           <p className="arrival-copy">Every place holds a story.<br />Every discovery reveals a deeper truth.<br />And some answers are still unwritten.</p>
-          <button className="enter-button" onClick={() => setView('journey')}>
+          <ArchiveFrame weight="thin" cornerSize="sm" className="enter-frame"><button className="enter-button enter-button--framed" onClick={() => setView('journey')}>
             <span>Enter the manor</span><ArrowRight aria-hidden="true" />
-          </button>
+          </button></ArchiveFrame>
         </div>
         <div className="arrival-footer"><span>THE MANOR · UNWRITTEN</span><span>01 / 07</span></div>
       </main>
@@ -81,7 +82,7 @@ export function WorldExperience() {
     return (
       <main className="fragment-screen">
         <div className="fragment-backdrop" aria-hidden="true" />
-        <div className="fragment-panel">
+        <ArchiveFrame className="fragment-frame"><div className="fragment-panel">
           <p className="kicker">A gift from the Manor</p>
           <p className="fragment-overline">Artifact · 001</p>
           <h1>The First Fragment</h1>
@@ -94,7 +95,7 @@ export function WorldExperience() {
             <span>Accept the fragment</span><ArrowRight aria-hidden="true" />
           </button>
           <button className="skip-intro fragment-skip" onClick={acceptFragment}>Continue <ArrowRight aria-hidden="true" /></button>
-        </div>
+        </div></ArchiveFrame>
       </main>
     )
   }
