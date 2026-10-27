@@ -80,8 +80,11 @@ h1,h2,p { margin:0; }
 
 /* The Arrival: cinematic movement and timed, three-part welcome */
 .journey-screen { padding:0; }
-.journey-screen .arrival-image { transform:scale(1.02); transform-origin:70% 64%; will-change:transform; }
-.journey-screen .arrival-travel { animation: manor-travel 11.2s cubic-bezier(.2,.65,.25,1) forwards; }
+.journey-screen .arrival-image { background-image:url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Image-01E7C940-QXHvcsyg3tUscxWRcrrmX6Cfbqi8dy.jpeg'); background-size:cover; will-change:transform,opacity; }
+.journey-screen .journey-stage { opacity:0; animation-duration:11.2s; animation-timing-function:cubic-bezier(.2,.65,.25,1); animation-fill-mode:both; }
+.journey-screen .journey-stage-gates { opacity:1; transform:scale(1.02); background-position:58% 55%; animation-name:stage-gates; }
+.journey-screen .journey-stage-approach { transform:scale(1.08); background-position:67% 64%; animation-name:stage-approach; }
+.journey-screen .journey-stage-entrance { transform:scale(1.08); background-position:70% 70%; animation-name:stage-entrance; }
 .journey-vignette { background:linear-gradient(0deg,rgba(3,7,9,.8),rgba(3,7,9,.12) 42%,rgba(3,7,9,.42)),radial-gradient(ellipse at 50% 55%,transparent 12%,rgba(2,5,8,.28) 100%); }
 .journey-text { position:absolute; z-index:2; inset:0; display:grid; place-items:center; padding:18vh 9vw 16vh; text-align:center; }
 .journey-line { position:absolute; width:min(760px,82vw); color:#f0e4d0; font-size:clamp(1.15rem,2.5vw,2rem); line-height:1.7; letter-spacing:.015em; text-shadow:0 2px 24px #000,0 1px 4px #000; opacity:0; animation: welcome-lines 11.2s linear both; }
@@ -94,12 +97,20 @@ h1,h2,p { margin:0; }
 .skip-intro { position:absolute; z-index:3; right:7vw; bottom:76px; display:flex; align-items:center; gap:10px; border:0; border-bottom:1px solid #c3a36b77; padding:9px 0; background:transparent; color:#d5c5aa; cursor:pointer; font:10px Arial,sans-serif; letter-spacing:.14em; text-transform:uppercase; }
 .skip-intro svg { width:14px; height:14px; }
 .journey-screen .arrival-footer { position:absolute; z-index:3; right:7vw; bottom:28px; left:7vw; }
-@keyframes manor-travel {
-  0% { transform:scale(1.02) translate3d(0,0,0); }
-  22% { transform:scale(1.18) translate3d(-1.5%,-1%,0); }
-  48% { transform:scale(1.48) translate3d(-4%,-2.5%,0); }
-  76% { transform:scale(1.95) translate3d(-7%,-4.5%,0); }
-  100% { transform:scale(2.45) translate3d(-10%,-6.5%,0); }
+@keyframes stage-gates {
+  0%,29% { opacity:1; transform:scale(1.02) translate3d(0,0,0); }
+  38%,100% { opacity:0; transform:scale(1.16) translate3d(-1%,-1%,0); }
+}
+@keyframes stage-approach {
+  0%,25% { opacity:0; transform:scale(1.08) translate3d(0,1%,0); }
+  39% { opacity:1; transform:scale(1.25) translate3d(-2%,-1%,0); }
+  62% { opacity:1; transform:scale(1.42) translate3d(-3%,-2%,0); }
+  72%,100% { opacity:0; transform:scale(1.52) translate3d(-4%,-3%,0); }
+}
+@keyframes stage-entrance {
+  0%,58% { opacity:0; transform:scale(1.12) translate3d(0,1%,0); }
+  75% { opacity:1; transform:scale(1.26) translate3d(-2%,-2%,0); }
+  100% { opacity:1; transform:scale(1.36) translate3d(-3%,-3%,0); }
 }
 @keyframes welcome-lines {
   0%,4% { opacity:0; transform:translateY(12px); }
@@ -153,7 +164,9 @@ h1,h2,p { margin:0; }
   .threshold-card .enter-button { width:100%; gap:12px; }
 }
 @media (prefers-reduced-motion:reduce) {
-  .journey-screen .arrival-travel { animation:none; transform:scale(1.02); }
+  .journey-screen .journey-stage { animation:none; }
+  .journey-screen .journey-stage-gates { opacity:0; }
+  .journey-screen .journey-stage-entrance { opacity:1; transform:scale(1.02); }
   .journey-line, .journey-last-line, .journey-emphasis { animation:none; opacity:1; }
   .journey-line-one { display:none; }
   .journey-line-two { display:none; }
