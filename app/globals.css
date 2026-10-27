@@ -350,3 +350,49 @@ body { min-height:100dvh; }
   .mark-glyph { width:23px; height:23px; }
   .arrival-footer { font-size:8px; }
 }
+
+
+/* Artifact reveal: deliberate two-column composition on landscape screens. */
+@media (orientation: landscape) and (max-height: 700px) {
+  .fragment-screen, .threshold-screen {
+    height: 100dvh;
+    min-height: 0;
+    padding: clamp(12px, 2.5vh, 24px) clamp(18px, 4vw, 64px);
+    overflow: hidden;
+  }
+  .fragment-frame { width: min(100%, 1180px); height: 100%; display: flex; align-items: stretch; }
+  .fragment-panel {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+    column-gap: clamp(24px, 5vw, 76px);
+    align-items: center;
+    text-align: left;
+    padding: clamp(22px, 4vh, 42px) clamp(26px, 5vw, 72px) !important;
+    overflow: hidden;
+  }
+  .fragment-panel > :first-child { grid-column: 1 / -1; }
+  .fragment-panel .fragment-overline { grid-column: 1; margin-top: 10px; align-self: end; }
+  .fragment-panel h1 { grid-column: 1; align-self: start; font-size: clamp(2.1rem, 6vh, 4.5rem); line-height: 1.02; margin: 8px 0 0; }
+  .fragment-art { grid-column: 2; grid-row: 2 / 5; width: min(34vw, 43vh); height: min(34vw, 43vh); margin: 0 auto; align-self: center; }
+  .fragment-art::before { width: 100%; height: 100%; max-width: 240px; max-height: 240px; }
+  .fragment-stone { width: clamp(82px, 14vh, 128px); height: clamp(74px, 13vh, 116px); }
+  .fragment-crest svg { width: clamp(30px, 5vh, 42px); height: clamp(30px, 5vh, 42px); }
+  .fragment-description { grid-column: 1; grid-row: 3; align-self: start; max-width: 470px; font-size: clamp(14px, 2.6vh, 19px); line-height: 1.55; }
+  .fragment-lore { grid-column: 1; grid-row: 4; align-self: start; margin-top: 8px; font-size: clamp(12px, 2.1vh, 16px); }
+  .fragment-accept { grid-column: 1; grid-row: 5; justify-self: start; margin-top: 14px; }
+  .fragment-skip { grid-column: 2; grid-row: 5; justify-self: center; align-self: center; margin: 0; }
+  .threshold-card { max-height: calc(100dvh - 32px); overflow-y: auto; }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .fragment-panel { grid-template-rows: auto auto minmax(0,1fr) auto auto; padding: 14px 28px !important; column-gap: 24px; }
+  .fragment-panel .fragment-overline { margin-top: 4px; font-size: 9px; }
+  .fragment-panel h1 { font-size: clamp(1.8rem, 6.5vh, 3rem); }
+  .fragment-art { width: min(30vw, 36vh); height: min(30vw, 36vh); }
+  .fragment-description { font-size: 13px; line-height: 1.4; }
+  .fragment-lore { font-size: 12px; margin-top: 5px; }
+  .fragment-accept { margin-top: 8px; }
+}
