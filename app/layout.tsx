@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from 'next'
+import { OrientationGuard } from '@/components/orientation-guard'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Janope — The world beneath the world',
+  title: 'The Manor — Unwritten',
   description: 'Enter a living archive of the almost-known.',
   generator: 'Janope',
+  manifest: '/manifest.webmanifest',
 }
 
 export const viewport: Viewport = {
@@ -15,5 +17,5 @@ export const viewport: Viewport = {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>
+  return <html lang="en"><body>{children}<OrientationGuard /></body></html>
 }
