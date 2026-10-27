@@ -60,7 +60,7 @@ export function WorldExperience() {
   if (view === 'journey') {
     return (
       <main className="arrival-screen journey-screen">
-        <div className="arrival-image arrival-travel" aria-hidden="true" />
+        <div className="arrival-image journey-stage journey-stage-gates" aria-hidden="true" /><div className="arrival-image journey-stage journey-stage-approach" aria-hidden="true" /><div className="arrival-image journey-stage journey-stage-entrance" aria-hidden="true" />
         <div className="arrival-vignette journey-vignette" aria-hidden="true" />
         <div className="journey-text" aria-live="polite">
           <p className="journey-line journey-line-one">Every journey begins with a first step.</p>
