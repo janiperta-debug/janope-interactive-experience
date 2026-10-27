@@ -36,43 +36,43 @@ export function WorldExperience() {
 
   const skipArrival = () => setView('fragment')
 
-  if (view === 'arrival') {
+  if (view === 'arrival' || view === 'journey') {
+    const journeyStarted = view === 'journey'
     return (
-      <main className="arrival-screen">
+      <main className={`arrival-screen ${journeyStarted ? 'journey-screen journey-started' : ''}`}>
         <div className="arrival-image" aria-hidden="true" />
-        <div className="arrival-vignette" aria-hidden="true" />
-        <header className="site-mark"><span className="mark-glyph">M</span><span>Janope</span></header>
-        <div className="arrival-content">
-          <p className="arrival-crest" aria-hidden="true">♔</p>
-          <p className="kicker">An interactive mystery</p>
-          <img className="arrival-logo" src="/brand/the-manor-unwritten.png" alt="The Manor — Unwritten" />
-          <div className="arrival-divider" aria-hidden="true" />
-          <p className="arrival-copy">Every place holds a story.<br />Every discovery reveals a deeper truth.<br />And some answers are still unwritten.</p>
-          <ArchiveFrame weight="thin" cornerSize="sm" className="enter-frame"><button className="enter-button enter-button--framed" onClick={() => setView('journey')}>
-            <span>Enter the manor</span><ArrowRight aria-hidden="true" />
-          </button></ArchiveFrame>
-        </div>
-        <div className="arrival-footer"><span>THE MANOR · UNWRITTEN</span><span>01 / 07</span></div>
-      </main>
-    )
-  }
-
-  if (view === 'journey') {
-    return (
-      <main className="arrival-screen journey-screen">
-        <div className="arrival-image journey-stage journey-stage-gates" aria-hidden="true" /><div className="arrival-image journey-stage journey-stage-approach" aria-hidden="true" /><div className="arrival-image journey-stage journey-stage-entrance" aria-hidden="true" />
-        <div className="arrival-vignette journey-vignette" aria-hidden="true" />
-        <div className="journey-text" aria-live="polite">
-          <p className="journey-line journey-line-one">Every journey begins with a first step.</p>
-          <p className="journey-line journey-line-two">You have found your way to this place.<br />Perhaps by choice, perhaps by chance.<br />The reason does not matter. Not yet.</p>
-          <div className="journey-line journey-line-three">
-            <p>Some stories have been told.<br />Others remain unfinished.</p>
-            <p className="journey-last-line">And some have been waiting for someone to continue them.</p>
-            <p className="journey-emphasis">Your journey begins with a fragment.</p>
+        {journeyStarted && <>
+          <div className="arrival-image journey-stage journey-stage-approach" aria-hidden="true" />
+          <div className="arrival-image journey-stage journey-stage-entrance" aria-hidden="true" />
+        </>}
+        <div className={`arrival-vignette ${journeyStarted ? 'journey-vignette' : ''}`} aria-hidden="true" />
+        {!journeyStarted && <>
+          <header className="site-mark"><span className="mark-glyph">M</span><span>Janope</span></header>
+          <div className="arrival-content">
+            <p className="arrival-crest" aria-hidden="true">♔</p>
+            <p className="kicker">An interactive mystery</p>
+            <img className="arrival-logo" src="/brand/the-manor-unwritten.png" alt="The Manor — Unwritten" />
+            <div className="arrival-divider" aria-hidden="true" />
+            <p className="arrival-copy">Every place holds a story.<br />Every discovery reveals a deeper truth.<br />And some answers are still unwritten.</p>
+            <ArchiveFrame weight="thin" cornerSize="sm" className="enter-frame"><button className="enter-button enter-button--framed" onClick={() => setView('journey')}>
+              <span>Enter the manor</span><ArrowRight aria-hidden="true" />
+            </button></ArchiveFrame>
           </div>
-        </div>
-        <button className="skip-intro" onClick={skipArrival}>Skip intro <ArrowRight aria-hidden="true" /></button>
-        <div className="arrival-footer"><span>THE MANOR · UNWRITTEN</span><span>THE ARRIVAL</span></div>
+          <div className="arrival-footer"><span>THE MANOR · UNWRITTEN</span><span>01 / 07</span></div>
+        </>}
+        {journeyStarted && <>
+          <div className="journey-text" aria-live="polite">
+            <p className="journey-line journey-line-one">Every journey begins with a first step.</p>
+            <p className="journey-line journey-line-two">You have found your way to this place.<br />Perhaps by choice, perhaps by chance.<br />The reason does not matter. Not yet.</p>
+            <div className="journey-line journey-line-three">
+              <p>Some stories have been told.<br />Others remain unfinished.</p>
+              <p className="journey-last-line">And some have been waiting for someone to continue them.</p>
+              <p className="journey-emphasis">Your journey begins with a fragment.</p>
+            </div>
+          </div>
+          <button className="skip-intro" onClick={skipArrival}>Skip intro <ArrowRight aria-hidden="true" /></button>
+          <div className="arrival-footer"><span>THE MANOR · UNWRITTEN</span><span>THE ARRIVAL</span></div>
+        </>}
       </main>
     )
   }
