@@ -191,19 +191,7 @@ export function WorldExperience() {
         <button className="hall-hotspot hotspot-staircase" onClick={() => setResearchPoint('staircase')} aria-label="Examine staircase stonework"><span>02</span><b>Stonework</b>{foundGroups.includes('staircase') && <Check aria-hidden="true" />}</button>
         <button className="hall-hotspot hotspot-table" onClick={() => setResearchPoint('table')} aria-label="Examine open book"><span>03</span><b>Open book</b>{foundGroups.includes('table') && <Check aria-hidden="true" />}</button>
         <button className={`hall-hotspot hotspot-cabinet ${cabinetSolved ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('cabinet')} aria-label="Examine locked cabinet"><span>04</span><b>{cabinetSolved ? 'Cabinet opened' : 'Locked cabinet'}</b>{cabinetSolved ? <Check aria-hidden="true" /> : <LockKeyhole aria-hidden="true" />}</button>
-        <aside className="hall-inventory">
-          <div className="inventory-heading"><span>Collected fragments</span><b>{discoveredTiles.length} / 9</b></div>
-          <div className="inventory-tiles">
-            {fragmentTiles.map((filename, index) => {
-              const available = discoveredTiles.includes(index)
-              return <button key={filename} className={`inventory-tile ${available ? 'tile-available' : ''} ${selectedTile === index ? 'tile-selected' : ''}`} disabled={!available || cabinetSolved} onClick={() => setSelectedTile(selectedTile === index ? null : index)} aria-label={available ? `Select fragment ${index + 1}` : 'Undiscovered fragment'}>
-                {available ? <img src={`/manor-puzzle/fragments/${filename}`} alt="" /> : <span>?</span>}
-              </button>
-            })}
-          </div>
-          <p>{cabinetSolved ? 'The cabinet has yielded its secret.' : selectedTile !== null ? 'Choose a recess in the cabinet for this fragment.' : 'Investigate the room to find all nine fragments.'}</p>
-          <button className="cabinet-open-button" onClick={() => setResearchPoint('cabinet')}><ScanSearch aria-hidden="true" /> Inspect the cabinet</button>
-        </aside>
+
       </div>
 
       {researchPoint && researchPoint !== 'seed' && <div className="hall-modal-backdrop" role="presentation" onClick={() => setResearchPoint(null)}>
