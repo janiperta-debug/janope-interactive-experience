@@ -539,9 +539,9 @@ body { min-height:100dvh; }
 .hall-title i { color:#78613b; font-style:normal; padding:0 6px; }
 .hall-progress { justify-self:end; white-space:nowrap; }
 .hall-progress span { color:#b4b4a8; letter-spacing:.08em; }
-.hall-hotspot { position:absolute; z-index:3; display:flex; align-items:center; gap:9px; padding:9px 13px; border:1px solid #d2b16d99; color:#f0dcb1; background:#0b1214d9; box-shadow:0 5px 24px #0008; cursor:pointer; font:10px Arial,sans-serif; letter-spacing:.12em; text-transform:uppercase; transition:background .2s,border-color .2s,transform .2s; }
+.hall-hotspot { position:absolute; z-index:3; display:grid; place-items:center; width:clamp(38px,3.1vw,48px); height:clamp(38px,3.1vw,48px); box-sizing:border-box; padding:0; border:1px solid #d2b16d99; border-radius:0; color:#f0dcb1; background:#0b1214d9; box-shadow:0 5px 24px #0008; cursor:pointer; font:14px Arial,sans-serif; letter-spacing:0; text-transform:uppercase; transition:background .2s,border-color .2s,transform .2s; }
 .hall-hotspot:hover { background:#1b2929f2; border-color:#efd18b; transform:translateY(-2px); }
-.hall-hotspot > span { color:#d5a85f; font-size:9px; }
+.hall-hotspot > span { color:#d5a85f; font-size:14px; line-height:1; }
 .hall-hotspot svg { width:13px; height:13px; color:#d5b777; }
 .hotspot-portrait { top:10%; left:20%; }
 .hotspot-staircase { top:48%; left:20%; }
