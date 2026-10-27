@@ -220,6 +220,12 @@ export function WorldExperience() {
           <button className="hall-modal-close" onClick={() => setResearchPoint(null)} aria-label="Close"><X aria-hidden="true" /></button>
           <p className="kicker">{researchCopy[researchPoint].eyebrow}</p>
           <h2 id="research-title">{researchCopy[researchPoint].title}</h2>
+          <img className="hall-detail-image" src={{
+            portrait: '/manor-main-hall/portrait-detail.png',
+            staircase: '/manor-main-hall/stonework-detail.png',
+            table: '/manor-main-hall/open-book-detail.png',
+            cabinet: '/manor-main-hall/locked-cabinet-detail.png',
+          }[researchPoint]} alt="" />
           <p className="research-body">{researchCopy[researchPoint].body}</p>
           {researchPoint !== 'cabinet' ? <>
             <p className="research-hint">{researchCopy[researchPoint].hint}</p>
@@ -246,7 +252,7 @@ export function WorldExperience() {
           <p className="kicker">The first room yields its secret</p>
           <h2 id="seed-title">Seed of Harmony</h2>
           <p className="research-body">Nestled within the cabinet is a delicate object, warm with a light that seems to breathe. The Manor has entrusted you with something that was meant to be found.</p>
-          <div className="seed-art-placeholder"><Sparkles aria-hidden="true" /><span>SEED OF HARMONY <small>ARTWORK PLACEHOLDER</small></span></div>
+          <div className="seed-art-placeholder"><img className="seed-art-image" src="/manor-artifacts/seed-of-harmony.png" alt="Seed of Harmony" /></div>
           <button className="enter-button hall-modal-action" onClick={() => { setSeedAccepted(true); setResearchPoint(null); setView('conservatory') }}><span>{seedAccepted ? 'Return to the hall' : 'Accept the Seed'}</span><ArrowRight aria-hidden="true" /></button>
           <p className="seed-note">The Conservatory remains beyond the next door.</p>
         </section>
