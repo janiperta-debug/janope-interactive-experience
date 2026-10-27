@@ -12,6 +12,16 @@ const discovery = discoveries.find((item) => item.id === artifact.discoveryId) ?
 
 type View = 'arrival' | 'journey' | 'fragment' | 'threshold' | 'room' | 'conservatory' | 'library'
 type ResearchPoint = 'portrait' | 'staircase' | 'table' | 'cabinet' | 'seed' | null
+type AmbientPoint = 'chandelier' | 'leftPlant' | 'crest' | 'window' | 'chair' | 'sofa' | null
+
+const ambientCopy: Record<Exclude<AmbientPoint, null>, { title: string; body: string }> = {
+  chandelier: { title: 'The Chandelier', body: 'Hundreds of small flames shimmer in the crystalwork. The brass frame bears the soft patina of generations of quiet evenings.' },
+  leftPlant: { title: 'The Potted Fern', body: 'A broad-leafed plant stands beside the stairs, thriving in the warm, still air. Dust gathers on the rim of its heavy stone pot.' },
+  crest: { title: 'The Manor Crest', body: 'A crowned lion is woven into the old hanging. Its colours have faded, but the emblem remains unmistakable.' },
+  window: { title: 'The Tall Windows', body: 'Late light pours through the leaded glass. Beyond the windows, the distant rooftops disappear into a pale haze.' },
+  chair: { title: 'The Reading Chair', body: 'The leather has softened with age and use. The chair faces the table, as though someone has just risen from it.' },
+  sofa: { title: 'The Drawing-room Sofa', body: 'The dark leather sofa sits beneath the windows. Its worn arms and deep cushions suggest long conversations held here.' },
+}
 
 const fragmentTiles = [
   'manor_fragment_x6p2.png', 'manor_fragment_k8v3.png', 'manor_fragment_m4x9.png',
@@ -30,7 +40,7 @@ export function WorldExperience() {
   const [isOpen, setIsOpen] = useState(false)
   const [discovered, setDiscovered] = useState<string[]>([])
   const [reducedMotion, setReducedMotion] = useState(false)
-  const [researchPoint, setResearchPoint] = useState<ResearchPoint>(null)
+  const [researchPoint, setResearchPoint] = useState<ResearchPoint>(null)\n  const [ambientPoint, setAmbientPoint] = useState<AmbientPoint>(null)
   const [foundGroups, setFoundGroups] = useState<string[]>([])
   const [selectedTile, setSelectedTile] = useState<number | null>(null)
   const [placedTiles, setPlacedTiles] = useState<(number | null)[]>(Array(9).fill(null))
@@ -191,8 +201,24 @@ export function WorldExperience() {
         <button className={`hall-hotspot hotspot-staircase ${foundGroups.includes('staircase') ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('staircase')} aria-label="Examine staircase stonework"><span aria-hidden="true">X</span></button>
         <button className={`hall-hotspot hotspot-table ${foundGroups.includes('table') ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('table')} aria-label="Examine open book"><span aria-hidden="true">X</span></button>
         <button className={`hall-hotspot hotspot-cabinet ${cabinetSolved ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('cabinet')} aria-label="Examine locked cabinet"><span aria-hidden="true">X</span></button>
+        <button className="hall-hotspot hotspot-chandelier" onClick={() => setAmbientPoint('chandelier')} aria-label="Examine chandelier"><span aria-hidden="true">X</span></button>
+        <button className="hall-hotspot hotspot-left-plant" onClick={() => setAmbientPoint('leftPlant')} aria-label="Examine potted fern"><span aria-hidden="true">X</span></button>
+        <button className="hall-hotspot hotspot-crest" onClick={() => setAmbientPoint('crest')} aria-label="Examine Manor crest"><span aria-hidden="true">X</span></button>
+        <button className="hall-hotspot hotspot-window" onClick={() => setAmbientPoint('window')} aria-label="Examine tall windows"><span aria-hidden="true">X</span></button>
+        <button className="hall-hotspot hotspot-chair" onClick={() => setAmbientPoint('chair')} aria-label="Examine reading chair"><span aria-hidden="true">X</span></button>
+        <button className="hall-hotspot hotspot-sofa" onClick={() => setAmbientPoint('sofa')} aria-label="Examine drawing-room sofa"><span aria-hidden="true">X</span></button>
 
       </div>
+
+      {ambientPoint && <div className="hall-modal-backdrop" role="presentation" onClick={() => setAmbientPoint(null)}>
+        <section className="hall-modal ambient-modal" role="dialog" aria-modal="true" aria-labelledby="ambient-title" onClick={(event) => event.stopPropagation()}>
+          <button className="hall-modal-close" onClick={() => setAmbientPoint(null)} aria-label="Close"><X aria-hidden="true" /></button>
+          <p className="kicker">MAIN HALL · OBSERVATION</p>
+          <h2 id="ambient-title">{ambientCopy[ambientPoint].title}</h2>
+          <p className="research-body">{ambientCopy[ambientPoint].body}</p>
+          <button className="enter-button hall-modal-action" onClick={() => setAmbientPoint(null)}><span>Return to the hall</span><ArrowRight aria-hidden="true" /></button>
+        </section>
+      </div>}
 
       {researchPoint && researchPoint !== 'seed' && <div className="hall-modal-backdrop" role="presentation" onClick={() => setResearchPoint(null)}>
         <section className="hall-modal" role="dialog" aria-modal="true" aria-labelledby="research-title" onClick={(event) => event.stopPropagation()}>
