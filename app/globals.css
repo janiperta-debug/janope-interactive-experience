@@ -76,3 +76,83 @@ h1,h2,p { margin:0; }
 @keyframes fadein { from { opacity:0; } to { opacity:1; } }
 @media (max-width: 700px) { .arrival-screen { padding:24px 7vw; } .arrival-content { padding:40px 0; } .arrival-content h1 { font-size:clamp(3.1rem, 15vw, 5rem); } .room-content { display:flex; flex-direction:column; align-items:flex-start; min-height:auto; padding:9vh 9vw 16vh; } .room-copy { order:1; } .artifact-stage { order:0; align-self:center; min-height:270px; } .artifact { width:240px; height:240px; min-width:0; min-height:0; } .room-footer { font-size:9px; } .room-location { display:none !important; } .room-header { padding:20px 7vw; } .room-counter { font-size:9px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; scroll-behavior:auto !important; } }
+
+
+/* The Arrival: cinematic movement and timed, three-part welcome */
+.journey-screen { padding:0; }
+.journey-screen .arrival-image { transform:scale(1.02); }
+.journey-screen .arrival-travel { animation: manor-travel 11.2s cubic-bezier(.2,.65,.25,1) forwards; }
+.journey-vignette { background:linear-gradient(0deg,rgba(3,7,9,.8),rgba(3,7,9,.12) 42%,rgba(3,7,9,.42)),radial-gradient(ellipse at 50% 55%,transparent 12%,rgba(2,5,8,.28) 100%); }
+.journey-text { position:absolute; z-index:2; inset:0; display:grid; place-items:center; padding:18vh 9vw 16vh; text-align:center; }
+.journey-line { position:absolute; width:min(760px,82vw); color:#f0e4d0; font-size:clamp(1.15rem,2.5vw,2rem); line-height:1.7; letter-spacing:.015em; text-shadow:0 2px 24px #000,0 1px 4px #000; opacity:0; animation: welcome-lines 11.2s linear both; }
+.journey-line-one { animation-delay:0s; }
+.journey-line-two { animation-delay:3.1s; }
+.journey-line-three { animation-delay:7.1s; }
+.journey-line-three p + p { margin-top:16px; }
+.journey-last-line { animation: welcome-last 11.2s linear both; animation-delay:7.1s; }
+.journey-emphasis { color:#edc58f; font-size:.83em; letter-spacing:.12em; text-transform:uppercase; animation: welcome-emphasis 11.2s linear both; animation-delay:7.1s; }
+.skip-intro { position:absolute; z-index:3; right:7vw; bottom:76px; display:flex; align-items:center; gap:10px; border:0; border-bottom:1px solid #c3a36b77; padding:9px 0; background:transparent; color:#d5c5aa; cursor:pointer; font:10px Arial,sans-serif; letter-spacing:.14em; text-transform:uppercase; }
+.skip-intro svg { width:14px; height:14px; }
+.journey-screen .arrival-footer { position:absolute; z-index:3; right:7vw; bottom:28px; left:7vw; }
+@keyframes manor-travel {
+  0% { transform:scale(1.02) translate3d(0,0,0); }
+  45% { transform:scale(1.13) translate3d(0,-1.2%,0); }
+  100% { transform:scale(1.3) translate3d(0,-2.8%,0); }
+}
+@keyframes welcome-lines {
+  0%,4% { opacity:0; transform:translateY(12px); }
+  10%,23% { opacity:1; transform:translateY(0); }
+  29%,100% { opacity:0; transform:translateY(-7px); }
+}
+@keyframes welcome-last {
+  0%,76% { opacity:0; transform:translateY(10px); }
+  82%,91% { opacity:1; transform:translateY(0); }
+  97%,100% { opacity:0; transform:translateY(-6px); }
+}
+@keyframes welcome-emphasis {
+  0%,88% { opacity:0; transform:translateY(9px); }
+  93%,98% { opacity:1; transform:translateY(0); }
+  100% { opacity:0; transform:translateY(-4px); }
+}
+
+/* First artifact is presented before the visitor crosses the threshold */
+.fragment-screen, .threshold-screen { min-height:100svh; position:relative; isolation:isolate; display:grid; place-items:center; overflow:hidden; padding:36px 22px; background:#080d12; }
+.fragment-backdrop, .threshold-glow { position:absolute; z-index:-1; inset:0; background:radial-gradient(ellipse at 50% 35%,#26333c 0%,#10191f 42%,#06090c 100%); }
+.fragment-backdrop::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,#04080b33,#04080bcc); }
+.fragment-panel { width:min(100%,620px); text-align:center; padding:clamp(24px,5vw,52px); border:1px solid #8b7149aa; background:linear-gradient(150deg,#151e24ee,#090d11f5 75%); box-shadow:0 24px 90px #0009,inset 0 0 0 4px #b18b4510; animation:fragment-arrive .9s ease both; }
+.fragment-overline { margin-top:24px; color:#d0ad75; font:10px Arial,sans-serif; letter-spacing:.22em; text-transform:uppercase; }
+.fragment-panel h1 { margin:10px 0 0; color:#edcf9e; font-size:clamp(2.2rem,6vw,4rem); font-weight:400; letter-spacing:-.04em; }
+.fragment-art { position:relative; width:190px; height:160px; margin:24px auto 20px; display:grid; place-items:center; }
+.fragment-art::before { content:""; position:absolute; width:150px; height:150px; border:1px solid #bfa16b66; border-radius:50%; box-shadow:0 0 42px #b58d4730,inset 0 0 32px #b58d4710; }
+.fragment-stone { position:relative; display:grid; place-items:center; width:96px; height:86px; clip-path:polygon(22% 3%,74% 0,100% 48%,78% 94%,24% 100%,0 58%); transform:rotate(-12deg); background:linear-gradient(135deg,#e2d4b2 0%,#786b57 18%,#292b2b 42%,#a89a7b 61%,#34312a 78%,#b9a77d 100%); filter:drop-shadow(0 14px 15px #000b); }
+.fragment-stone::before { content:""; position:absolute; inset:5px; clip-path:inherit; border:1px solid #d7c8a1; background:linear-gradient(140deg,#6d685d,#1c2021 55%,#73664c); }
+.fragment-crest { position:relative; z-index:1; display:grid; place-items:center; color:#e2d1a7; transform:rotate(12deg); }
+.fragment-crest svg { width:37px; height:37px; stroke-width:1.4; filter:drop-shadow(0 2px 2px #000); }
+.fragment-crest b { position:absolute; font: bold 19px Georgia,serif; text-shadow:0 1px 3px #000; }
+.fragment-description { color:#d9cbb5; font-size:16px; line-height:1.7; }
+.fragment-lore { margin-top:15px; color:#b18e5c; font-size:15px; font-style:italic; }
+.fragment-accept { margin-top:28px; }
+.fragment-skip { position:static; justify-content:center; margin:18px auto 0; }
+.threshold-screen { background:#080d11; }
+.threshold-glow { background:radial-gradient(ellipse at 50% 40%,#283a42 0%,#10191e 42%,#05080b 100%); }
+.threshold-card { width:min(100%,650px); text-align:center; padding:clamp(28px,6vw,64px); border:1px solid #8b7149aa; background:linear-gradient(150deg,#172126ed,#090d11f2); box-shadow:0 24px 90px #0009; animation:fragment-arrive .9s ease both; }
+.threshold-mark { display:grid; place-items:center; width:48px; height:48px; margin:26px auto; border:1px solid #c3a36b; border-radius:50%; color:#d6b477; }
+.threshold-card h1 { color:#edcf9e; font-size:clamp(2.1rem,5vw,3.8rem); font-weight:400; line-height:1.1; letter-spacing:-.035em; }
+.threshold-card > p:not(.kicker) { max-width:440px; margin:18px auto 0; color:#c4c4b9; font-size:17px; line-height:1.65; }
+.threshold-card .enter-button { margin-top:32px; }
+@keyframes fragment-arrive { from { opacity:0; transform:translateY(16px) scale(.985); } to { opacity:1; transform:translateY(0) scale(1); } }
+@media (max-width:700px) {
+  .journey-text { padding:16vh 8vw 20vh; }
+  .journey-line { width:84vw; font-size:clamp(1.05rem,4.2vw,1.4rem); }
+  .skip-intro { right:7vw; bottom:70px; }
+  .fragment-panel { padding:28px 20px; }
+  .fragment-art { margin-top:18px; }
+  .threshold-card .enter-button { width:100%; gap:12px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .journey-screen .arrival-travel { animation:none; transform:scale(1.02); }
+  .journey-line, .journey-last-line, .journey-emphasis { animation:none; opacity:1; }
+  .journey-line-one { display:none; }
+  .journey-line-two { display:none; }
+  .journey-line-three { position:relative; }
+}
