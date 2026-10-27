@@ -85,6 +85,7 @@ h1,h2,p { margin:0; }
 .journey-screen .journey-stage-approach { background-image:url('/manor-arrival/02-approach.png'); }
 .journey-screen .journey-stage-entrance { background-image:url('/manor-arrival/03-entrance.png'); }
 .journey-screen .journey-stage { opacity:0; animation-duration:15.5s; animation-timing-function:cubic-bezier(.2,.65,.25,1); animation-fill-mode:both; }
+.journey-screen .arrival-image:not(.journey-stage) { will-change:transform,opacity; animation:stage-gates 15.5s cubic-bezier(.2,.65,.25,1) both; }
 .journey-screen .journey-stage-gates { opacity:1; transform:scale(1.02); background-position:58% 55%; animation-name:stage-gates; }
 .journey-screen .journey-stage-approach { transform:scale(1.08); background-position:67% 64%; animation-name:stage-approach; }
 .journey-screen .journey-stage-entrance { transform:scale(1.08); background-position:70% 70%; animation-name:stage-entrance; }
