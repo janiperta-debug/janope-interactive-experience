@@ -103,7 +103,7 @@ export function WorldExperience() {
     return (
       <main className="threshold-screen">
         <div className="threshold-glow" aria-hidden="true" />
-        <ArchiveFrame className="threshold-card" weight="regular" corners>
+        <ArchiveFrame className="threshold-card" weight="hairline" corners cornerSize="sm">
           <p className="kicker">The Manor remembers</p>
           <div className="threshold-mark"><Sparkles aria-hidden="true" /></div>
           <h1>A fragment has been entrusted to you.</h1>
