@@ -119,7 +119,7 @@ export function WorldExperience() {
 
   const revealArtifact = () => {
     setIsOpen(true)
-    setDiscovered(markDiscovered(discovery.id))
+    setDiscovered(markDiscovered(artifact.id))
   }
 
   return (
