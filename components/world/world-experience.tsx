@@ -1,26 +1,39 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ArrowLeft, ArrowRight, Eye, LockKeyhole, Sparkles } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Shield, Sparkles } from 'lucide-react'
 import { artifacts, discoveries, firstRoom } from '@/content/world'
 import { markDiscovered, readDiscoveries } from '@/lib/discovery-state'
 
 const artifact = artifacts[0]
 const discovery = discoveries.find((item) => item.id === artifact.discoveryId) ?? discoveries[0]
 
-type View = 'arrival' | 'room'
+type View = 'arrival' | 'journey' | 'fragment' | 'threshold' | 'room'
 
 export function WorldExperience() {
   const [view, setView] = useState<View>('arrival')
   const [isOpen, setIsOpen] = useState(false)
   const [discovered, setDiscovered] = useState<string[]>([])
+  const [reducedMotion, setReducedMotion] = useState(false)
 
-  useEffect(() => setDiscovered(readDiscoveries()), [])
+  useEffect(() => {
+    setDiscovered(readDiscoveries())
+    setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  }, [])
 
-  const revealArtifact = () => {
-    setIsOpen(true)
-    setDiscovered(markDiscovered(discovery.id))
+  useEffect(() => {
+    if (view !== 'journey') return
+    const duration = reducedMotion ? 0 : 11200
+    const timer = window.setTimeout(() => setView('fragment'), duration)
+    return () => window.clearTimeout(timer)
+  }, [view, reducedMotion])
+
+  const acceptFragment = () => {
+    setDiscovered(markDiscovered(artifact.id))
+    setView('threshold')
   }
+
+  const skipArrival = () => setView('fragment')
 
   if (view === 'arrival') {
     return (
@@ -35,13 +48,78 @@ export function WorldExperience() {
           <p className="arrival-subtitle">Unwritten</p>
           <div className="arrival-divider" aria-hidden="true" />
           <p className="arrival-copy">Every place holds a story.<br />Every discovery reveals a deeper truth.<br />And some answers are still unwritten.</p>
-          <button className="enter-button" onClick={() => setView('room')}>
+          <button className="enter-button" onClick={() => setView('journey')}>
             <span>Enter the manor</span><ArrowRight aria-hidden="true" />
           </button>
         </div>
         <div className="arrival-footer"><span>THE MANOR · UNWRITTEN</span><span>01 / 07</span></div>
       </main>
     )
+  }
+
+  if (view === 'journey') {
+    return (
+      <main className="arrival-screen journey-screen">
+        <div className="arrival-image arrival-travel" aria-hidden="true" />
+        <div className="arrival-vignette journey-vignette" aria-hidden="true" />
+        <div className="journey-text" aria-live="polite">
+          <p className="journey-line journey-line-one">Every journey begins with a first step.</p>
+          <p className="journey-line journey-line-two">You have found your way to this place.<br />Perhaps by choice, perhaps by chance.<br />The reason does not matter. Not yet.</p>
+          <div className="journey-line journey-line-three">
+            <p>Some stories have been told.<br />Others remain unfinished.</p>
+            <p className="journey-last-line">And some have been waiting for someone to continue them.</p>
+            <p className="journey-emphasis">Your journey begins with a fragment.</p>
+          </div>
+        </div>
+        <button className="skip-intro" onClick={skipArrival}>Skip intro <ArrowRight aria-hidden="true" /></button>
+        <div className="arrival-footer"><span>THE MANOR · UNWRITTEN</span><span>THE ARRIVAL</span></div>
+      </main>
+    )
+  }
+
+  if (view === 'fragment') {
+    return (
+      <main className="fragment-screen">
+        <div className="fragment-backdrop" aria-hidden="true" />
+        <div className="fragment-panel">
+          <p className="kicker">A gift from the Manor</p>
+          <p className="fragment-overline">Artifact · 001</p>
+          <h1>The First Fragment</h1>
+          <div className="fragment-art" role="img" aria-label="A weathered metal fragment bearing the Manor's crest">
+            <div className="fragment-stone"><span className="fragment-crest"><Shield aria-hidden="true" /><b>G</b></span></div>
+          </div>
+          <p className="fragment-description">A small metal fragment bearing the seal of the Manor.<br />Its purpose is unknown.</p>
+          <p className="fragment-lore">Every guest receives one upon entering.</p>
+          <button className="enter-button fragment-accept" onClick={acceptFragment}>
+            <span>Accept the fragment</span><ArrowRight aria-hidden="true" />
+          </button>
+          <button className="skip-intro fragment-skip" onClick={acceptFragment}>Continue <ArrowRight aria-hidden="true" /></button>
+        </div>
+      </main>
+    )
+  }
+
+  if (view === 'threshold') {
+    return (
+      <main className="threshold-screen">
+        <div className="threshold-glow" aria-hidden="true" />
+        <div className="threshold-card">
+          <p className="kicker">The Manor remembers</p>
+          <div className="threshold-mark"><Sparkles aria-hidden="true" /></div>
+          <h1>A fragment has been entrusted to you.</h1>
+          <p>You do not yet know what it belongs to, or why it was given.</p>
+          <p>There will be time for questions. For now, the Manor awaits.</p>
+          <button className="enter-button" onClick={() => setView('room')}>
+            <span>Enter the Main Hall</span><ArrowRight aria-hidden="true" />
+          </button>
+        </div>
+      </main>
+    )
+  }
+
+  const revealArtifact = () => {
+    setIsOpen(true)
+    setDiscovered(markDiscovered(artifact.id))
   }
 
   return (
@@ -65,14 +143,14 @@ export function WorldExperience() {
             <span className="artifact-halo" aria-hidden="true" />
             <span className="artifact-orbit orbit-one" aria-hidden="true" />
             <span className="artifact-orbit orbit-two" aria-hidden="true" />
-            <span className="artifact-core"><Eye aria-hidden="true" /></span>
+            <span className="artifact-core"><Shield aria-hidden="true" /></span>
             <span className="artifact-shadow" aria-hidden="true" />
           </button>
           <p className="artifact-label"><span>{artifact.name.en}</span><small>{isOpen ? 'Discovered' : artifact.hint.en}</small></p>
         </div>
       </section>
       <footer className="room-footer">
-        <span><LockKeyhole aria-hidden="true" /> More doors remain sealed</span>
+        <span><Sparkles aria-hidden="true" /> More doors remain sealed</span>
         <span className="room-location">The Threshold <i>•</i> North Wing</span>
       </footer>
       {isOpen && <div className="discovery-overlay" role="dialog" aria-modal="true" aria-labelledby="discovery-title">

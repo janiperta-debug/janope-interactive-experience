@@ -10,21 +10,21 @@ export const firstRoom: Room = {
 
 export const artifacts: Artifact[] = [
   {
-    id: 'brass-eye',
-    name: { en: 'The Brass Eye' },
+    id: 'first-fragment',
+    name: { en: 'The First Fragment' },
     roomId: 'threshold',
-    hint: { en: 'Something watches from beneath the dust.' },
-    discoveryId: 'first-light',
+    hint: { en: 'A fragment of something greater. Its purpose is unknown.' },
+    discoveryId: 'first-fragment-lore',
   },
 ]
 
 export const discoveries: Discovery[] = [
   {
-    id: 'first-light',
-    artifactId: 'brass-eye',
-    title: { en: 'A light that remembers' },
-    body: { en: 'The eye is warm. When your hand closes around it, a thin line of gold travels through the room — not illuminating it, but revealing where the walls have been listening.' },
-    inscription: { en: '“Begin where the silence is deepest.”' },
+    id: 'first-fragment-lore',
+    artifactId: 'first-fragment',
+    title: { en: 'The First Fragment' },
+    body: { en: 'A small metal fragment bearing the seal of the Manor. Its edges are broken, and its original form is unknown. No explanation accompanies it. Yet the Manor gives one to every guest upon arrival.' },
+    inscription: { en: '“Perhaps some things are easier to understand once you know what is missing.”' },
   },
 ]
 
