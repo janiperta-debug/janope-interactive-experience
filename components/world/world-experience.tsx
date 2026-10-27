@@ -105,8 +105,8 @@ export function WorldExperience() {
           <p className="kicker">A gift from the Manor</p>
           <p className="fragment-overline">Artifact · 001</p>
           <h1>The First Fragment</h1>
-          <div className="fragment-art" role="img" aria-label="A weathered metal fragment bearing the Manor's crest">
-            <div className="fragment-stone"><span className="fragment-crest"><Shield aria-hidden="true" /><b>G</b></span></div>
+          <div className="fragment-art">
+            <img className="first-fragment-image" src="/manor-arrival/first-fragment.png" alt="A weathered metal fragment bearing the Manor's crest" />
           </div>
           <p className="fragment-description">A small metal fragment bearing the seal of the Manor.<br />Its purpose is unknown.</p>
           <p className="fragment-lore">Every guest receives one upon entering.</p>
@@ -153,6 +153,9 @@ export function WorldExperience() {
     setFoundGroups((current) => current.includes(group) ? current : [...current, group])
   }
 
+  // Plates 1 and 7 are intentionally exchanged: plate 7 belongs in slot 1,
+  // and plate 1 belongs in slot 7.
+  const correctPlateOrder = [6, 1, 2, 3, 4, 5, 0, 7, 8]
   const placeTile = (cell: number) => {
     if (selectedTile === null || cabinetSolved) return
     setPlacedTiles((current) => {
@@ -160,7 +163,7 @@ export function WorldExperience() {
       const previousCell = next.indexOf(selectedTile)
       if (previousCell >= 0) next[previousCell] = null
       next[cell] = selectedTile
-      if (next.every((tile, index) => tile === index)) {
+      if (next.every((tile, index) => tile === correctPlateOrder[index])) {
         window.setTimeout(() => { setCabinetSolved(true); setResearchPoint('seed') }, 350)
       }
       return next
