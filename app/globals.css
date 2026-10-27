@@ -102,8 +102,11 @@ h1,h2,p { margin:0; }
 .skip-intro svg { width:14px; height:14px; }
 .journey-screen .arrival-footer { position:absolute; z-index:3; right:7vw; bottom:28px; left:7vw; }
 @keyframes stage-gates {
-  0%,29% { opacity:1; transform:scale(1.02) translate3d(0,0,0); }
-  38%,100% { opacity:0; transform:scale(1.16) translate3d(-1%,-1%,0); }
+  /* The camera begins moving as soon as the opening copy fades away. */
+  0%,18% { opacity:1; transform:scale(1.02) translate3d(0,0,0); }
+  29% { opacity:1; transform:scale(1.10) translate3d(-.6%,-.5%,0); }
+  38% { opacity:1; transform:scale(1.16) translate3d(-1%,-1%,0); }
+  43%,100% { opacity:0; transform:scale(1.20) translate3d(-1.4%,-1.2%,0); }
 }
 @keyframes stage-approach {
   0%,25% { opacity:0; transform:scale(1.08) translate3d(0,1%,0); }
