@@ -243,18 +243,14 @@ export function WorldExperience() {
               </div>
             </div>
           </> : <>
-            <img className="hall-detail-image cabinet-detail-image" src="/manor-main-hall/locked-cabinet-detail.png" alt="" />
-            <p className="research-body">{researchCopy[researchPoint].body}</p>
-            <p className="research-hint">{cabinetSolved ? 'The lock has released.' : selectedTile !== null ? 'Select a square below to place the chosen fragment.' : 'Select a discovered fragment, then choose its place in the frame.'}</p>
-            <div className="cabinet-puzzle">
-              <div className="cabinet-grid">{placedTiles.map((tile, cell) => <button key={cell} className={`cabinet-cell ${tile !== null ? 'cabinet-cell-filled' : ''} ${selectedTile !== null ? 'cabinet-cell-target' : ''}`} disabled={cabinetSolved || selectedTile === null} onClick={() => placeTile(cell)} aria-label={`Cabinet square ${cell + 1}`}>
-                {tile !== null ? <img src={`/manor-puzzle/fragments/${fragmentTiles[tile]}`} alt="" /> : <span>＋</span>}
+            <div className="cabinet-artboard">
+              <img className="cabinet-artwork" src="/manor-main-hall/locked-cabinet-detail.png" alt="The ornate cabinet with its nine-square puzzle" />
+              <div className="cabinet-overlay-grid">{placedTiles.map((tile, cell) => <button key={cell} className={`cabinet-overlay-cell ${tile !== null ? 'cabinet-overlay-cell-filled' : ''} ${selectedTile !== null ? 'cabinet-overlay-cell-target' : ''}`} disabled={cabinetSolved || selectedTile === null} onClick={() => placeTile(cell)} aria-label={`Cabinet square ${cell + 1}`}>
+                {tile !== null && <img src={`/manor-puzzle/fragments/${fragmentTiles[tile]}`} alt="" />}
               </button>)}</div>
-              <div className="cabinet-symbol" aria-hidden="true"><span>✧</span></div>
             </div>
             <div className="cabinet-modal-inventory">{fragmentTiles.map((filename, index) => <button key={filename} className={`inventory-tile ${discoveredTiles.includes(index) ? 'tile-available' : ''} ${selectedTile === index ? 'tile-selected' : ''}`} disabled={!discoveredTiles.includes(index) || cabinetSolved} onClick={() => setSelectedTile(selectedTile === index ? null : index)} aria-label={`Select fragment ${index + 1}`}>{discoveredTiles.includes(index) ? <img src={`/manor-puzzle/fragments/${filename}`} alt="" /> : <span>?</span>}</button>)}</div>
             {cabinetSolved && <p className="cabinet-success">The hidden shape is complete. The cabinet opens.</p>}
-            <button className="enter-button hall-modal-action" onClick={() => setResearchPoint(null)}><span>Return to the hall</span><ArrowRight aria-hidden="true" /></button>
           </>}
         </section>
       </div>}
