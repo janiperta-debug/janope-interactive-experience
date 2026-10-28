@@ -543,7 +543,7 @@ body { min-height:100dvh; }
 .hall-hotspot:hover { background:#1b2929f2; border-color:#efd18b; transform:translateY(-2px); }
 .hall-hotspot > span { color:#d5a85f; font-size:14px; line-height:1; }
 .hall-hotspot svg { width:13px; height:13px; color:#d5b777; }
-.hotspot-portrait { top:34%; left:35%; }
+.hotspot-portrait { top:34%; left:24%; }
 .hotspot-staircase { top:46%; left:22%; }
 .hotspot-table { left:42%; bottom:34%; }
 .hotspot-cabinet { left:52%; right:auto; top:31%; transform:none; }
