@@ -723,21 +723,24 @@ body { min-height:100dvh; }
 @media(prefers-reduced-motion:reduce){.cabinet-artboard-awakened .cabinet-artwork,.cabinet-artboard-awakened .cabinet-overlay-grid,.cabinet-artboard-awakened .cabinet-overlay-cell-filled,.cabinet-artboard-awakened:after,.cabinet-reveal-image,.cabinet-reveal-copy{animation-duration:.01ms!important;animation-iteration-count:1!important}}
 
 
-/* TEMPORARY DEBUG MODE: show Main Hall hotspot hit areas while tuning positions. */
+/* Main Hall hotspots are invisible in the finished experience but remain interactive. */
 .main-hall-scene .hall-hotspot,
 .main-hall-scene .hall-hotspot:hover,
 .main-hall-scene .hall-hotspot:focus,
 .main-hall-scene .hall-hotspot:focus-visible {
-  opacity: 1;
-  color: #f0dcb1;
-  background: #0b1214c9;
-  border: 2px solid #e6bd68;
-  box-shadow: 0 0 0 2px #070b0c99, 0 0 20px #e6bd6870;
+  opacity: 0;
+  color: transparent;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
   outline: none;
   transform: none;
 }
-.main-hall-scene .hall-hotspot > span { opacity: 1; color: #fff0c8; font-size: 14px; font-weight: 700; text-shadow: 0 1px 4px #000; }
-.main-hall-scene .hall-hotspot svg { opacity: 1; color: #fff0c8; }
+.main-hall-scene .hall-hotspot > span,
+.main-hall-scene .hall-hotspot svg {
+  opacity: 0;
+  color: transparent;
+}
 
 
 /* Conservatory celestial sphere and its cinematic artifact reveal. */
