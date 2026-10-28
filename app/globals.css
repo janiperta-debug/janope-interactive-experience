@@ -693,3 +693,31 @@ body { min-height:100dvh; }
 .library-unlocked-screen .conservatory-title{color:#c4a5d6}.library-unlocked-card{width:min(680px,calc(100% - 36px));margin:clamp(40px,10vh,100px) auto 0;text-align:center}.library-unlocked-card>.kicker{color:#c5a8d6}.library-unlocked-card>p:not(.kicker){max-width:54ch;margin:20px auto;color:#d0c7d4;font-size:15px;line-height:1.7}.library-placeholder-art{display:flex;flex-direction:column;align-items:center;gap:12px;padding:28px 14px;color:#d2b4dd}.library-placeholder-art svg{width:48px;height:48px}.library-placeholder-art span{font:10px Arial,sans-serif;letter-spacing:.16em}.library-placeholder-art small{font:9px Arial,sans-serif;color:#a79bad}
 @media(max-width:760px){.conservatory-screen{height:auto;min-height:100svh;overflow:auto;padding-bottom:30px}.conservatory-header{grid-template-columns:1fr auto;padding:13px 14px}.conservatory-title{display:none}.conservatory-note-panel{display:block;padding:14px}.conservatory-note-panel>p:nth-child(2){margin-top:9px}.conservatory-instruction{margin-top:12px;flex-basis:auto}.plant-study-grid{gap:8px}.plant-study-card{padding:12px 7px}.plant-current-place{font-size:10px}.plant-card-action{font-size:8px;letter-spacing:.02em}.place-grid{gap:8px}.plant-place{min-height:160px;padding:12px 10px}.plant-place strong{font-size:15px}.plant-place>span:nth-of-type(2){font-size:10px}.place-symbol{right:8px;font-size:26px}.conservatory-footer{align-items:stretch;flex-direction:column}.conservatory-check{width:100%;min-width:0}.conservatory-intro{padding-top:26px}}
 @media(max-width:420px){.plant-study-grid{grid-template-columns:1fr}.plant-study-card{display:grid;grid-template-columns:74px 1fr;grid-template-rows:auto auto auto;column-gap:12px;text-align:left;align-items:center}.plant-illustration{grid-column:1;grid-row:1/5;width:74px;height:82px;margin:0}.plant-card-index,.plant-study-card strong,.plant-current-place,.plant-card-action{grid-column:2}.plant-study-card strong{margin-top:2px}.plant-current-place{text-align:left}.place-grid{grid-template-columns:1fr}.plant-place{min-height:128px}}
+
+
+/* Cabinet awakening: a live golden glow over the solved 3×3 puzzle. */
+.cabinet-artboard{isolation:isolate}
+.cabinet-artboard-awakened .cabinet-artwork{animation:cabinet-artwork-awaken 1.8s ease-in-out both}
+.cabinet-artboard-awakened .cabinet-overlay-grid{animation:cabinet-grid-awaken 1.8s ease-in-out both}
+.cabinet-artboard-awakened .cabinet-overlay-cell-filled{animation:cabinet-tile-awaken 1.8s ease-in-out both}
+.cabinet-artboard-awakened:after{content:'';position:absolute;z-index:4;inset:8% 12%;pointer-events:none;background:radial-gradient(ellipse at center,#ffe6a866 0%,#f3bf4b33 34%,transparent 72%);mix-blend-mode:screen;opacity:0;animation:cabinet-gold-bloom 1.8s ease-in-out both}
+.cabinet-artboard-awakened .cabinet-overlay-cell-filled img{filter:brightness(1.18) sepia(.28);box-shadow:0 0 12px 3px #ffd875aa}
+.cabinet-success-awakened{color:#f3d58a!important;text-shadow:0 0 18px #e5ad42aa;animation:cabinet-success-pulse 1.5s ease-in-out infinite alternate}
+@keyframes cabinet-artwork-awaken{0%,100%{filter:none}35%,70%{filter:brightness(1.16) sepia(.18) drop-shadow(0 0 14px #edbd54aa)}}
+@keyframes cabinet-grid-awaken{0%{filter:none}45%,80%{filter:drop-shadow(0 0 9px #ffdc78)}}
+@keyframes cabinet-tile-awaken{0%,100%{box-shadow:none}45%,80%{box-shadow:0 0 15px 4px #ffd36a99}}
+@keyframes cabinet-gold-bloom{0%{opacity:0;transform:scale(.82)}45%{opacity:.9;transform:scale(1.04)}78%{opacity:.48;transform:scale(1.08)}100%{opacity:0;transform:scale(1.12)}}
+@keyframes cabinet-success-pulse{from{opacity:.65}to{opacity:1}}
+.cabinet-reveal-backdrop{position:fixed;z-index:100;inset:0;display:grid;place-items:center;overflow:hidden;background:#030403;animation:manor-transition-in .8s ease both}
+.cabinet-reveal-scene{position:relative;width:100%;height:100%;overflow:hidden;background:#030403;color:#eee2c7}
+.cabinet-reveal-image{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;animation:cabinet-reveal-zoom 13s cubic-bezier(.16,.55,.3,1) both}
+.cabinet-reveal-vignette{position:absolute;inset:0;background:linear-gradient(90deg,#050605e8 0%,#050605b8 34%,#05060522 68%,transparent 100%),linear-gradient(0deg,#03040399,transparent 38%,#03040344);pointer-events:none}
+.cabinet-reveal-copy{position:absolute;z-index:2;left:clamp(24px,8vw,120px);bottom:clamp(28px,10vh,100px);width:min(440px,42vw);animation:cabinet-copy-arrive 1.4s .8s both}
+.cabinet-reveal-copy .kicker{color:#d9bb76;letter-spacing:.22em}
+.cabinet-reveal-copy h2{margin:12px 0 18px;color:#f0d79d;font-size:clamp(28px,4vw,54px);font-weight:400;line-height:1.08}
+.cabinet-reveal-copy>p:not(.kicker){color:#e0d6c3;font-size:clamp(14px,1.4vw,18px);line-height:1.75}
+.cabinet-reveal-copy .enter-button{margin-top:18px}
+@keyframes cabinet-reveal-zoom{from{transform:scale(1)}to{transform:scale(1.18)}}
+@keyframes cabinet-copy-arrive{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:700px){.cabinet-reveal-image{object-fit:cover;object-position:58% center}.cabinet-reveal-vignette{background:linear-gradient(0deg,#030403f5 0%,#030403d9 38%,transparent 80%),linear-gradient(90deg,#03040333,transparent)}.cabinet-reveal-copy{left:22px;right:22px;bottom:24px;width:auto}.cabinet-reveal-copy h2{font-size:clamp(26px,7vw,38px)}.cabinet-reveal-copy>p:not(.kicker){font-size:14px;line-height:1.55}}
+@media(prefers-reduced-motion:reduce){.cabinet-artboard-awakened .cabinet-artwork,.cabinet-artboard-awakened .cabinet-overlay-grid,.cabinet-artboard-awakened .cabinet-overlay-cell-filled,.cabinet-artboard-awakened:after,.cabinet-reveal-image,.cabinet-reveal-copy{animation-duration:.01ms!important;animation-iteration-count:1!important}}
