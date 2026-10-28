@@ -10,9 +10,9 @@ type Plant = { id: PlantId; name: string; note: string; detail: string }
 type Place = { id: PlaceId; name: string; description: string; symbol: string }
 
 const plants: Plant[] = [
-  { id: 'silverleaf', name: 'Silverleaf', note: 'Its pale leaves hold their colour even after long days. The gardener’s note mentions that its roots prefer a steady rhythm, undisturbed by sudden changes.', detail: 'A quiet, silver-green plant. The note beside it speaks of consistency and a dislike of abrupt changes, but says little about light.' },
-  { id: 'moonfern', name: 'Moon Fern', note: 'The fronds open slowly. A margin note observes that it has always grown best where the day passes without drawing attention to itself.', detail: 'Its fine fronds are delicate but healthy. A short note refers to the gentler hours of the day and a place where the light does not linger.' },
-  { id: 'amberbell', name: 'Amber Bell', note: 'Small bells gather along its stems. The gardener writes that it responds to the world around it, though not always at once.', detail: 'The plant seems unremarkable at first glance. Its notes mention warmth, patience and the importance of noticing changes over time.' },
+  { id: 'silverleaf', name: 'Silverleaf', note: 'The gardener notes that the soil around its roots should never become dry, and that the air around its leaves should remain damp from morning until evening.', detail: 'Its pale leaves hold their colour even after long days. The field notes focus on moisture that remains in the air and soil, rather than on direct sunlight.' },
+  { id: 'moonfern', name: 'Moon Fern', note: 'The fronds scorch when the sun reaches them directly. The gardener’s margin note recommends a cool, sheltered place where the light is always softened.', detail: 'Its fine fronds are delicate but healthy. The notes warn against strong sunlight and sudden warmth, favouring a quiet, shaded environment.' },
+  { id: 'amberbell', name: 'Amber Bell', note: 'Small bells gather along its stems. The gardener records that it flowers only after long, warm afternoons, and that it needs generous daylight to open fully.', detail: 'The plant seems unremarkable at first glance. Its field notes repeatedly mention warmth and long hours of natural light.' },
 ]
 const places: Place[] = [
   { id: 'sunroom', name: 'The Sunlit Atrium', description: 'A bright stretch of glass. Light moves across the stone here for much of the day.', symbol: '☼' },
@@ -32,6 +32,7 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
   const [showSphere, setShowSphere] = useState(false)
   const [ambientNote, setAmbientNote] = useState<string | null>(null)
   const [placeChoice, setPlaceChoice] = useState<PlaceId>('sunroom')
+  const [arrangementFeedback, setArrangementFeedback] = useState<string | null>(null)
 
   const movePlant = (placeId: PlaceId) => {
     if (!selectedPlant || solved) return
@@ -62,16 +63,16 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
       <button className="conservatory-hotspot plant-hotspot plant-hotspot-1" onClick={() => { setInspecting('silverleaf'); setPlaceChoice(positions.silverleaf) }} aria-label="Plant 1">X</button>
       <button className="conservatory-hotspot plant-hotspot plant-hotspot-2" onClick={() => { setInspecting('moonfern'); setPlaceChoice(positions.moonfern) }} aria-label="Plant 2">X</button>
       <button className="conservatory-hotspot plant-hotspot plant-hotspot-3" onClick={() => { setInspecting('amberbell'); setPlaceChoice(positions.amberbell) }} aria-label="Plant 3">X</button>
-      <button className="conservatory-hotspot place-hotspot place-hotspot-1" onClick={() => setAmbientNote(`${places[0].name}: ${places[0].description}`)} aria-label="Inspect planting place O1">X{plants.filter(plant => positions[plant.id] === places[0].id).map(plant => <span key={plant.id} className="hotspot-occupant">{plant.name}</span>)}</button>
-      <button className="conservatory-hotspot place-hotspot place-hotspot-2" onClick={() => setAmbientNote(`${places[1].name}: ${places[1].description}`)} aria-label="Inspect planting place O2">X{plants.filter(plant => positions[plant.id] === places[1].id).map(plant => <span key={plant.id} className="hotspot-occupant">{plant.name}</span>)}</button>
-      <button className="conservatory-hotspot place-hotspot place-hotspot-3" onClick={() => setAmbientNote(`${places[2].name}: ${places[2].description}`)} aria-label="Inspect planting place O3">X{plants.filter(plant => positions[plant.id] === places[2].id).map(plant => <span key={plant.id} className="hotspot-occupant">{plant.name}</span>)}</button>
+      <button className="conservatory-hotspot place-hotspot place-hotspot-1" onClick={() => setAmbientNote(`${places[0].name}: ${places[0].description}`)} aria-label="Inspect planting place O1">X</button>
+      <button className="conservatory-hotspot place-hotspot place-hotspot-2" onClick={() => setAmbientNote(`${places[1].name}: ${places[1].description}`)} aria-label="Inspect planting place O2">X</button>
+      <button className="conservatory-hotspot place-hotspot place-hotspot-3" onClick={() => setAmbientNote(`${places[2].name}: ${places[2].description}`)} aria-label="Inspect planting place O3">X</button>
       <button className="conservatory-hotspot sphere-hotspot" onClick={() => setShowSphere(true)} aria-label="Celestial sphere">X</button>
       <button className="conservatory-hotspot ambient-hotspot ambient-hotspot-1" onClick={() => setAmbientNote('The upper gallery')} aria-label="Inspect upper gallery">X</button>
       <button className="conservatory-hotspot ambient-hotspot ambient-hotspot-2" onClick={() => setAmbientNote('The western cabinet')} aria-label="Inspect western cabinet">X</button>
       <button className="conservatory-hotspot ambient-hotspot ambient-hotspot-3" onClick={() => setAmbientNote('The statue beside the fountain')} aria-label="Inspect statue">X</button>
       <button className="conservatory-hotspot ambient-hotspot ambient-hotspot-4" onClick={() => setAmbientNote('The writing desk')} aria-label="Inspect writing desk">X</button>
       <button className="conservatory-hotspot ambient-hotspot ambient-hotspot-5" onClick={() => setAmbientNote('The eastern glass cabinet')} aria-label="Inspect eastern cabinet">X</button>
-      <div className="conservatory-debug-hint">{solved ? 'THE ARRANGEMENT IS COMPLETE' : 'HOTSPOT DEBUG · INSPECT PLANTS, PLACES AND DETAILS'}</div>
+      <div className="conservatory-debug-hint">{solved ? 'THE ARRANGEMENT IS COMPLETE' : arrangementFeedback ?? 'HOTSPOT DEBUG · INSPECT PLANTS, PLACES AND DETAILS'}</div>
     </div>
     <header className="conservatory-header">
       <button className="back-button" onClick={onBack}><ArrowLeft aria-hidden="true" /> <span>Main Hall</span></button>
@@ -137,7 +138,10 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
             setInspecting(null)
             if (plants.every(plant => next[plant.id] === solution[plant.id])) {
               setSolved(true)
+              setArrangementFeedback('THE CONSERVATORY HAS FOUND ITS BALANCE')
               window.setTimeout(() => setShowArtifact(true), 500)
+            } else {
+              setArrangementFeedback('THE ARRANGEMENT IS NOT YET IN BALANCE · REVISIT THE FIELD NOTES')
             }
           }}><span>Confirm growing place</span><ArrowRight/></button>
         </div>
