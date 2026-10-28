@@ -754,3 +754,10 @@ body { min-height:100dvh; }
 .conservatory-reveal-scene .cabinet-reveal-copy{width:min(470px,43vw)}
 .conservatory-reveal-scene .cabinet-reveal-copy>p:not(.kicker){color:#e0d6c3;font-size:clamp(14px,1.35vw,18px);line-height:1.7}
 @media(max-width:700px){.conservatory-sphere-entry{max-width:100%;margin-bottom:16px}.sphere-inspect-modal>img{height:190px}.conservatory-reveal-scene .cabinet-reveal-copy{width:auto}}
+
+
+/* A newly unlocked room is always available from the Main Hall header. */
+.hall-room-unlock{justify-self:end;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:38px;padding:9px 13px;border:1px solid #d4b56f;background:linear-gradient(135deg,#1d241bdf,#0b1110ed);color:#f0d7a0;cursor:pointer;font:10px Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 0 24px #d5b46a20;transition:background .2s,border-color .2s,box-shadow .2s}
+.hall-room-unlock:hover{background:#283323f5;border-color:#f2d99b;box-shadow:0 0 28px #d5b46a44}
+.hall-room-unlock svg{width:15px;height:15px;flex:0 0 auto}
+@media(max-width:700px){.hall-room-unlock{gap:5px;padding:8px 9px;font-size:8px;letter-spacing:.04em}.hall-room-unlock svg{width:12px;height:12px}}
