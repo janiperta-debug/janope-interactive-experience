@@ -30,6 +30,7 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
   const [artifactFound, setArtifactFound] = useState(false)
   const [showArtifact, setShowArtifact] = useState(false)
   const [showSphere, setShowSphere] = useState(false)
+  const [ambientNote, setAmbientNote] = useState<string | null>(null)
 
   const movePlant = (placeId: PlaceId) => {
     if (!selectedPlant || solved) return
@@ -56,6 +57,21 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
 
   return <main className="conservatory-screen">
     <div className="conservatory-backdrop" aria-hidden="true" />
+    <div className="conservatory-debug-scene" aria-label="Conservatory hotspot placement view">
+      <button className="conservatory-hotspot plant-hotspot plant-hotspot-1" onClick={() => setInspecting('silverleaf')} aria-label="Plant 1">X</button>
+      <button className="conservatory-hotspot plant-hotspot plant-hotspot-2" onClick={() => setInspecting('moonfern')} aria-label="Plant 2">X</button>
+      <button className="conservatory-hotspot plant-hotspot plant-hotspot-3" onClick={() => setInspecting('amberbell')} aria-label="Plant 3">X</button>
+      <button className="conservatory-hotspot place-hotspot place-hotspot-1" onClick={() => movePlant('sunroom')} aria-label="Planting place O1">X</button>
+      <button className="conservatory-hotspot place-hotspot place-hotspot-2" onClick={() => movePlant('stillcorner')} aria-label="Planting place O2">X</button>
+      <button className="conservatory-hotspot place-hotspot place-hotspot-3" onClick={() => movePlant('fountain')} aria-label="Planting place O3">X</button>
+      <button className="conservatory-hotspot sphere-hotspot" onClick={() => setShowSphere(true)} aria-label="Celestial sphere">X</button>
+      <button className="conservatory-hotspot ambient-hotspot ambient-hotspot-1" onClick={() => setAmbientNote('The upper gallery')} aria-label="Inspect upper gallery">X</button>
+      <button className="conservatory-hotspot ambient-hotspot ambient-hotspot-2" onClick={() => setAmbientNote('The western cabinet')} aria-label="Inspect western cabinet">X</button>
+      <button className="conservatory-hotspot ambient-hotspot ambient-hotspot-3" onClick={() => setAmbientNote('The statue beside the fountain')} aria-label="Inspect statue">X</button>
+      <button className="conservatory-hotspot ambient-hotspot ambient-hotspot-4" onClick={() => setAmbientNote('The writing desk')} aria-label="Inspect writing desk">X</button>
+      <button className="conservatory-hotspot ambient-hotspot ambient-hotspot-5" onClick={() => setAmbientNote('The eastern glass cabinet')} aria-label="Inspect eastern cabinet">X</button>
+      <div className="conservatory-debug-hint">{selectedPlant ? `SELECTED: ${plants.find(p => p.id === selectedPlant)?.name} — choose a planting place` : solved ? 'THE ARRANGEMENT IS COMPLETE' : 'HOTSPOT DEBUG · SELECT A PLANT, THEN A PLACE'}</div>
+    </div>
     <header className="conservatory-header">
       <button className="back-button" onClick={onBack}><ArrowLeft aria-hidden="true" /> <span>Main Hall</span></button>
       <div className="conservatory-title">THE MANOR <i>·</i> CONSERVATORY</div>
@@ -108,6 +124,7 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
         <button className="enter-button hall-modal-action" onClick={() => { setSelectedPlant(inspecting); setInspecting(null) }}><span>Choose this plant</span><ArrowRight/></button>
       </section>
     </div>}
+    {ambientNote && <div className="hall-modal-backdrop" onClick={() => setAmbientNote(null)} role="presentation"><section className="hall-modal conservatory-modal" role="dialog" aria-modal="true" onClick={event => event.stopPropagation()}><button className="hall-modal-close" onClick={() => setAmbientNote(null)} aria-label="Close"><X/></button><p className="kicker">A detail in the Conservatory</p><h2>{ambientNote}</h2><p className="research-body">Something here has been left undisturbed. This point is a placeholder for a dedicated observation and clue.</p><button className="enter-button hall-modal-action" onClick={() => setAmbientNote(null)}><span>Return to the room</span><ArrowRight/></button></section></div>}
     {showSphere && <div className="hall-modal-backdrop sphere-inspect-backdrop" role="presentation" onClick={() => setShowSphere(false)}><section className="hall-modal sphere-inspect-modal" role="dialog" aria-modal="true" aria-labelledby="sphere-inspect-title" onClick={event => event.stopPropagation()}><button className="hall-modal-close" onClick={() => setShowSphere(false)} aria-label="Close"><X/></button><p className="kicker">An instrument of forgotten skies</p><h2 id="sphere-inspect-title">The Celestial Sphere</h2><img src="/manor-conservatory/celestial-sphere-closed.png" alt="A closed ornate celestial sphere"/><p className="research-body">The ancient sphere rests in silence. Tiny constellations trace its burnished surface, their paths crossing in a pattern that almost makes sense. Whatever it keeps within remains undisturbed.</p><button className="enter-button hall-modal-action" onClick={() => setShowSphere(false)}><span>Leave it undisturbed</span><ArrowRight/></button></section></div>}
     {showArtifact && <div className="cabinet-reveal-backdrop conservatory-reveal-backdrop" role="presentation">
       <section className="cabinet-reveal-scene conservatory-reveal-scene" role="dialog" aria-modal="true" aria-labelledby="quill-title">
