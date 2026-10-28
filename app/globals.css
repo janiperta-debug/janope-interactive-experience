@@ -781,3 +781,14 @@ body { min-height:100dvh; }
 .ambient-hotspot-1{left:33%;top:20%}.ambient-hotspot-2{left:24%;top:38%}.ambient-hotspot-3{left:68%;top:50%}.ambient-hotspot-4{left:8%;top:67%}.ambient-hotspot-5{left:59%;top:70%}
 .conservatory-debug-hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);padding:10px 14px;border:1px solid #d4b56f;background:#09110ee8;color:#f0d7a0;font:10px Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;pointer-events:none}
 @media(max-width:700px){.conservatory-header{padding:13px 14px}.conservatory-hotspot{width:38px;height:38px;font-size:12px}.conservatory-debug-hint{bottom:12px;max-width:90vw;white-space:normal;text-align:center;font-size:8px}}
+
+/* Clear plant-location selector and in-scene occupancy labels */
+.plant-place-choice{display:grid;gap:10px;margin-top:20px}
+.plant-place-select{width:100%;min-height:46px;padding:11px 42px 11px 14px;border:1px solid #bda36d;background:#101a16;color:#f4e8cb;font:inherit;font-size:14px;letter-spacing:.02em;appearance:auto}
+.plant-place-select:focus{outline:2px solid #e6bd68;outline-offset:2px}
+.plant-place-select option{background:#101a16;color:#f4e8cb}
+.plant-place-description{margin:0;color:#c8c1ae;font-size:13px;line-height:1.55}
+.plant-place-confirm{justify-self:start;margin-top:5px}
+.plant-place-confirm:disabled{opacity:.55;cursor:default}
+.conservatory-hotspot .hotspot-occupant{position:absolute;top:calc(100% + 5px);left:50%;transform:translateX(-50%);display:block;width:max-content;max-width:160px;padding:5px 8px;border:1px solid #d7bd7d;background:#07100ef2;color:#f8e9c6;font:10px Arial,sans-serif;letter-spacing:.04em;box-shadow:0 3px 12px #0009;pointer-events:none;white-space:nowrap}
+@media(max-width:700px){.plant-place-select{min-height:44px;font-size:13px}.conservatory-hotspot .hotspot-occupant{font-size:9px;max-width:125px}}
