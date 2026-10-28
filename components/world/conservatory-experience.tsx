@@ -31,6 +31,7 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
   const [showArtifact, setShowArtifact] = useState(false)
   const [showSphere, setShowSphere] = useState(false)
   const [ambientNote, setAmbientNote] = useState<string | null>(null)
+  const [placeChoice, setPlaceChoice] = useState<PlaceId>('sunroom')
 
   const movePlant = (placeId: PlaceId) => {
     if (!selectedPlant || solved) return
@@ -58,9 +59,9 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
   return <main className="conservatory-screen">
     <div className="conservatory-backdrop" aria-hidden="true" />
     <div className="conservatory-debug-scene" aria-label="Conservatory hotspot placement view">
-      <button className="conservatory-hotspot plant-hotspot plant-hotspot-1" onClick={() => setInspecting('silverleaf')} aria-label="Plant 1">X</button>
-      <button className="conservatory-hotspot plant-hotspot plant-hotspot-2" onClick={() => setInspecting('moonfern')} aria-label="Plant 2">X</button>
-      <button className="conservatory-hotspot plant-hotspot plant-hotspot-3" onClick={() => setInspecting('amberbell')} aria-label="Plant 3">X</button>
+      <button className="conservatory-hotspot plant-hotspot plant-hotspot-1" onClick={() => { setInspecting('silverleaf'); setPlaceChoice(positions.silverleaf) }} aria-label="Plant 1">X</button>
+      <button className="conservatory-hotspot plant-hotspot plant-hotspot-2" onClick={() => { setInspecting('moonfern'); setPlaceChoice(positions.moonfern) }} aria-label="Plant 2">X</button>
+      <button className="conservatory-hotspot plant-hotspot plant-hotspot-3" onClick={() => { setInspecting('amberbell'); setPlaceChoice(positions.amberbell) }} aria-label="Plant 3">X</button>
       <button className="conservatory-hotspot place-hotspot place-hotspot-1" onClick={() => setAmbientNote(`${places[0].name}: ${places[0].description}`)} aria-label="Inspect planting place O1">X</button>
       <button className="conservatory-hotspot place-hotspot place-hotspot-2" onClick={() => setAmbientNote(`${places[1].name}: ${places[1].description}`)} aria-label="Inspect planting place O2">X</button>
       <button className="conservatory-hotspot place-hotspot place-hotspot-3" onClick={() => setAmbientNote(`${places[2].name}: ${places[2].description}`)} aria-label="Inspect planting place O3">X</button>
@@ -90,7 +91,7 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
         <div className="conservatory-instruction"><Leaf aria-hidden="true" /><span>Open a plant’s field notes to choose its place. Inspect the growing places separately.</span></div>
       </div>
       <div className="plant-study-grid">
-        {plants.map((plant, index) => <button key={plant.id} className={`plant-study-card ${selectedPlant === plant.id ? 'plant-selected' : ''} ${solved ? 'plant-settled' : ''}`} onClick={() => { if (!solved) setSelectedPlant(selectedPlant === plant.id ? null : plant.id); setInspecting(plant.id) }}>
+        {plants.map((plant, index) => <button key={plant.id} className={`plant-study-card ${selectedPlant === plant.id ? 'plant-selected' : ''} ${solved ? 'plant-settled' : ''}`} onClick={() => { setPlaceChoice(positions[plant.id]); setInspecting(plant.id) }}>
           <span className={`plant-illustration plant-illustration-${index + 1}`}><i /><i /><i /><b>✦</b></span>
           <span className="plant-card-index">SPECIMEN 0{index + 1}</span>
           <strong>{plant.name}</strong>
@@ -122,21 +123,23 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
         <p className="research-body">{plants.find(p => p.id === inspecting)?.detail}</p>
         <div className="plant-note-card"><Leaf/><p>{plants.find(p => p.id === inspecting)?.note}</p></div>
         <div className="plant-place-choice">
-          <p className="kicker">Where does it belong?</p>
-          <div className="plant-place-choice-list">
-            {places.map(place => <button key={place.id} onClick={() => {
-              const next = { ...positions, [inspecting]: place.id }
-              const occupant = (Object.entries(positions) as [PlantId, PlaceId][]).find(([id, currentPlace]) => id !== inspecting && currentPlace === place.id)?.[0]
-              if (occupant) next[occupant] = positions[inspecting]
-              setPositions(next)
-              setSelectedPlant(null)
-              setInspecting(null)
-              if (plants.every(plant => next[plant.id] === solution[plant.id])) {
-                setSolved(true)
-                window.setTimeout(() => setShowArtifact(true), 500)
-              }
-            }}><span>{place.symbol}</span><strong>{place.name}</strong><small>{place.description}</small></button>)}
-          </div>
+          <label className="kicker" htmlFor="plant-place-select">Choose its place</label>
+          <select id="plant-place-select" className="plant-place-select" value={placeChoice} onChange={event => setPlaceChoice(event.target.value as PlaceId)} disabled={solved}>
+            {places.map(place => <option key={place.id} value={place.id}>{place.name}</option>)}
+          </select>
+          <p className="plant-place-description">{places.find(place => place.id === placeChoice)?.description}</p>
+          <button className="enter-button plant-place-confirm" disabled={solved} onClick={() => {
+            const next = { ...positions, [inspecting]: placeChoice }
+            const occupant = (Object.entries(positions) as [PlantId, PlaceId][]).find(([id, currentPlace]) => id !== inspecting && currentPlace === placeChoice)?.[0]
+            if (occupant) next[occupant] = positions[inspecting]
+            setPositions(next)
+            setSelectedPlant(null)
+            setInspecting(null)
+            if (plants.every(plant => next[plant.id] === solution[plant.id])) {
+              setSolved(true)
+              window.setTimeout(() => setShowArtifact(true), 500)
+            }
+          }}><span>Confirm growing place</span><ArrowRight/></button>
         </div>
       </section>
     </div>}
