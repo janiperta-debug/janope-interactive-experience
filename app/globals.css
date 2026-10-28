@@ -721,3 +721,20 @@ body { min-height:100dvh; }
 @keyframes cabinet-copy-arrive{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:700px){.cabinet-reveal-image{object-fit:cover;object-position:58% center}.cabinet-reveal-vignette{background:linear-gradient(0deg,#030403f5 0%,#030403d9 38%,transparent 80%),linear-gradient(90deg,#03040333,transparent)}.cabinet-reveal-copy{left:22px;right:22px;bottom:24px;width:auto}.cabinet-reveal-copy h2{font-size:clamp(26px,7vw,38px)}.cabinet-reveal-copy>p:not(.kicker){font-size:14px;line-height:1.55}}
 @media(prefers-reduced-motion:reduce){.cabinet-artboard-awakened .cabinet-artwork,.cabinet-artboard-awakened .cabinet-overlay-grid,.cabinet-artboard-awakened .cabinet-overlay-cell-filled,.cabinet-artboard-awakened:after,.cabinet-reveal-image,.cabinet-reveal-copy{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+
+
+/* Main Hall hotspots stay interactive but are invisible during exploration. */
+.main-hall-scene .hall-hotspot,
+.main-hall-scene .hall-hotspot:hover,
+.main-hall-scene .hall-hotspot:focus,
+.main-hall-scene .hall-hotspot:focus-visible {
+  opacity: 0;
+  color: transparent;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  outline: none;
+  transform: none;
+}
+.main-hall-scene .hall-hotspot > span,
+.main-hall-scene .hall-hotspot svg { opacity: 0; color: transparent; }
