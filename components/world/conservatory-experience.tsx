@@ -61,16 +61,16 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
       <button className="conservatory-hotspot plant-hotspot plant-hotspot-1" onClick={() => setInspecting('silverleaf')} aria-label="Plant 1">X</button>
       <button className="conservatory-hotspot plant-hotspot plant-hotspot-2" onClick={() => setInspecting('moonfern')} aria-label="Plant 2">X</button>
       <button className="conservatory-hotspot plant-hotspot plant-hotspot-3" onClick={() => setInspecting('amberbell')} aria-label="Plant 3">X</button>
-      <button className="conservatory-hotspot place-hotspot place-hotspot-1" onClick={() => movePlant('sunroom')} aria-label="Planting place O1">X</button>
-      <button className="conservatory-hotspot place-hotspot place-hotspot-2" onClick={() => movePlant('stillcorner')} aria-label="Planting place O2">X</button>
-      <button className="conservatory-hotspot place-hotspot place-hotspot-3" onClick={() => movePlant('fountain')} aria-label="Planting place O3">X</button>
+      <button className="conservatory-hotspot place-hotspot place-hotspot-1" onClick={() => setAmbientNote(`${places[0].name}: ${places[0].description}`)} aria-label="Inspect planting place O1">X</button>
+      <button className="conservatory-hotspot place-hotspot place-hotspot-2" onClick={() => setAmbientNote(`${places[1].name}: ${places[1].description}`)} aria-label="Inspect planting place O2">X</button>
+      <button className="conservatory-hotspot place-hotspot place-hotspot-3" onClick={() => setAmbientNote(`${places[2].name}: ${places[2].description}`)} aria-label="Inspect planting place O3">X</button>
       <button className="conservatory-hotspot sphere-hotspot" onClick={() => setShowSphere(true)} aria-label="Celestial sphere">X</button>
       <button className="conservatory-hotspot ambient-hotspot ambient-hotspot-1" onClick={() => setAmbientNote('The upper gallery')} aria-label="Inspect upper gallery">X</button>
       <button className="conservatory-hotspot ambient-hotspot ambient-hotspot-2" onClick={() => setAmbientNote('The western cabinet')} aria-label="Inspect western cabinet">X</button>
       <button className="conservatory-hotspot ambient-hotspot ambient-hotspot-3" onClick={() => setAmbientNote('The statue beside the fountain')} aria-label="Inspect statue">X</button>
       <button className="conservatory-hotspot ambient-hotspot ambient-hotspot-4" onClick={() => setAmbientNote('The writing desk')} aria-label="Inspect writing desk">X</button>
       <button className="conservatory-hotspot ambient-hotspot ambient-hotspot-5" onClick={() => setAmbientNote('The eastern glass cabinet')} aria-label="Inspect eastern cabinet">X</button>
-      <div className="conservatory-debug-hint">{selectedPlant ? `SELECTED: ${plants.find(p => p.id === selectedPlant)?.name} — choose a planting place` : solved ? 'THE ARRANGEMENT IS COMPLETE' : 'HOTSPOT DEBUG · SELECT A PLANT, THEN A PLACE'}</div>
+      <div className="conservatory-debug-hint">{solved ? 'THE ARRANGEMENT IS COMPLETE' : 'HOTSPOT DEBUG · INSPECT PLANTS, PLACES AND DETAILS'}</div>
     </div>
     <header className="conservatory-header">
       <button className="back-button" onClick={onBack}><ArrowLeft aria-hidden="true" /> <span>Main Hall</span></button>
@@ -87,7 +87,7 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
       <div className="conservatory-note-panel">
         <p className="kicker">The Gardener’s notes</p>
         <p>Three plants have been left where they were last tended. Their leaves offer no clear answer. Read what was written, observe the places around them, and decide what each one needs.</p>
-        <div className="conservatory-instruction"><Leaf aria-hidden="true" /><span>{selectedPlant ? 'Choose a place to move the selected plant.' : 'Select a plant to study it, then choose where it should grow.'}</span></div>
+        <div className="conservatory-instruction"><Leaf aria-hidden="true" /><span>Open a plant’s field notes to choose its place. Inspect the growing places separately.</span></div>
       </div>
       <div className="plant-study-grid">
         {plants.map((plant, index) => <button key={plant.id} className={`plant-study-card ${selectedPlant === plant.id ? 'plant-selected' : ''} ${solved ? 'plant-settled' : ''}`} onClick={() => { if (!solved) setSelectedPlant(selectedPlant === plant.id ? null : plant.id); setInspecting(plant.id) }}>
@@ -99,11 +99,11 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
         </button>)}
       </div>
       <div className="conservatory-places">
-        <div className="conservatory-section-heading"><span>Places within the conservatory</span><span>{selectedPlant ? `Moving: ${plants.find(p => p.id === selectedPlant)?.name}` : 'Choose a place'}</span></div>
+        <div className="conservatory-section-heading"><span>Places within the conservatory</span><span>Inspect each place for clues</span></div>
         <div className="place-grid">
           {places.map((place, index) => {
             const plant = plants.find(p => positions[p.id] === place.id)
-            return <button key={place.id} className={`plant-place place-${index + 1} ${selectedPlant ? 'place-target' : ''} ${solved ? 'place-solved' : ''}`} onClick={() => movePlant(place.id)} disabled={!selectedPlant || solved}>
+            return <button key={place.id} className={`plant-place place-${index + 1} ${solved ? 'place-solved' : ''}`} onClick={() => setAmbientNote(`${place.name}: ${place.description}`)}>
               <span className="place-symbol">{place.symbol}</span><strong>{place.name}</strong><span>{place.description}</span>
               <span className="place-occupant">{plant ? <><Leaf size={14}/>{plant.name}</> : 'Undisturbed'}</span>
             </button>
@@ -121,7 +121,23 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
         <p className="kicker">The Gardener’s field notes</p><h2 id="plant-modal-title">{plants.find(p => p.id === inspecting)?.name}</h2>
         <p className="research-body">{plants.find(p => p.id === inspecting)?.detail}</p>
         <div className="plant-note-card"><Leaf/><p>{plants.find(p => p.id === inspecting)?.note}</p></div>
-        <button className="enter-button hall-modal-action" onClick={() => { setSelectedPlant(inspecting); setInspecting(null) }}><span>Choose this plant</span><ArrowRight/></button>
+        <div className="plant-place-choice">
+          <p className="kicker">Where does it belong?</p>
+          <div className="plant-place-choice-list">
+            {places.map(place => <button key={place.id} onClick={() => {
+              const next = { ...positions, [inspecting]: place.id }
+              const occupant = (Object.entries(positions) as [PlantId, PlaceId][]).find(([id, currentPlace]) => id !== inspecting && currentPlace === place.id)?.[0]
+              if (occupant) next[occupant] = positions[inspecting]
+              setPositions(next)
+              setSelectedPlant(null)
+              setInspecting(null)
+              if (plants.every(plant => next[plant.id] === solution[plant.id])) {
+                setSolved(true)
+                window.setTimeout(() => setShowArtifact(true), 500)
+              }
+            }}><span>{place.symbol}</span><strong>{place.name}</strong><small>{place.description}</small></button>)}
+          </div>
+        </div>
       </section>
     </div>}
     {ambientNote && <div className="hall-modal-backdrop" onClick={() => setAmbientNote(null)} role="presentation"><section className="hall-modal conservatory-modal" role="dialog" aria-modal="true" onClick={event => event.stopPropagation()}><button className="hall-modal-close" onClick={() => setAmbientNote(null)} aria-label="Close"><X/></button><p className="kicker">A detail in the Conservatory</p><h2>{ambientNote}</h2><p className="research-body">Something here has been left undisturbed. This point is a placeholder for a dedicated observation and clue.</p><button className="enter-button hall-modal-action" onClick={() => setAmbientNote(null)}><span>Return to the room</span><ArrowRight/></button></section></div>}
