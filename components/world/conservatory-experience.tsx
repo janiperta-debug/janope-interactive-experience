@@ -29,19 +29,22 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
   const [solved, setSolved] = useState(false)
   const [artifactFound, setArtifactFound] = useState(false)
   const [showArtifact, setShowArtifact] = useState(false)
-  const [transitioning, setTransitioning] = useState(false)
+  const [showSphere, setShowSphere] = useState(false)
 
   const movePlant = (placeId: PlaceId) => {
     if (!selectedPlant || solved) return
     const occupant = (Object.entries(positions) as [PlantId, PlaceId][]).find(([, place]) => place === placeId)?.[0]
-    setPositions(current => {
-      const next = { ...current }
-      const oldPlace = next[selectedPlant]
-      if (occupant) next[occupant] = oldPlace
-      next[selectedPlant] = placeId
-      return next
-    })
+    const next = { ...positions }
+    const oldPlace = next[selectedPlant]
+    if (occupant) next[occupant] = oldPlace
+    next[selectedPlant] = placeId
+    setPositions(next)
     setSelectedPlant(null)
+    if (plants.every(plant => next[plant.id] === solution[plant.id])) {
+      setSolved(true)
+      setInspecting(null)
+      window.setTimeout(() => setShowArtifact(true), 500)
+    }
   }
   const checkArrangement = () => {
     if (plants.every(plant => positions[plant.id] === solution[plant.id])) {
@@ -64,6 +67,7 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
       <p>Not all change is visible. Give it light. Give it care. Give it time.</p>
     </section>
     <section className="conservatory-workspace">
+      <button className="conservatory-sphere-entry" onClick={() => setShowSphere(true)} aria-label="Examine the closed celestial sphere"><img src="/manor-conservatory/celestial-sphere-closed.png" alt="" /><span>Examine the celestial sphere</span></button>
       <div className="conservatory-note-panel">
         <p className="kicker">The Gardener’s notes</p>
         <p>Three plants have been left where they were last tended. Their leaves offer no clear answer. Read what was written, observe the places around them, and decide what each one needs.</p>
@@ -104,17 +108,16 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
         <button className="enter-button hall-modal-action" onClick={() => { setSelectedPlant(inspecting); setInspecting(null) }}><span>Choose this plant</span><ArrowRight/></button>
       </section>
     </div>}
-    {showArtifact && <div className="hall-modal-backdrop seed-backdrop" role="presentation">
-      <section className="hall-modal seed-modal conservatory-artifact" role="dialog" aria-modal="true" aria-labelledby="quill-title">
-        <div className="seed-emblem"><Sparkles/></div><p className="kicker">The hidden compartment opens</p>
-        <h2 id="quill-title">Archivist’s Quill</h2>
-        <p className="research-body">Behind the old planting ledger lies a feather-dark quill, its golden nib still marked with ink. It feels less like a tool than a witness to stories carefully kept.</p>
-        <div className="quill-art-placeholder"><span>✒</span><b>ARCHIVIST’S QUILL</b><small>ARTWORK PLACEHOLDER · /manor-artifacts/archivists-quill.png</small></div>
-        <p className="seed-note">A new room waits beyond the Conservatory.</p>
-        <button className="enter-button hall-modal-action" onClick={() => { setArtifactFound(true); setShowArtifact(false); setTransitioning(true); window.setTimeout(onLibrary, 1200) }}><span>{artifactFound ? 'Continue to the Library' : 'Keep the artefact and continue'}</span><ArrowRight/></button>
-      </section>
-    </div>}
-    {transitioning && <div className="manor-room-transition" aria-live="polite"><span>THE MANOR REMEMBERS</span><strong>The next door is ready to open.</strong><i/></div>}
+    {showSphere && <div className="hall-modal-backdrop sphere-inspect-backdrop" role="presentation" onClick={() => setShowSphere(false)}><section className="hall-modal sphere-inspect-modal" role="dialog" aria-modal="true" aria-labelledby="sphere-inspect-title" onClick={event => event.stopPropagation()}><button className="hall-modal-close" onClick={() => setShowSphere(false)} aria-label="Close"><X/></button><p className="kicker">An instrument of forgotten skies</p><h2 id="sphere-inspect-title">The Celestial Sphere</h2><img src="/manor-conservatory/celestial-sphere-closed.png" alt="A closed ornate celestial sphere"/><p className="research-body">The ancient sphere rests in silence. Tiny constellations trace its burnished surface, their paths crossing in a pattern that almost makes sense. Whatever it keeps within remains undisturbed.</p><button className="enter-button hall-modal-action" onClick={() => setShowSphere(false)}><span>Leave it undisturbed</span><ArrowRight/></button></section></div>}
+    {showArtifact && <div className="cabinet-reveal-backdrop conservatory-reveal-backdrop" role="presentation">
+      <section className="cabinet-reveal-scene conservatory-reveal-scene" role="dialog" aria-modal="true" aria-labelledby="quill-title">
+        <img className="cabinet-reveal-image" src="/manor-conservatory/celestial-sphere-open-quill.png" alt="The celestial sphere has opened to reveal the Archivist’s Quill"/>
+        <div className="cabinet-reveal-vignette" aria-hidden="true"/>
+        <div className="cabinet-reveal-copy"><p className="kicker">A secret entrusted</p><h2 id="quill-title">Archivist’s Quill</h2>
+        <p>The sphere opens, revealing a feather-dark quill, its golden nib still marked with ink. It feels less like a tool than a witness to stories carefully kept.</p>
+        <p>As you lift it free, something clicks far away — a small, deliberate sound from somewhere within the Main Hall. A long-sealed door has answered.</p>
+        <button className="enter-button" onClick={() => { setArtifactFound(true); setShowArtifact(false) }}><span>Accept the Archivist’s Quill</span><ArrowRight/></button></div>
+      </section></div>}
     <div className="conservatory-bottom-mark">EVERY LEAF WAS ONCE A BEGINNING · THE MANOR, UNWRITTEN</div>
   </main>
 }
