@@ -200,7 +200,7 @@ export function WorldExperience() {
         <header className="hall-header">
           <button className="back-button" onClick={() => setView('threshold')} aria-label="Return to the threshold"><ArrowLeft aria-hidden="true" /><span>The Threshold</span></button>
           <div className="hall-title">THE MANOR <i>·</i> MAIN HALL</div>
-          <div className="hall-progress">{discoveredTiles.length} <span>/ 9 fragments</span></div>
+          {seedAccepted ? <button className="hall-room-unlock" onClick={() => setView('conservatory')}><Sparkles aria-hidden="true" /><span>Enter the Conservatory</span><ArrowRight aria-hidden="true" /></button> : <div className="hall-progress">{discoveredTiles.length} <span>/ 9 fragments</span></div>}
         </header>
         <button className={`hall-hotspot hotspot-portrait ${foundGroups.includes('portrait') ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('portrait')} aria-label="Examine portrait"><span aria-hidden="true">X</span></button>
         <button className={`hall-hotspot hotspot-staircase ${foundGroups.includes('staircase') ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('staircase')} aria-label="Examine staircase stonework"><span aria-hidden="true">X</span></button>
