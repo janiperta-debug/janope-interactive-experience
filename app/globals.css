@@ -738,3 +738,19 @@ body { min-height:100dvh; }
 }
 .main-hall-scene .hall-hotspot > span,
 .main-hall-scene .hall-hotspot svg { opacity: 0; color: transparent; }
+
+
+/* Conservatory celestial sphere and its cinematic artifact reveal. */
+.conservatory-sphere-entry{display:flex;align-items:center;gap:12px;width:100%;max-width:330px;margin:0 auto 22px;padding:10px 14px;border:1px solid #b99a5a55;background:#090d0bd9;color:#e8d5a4;cursor:pointer;text-align:left}
+.conservatory-sphere-entry img{width:72px;height:72px;object-fit:contain}
+.conservatory-sphere-entry span{font-family:inherit;letter-spacing:.08em;text-transform:uppercase;font-size:11px}
+.conservatory-sphere-entry:hover{border-color:#d8b96f;box-shadow:0 0 22px #d5a84b22}
+.sphere-inspect-backdrop{z-index:120}
+.sphere-inspect-modal{max-width:560px}
+.sphere-inspect-modal>img{display:block;width:min(100%,300px);height:240px;object-fit:contain;margin:8px auto 20px}
+.sphere-inspect-modal .research-body{line-height:1.75}
+.conservatory-reveal-backdrop{z-index:130}
+.conservatory-reveal-scene .cabinet-reveal-image{animation:cabinet-reveal-zoom 9s cubic-bezier(.16,.55,.3,1) both}
+.conservatory-reveal-scene .cabinet-reveal-copy{width:min(470px,43vw)}
+.conservatory-reveal-scene .cabinet-reveal-copy>p:not(.kicker){color:#e0d6c3;font-size:clamp(14px,1.35vw,18px);line-height:1.7}
+@media(max-width:700px){.conservatory-sphere-entry{max-width:100%;margin-bottom:16px}.sphere-inspect-modal>img{height:190px}.conservatory-reveal-scene .cabinet-reveal-copy{width:auto}}
