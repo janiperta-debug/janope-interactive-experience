@@ -46,6 +46,7 @@ export function WorldExperience() {
   const [selectedTile, setSelectedTile] = useState<number | null>(null)
   const [placedTiles, setPlacedTiles] = useState<(number | null)[]>(Array(9).fill(null))
   const [cabinetSolved, setCabinetSolved] = useState(false)
+  const [cabinetReveal, setCabinetReveal] = useState(false)
   const [seedAccepted, setSeedAccepted] = useState(false)
 
   useEffect(() => {
@@ -175,7 +176,10 @@ export function WorldExperience() {
       if (previousCell >= 0) next[previousCell] = null
       next[cell] = selectedTile
       if (next.every((tile, index) => tile === correctPlateOrder[index])) {
-        window.setTimeout(() => { setCabinetSolved(true); setResearchPoint('seed') }, 350)
+        window.setTimeout(() => {
+          setCabinetSolved(true)
+          window.setTimeout(() => setCabinetReveal(true), 1900)
+        }, 250)
       }
       return next
     })
@@ -253,19 +257,19 @@ export function WorldExperience() {
               </div>
               <div className="cabinet-modal-inventory cabinet-inventory-right">{fragmentTiles.slice(5).map((filename, offset) => ({ filename, index: offset + 5 })).filter(({ index }) => discoveredTiles.includes(index) && !placedTiles.includes(index)).map(({ filename, index }) => <button key={filename} className={`inventory-tile tile-available ${selectedTile === index ? 'tile-selected' : ''}`} disabled={cabinetSolved} onClick={() => setSelectedTile(selectedTile === index ? null : index)} aria-label={`Select fragment ${index + 1}`}><img src={`/manor-puzzle/fragments/${filename}`} alt="" /></button>)}</div>
             </div>
-            {cabinetSolved && <p className="cabinet-success">The hidden shape is complete. The cabinet opens.</p>}
+            {cabinetSolved && !cabinetReveal && <p className="cabinet-success cabinet-success-awakened">The hidden shape begins to glow…</p>}
           </>}
         </section>
       </div>}
 
-      {researchPoint === 'seed' && <div className="hall-modal-backdrop seed-backdrop" role="presentation">
+      {cabinetReveal && <div className="cabinet-reveal-backdrop" role="presentation"><section className="cabinet-reveal-scene" role="dialog" aria-modal="true" aria-labelledby="cabinet-reveal-title"><img className="cabinet-reveal-image" src="/manor-main-hall/cabinet-open-seed.png" alt="The cabinet stands open, revealing the Seed of Harmony" /><div className="cabinet-reveal-vignette" aria-hidden="true" /><div className="cabinet-reveal-copy"><p className="kicker">The cabinet opens</p><h2 id="cabinet-reveal-title">Some things are kept until the right moment.</h2><p>Behind the carved doors, a small light stirs. A seed rests within the darkened cabinet, warm with a light that seems to breathe. The Manor has entrusted you with something that was meant to be found.</p><button className="enter-button" onClick={() => { setCabinetReveal(false); setResearchPoint('seed') }}><span>Discover what was hidden</span><ArrowRight aria-hidden="true" /></button></div></section></div>}\n\n      {researchPoint === 'seed' && <div className="hall-modal-backdrop seed-backdrop" role="presentation">
         <section className="hall-modal seed-modal" role="dialog" aria-modal="true" aria-labelledby="seed-title">
           <div className="seed-emblem"><Sparkles aria-hidden="true" /></div>
           <p className="kicker">The first room yields its secret</p>
           <h2 id="seed-title">Seed of Harmony</h2>
           <p className="research-body">Nestled within the cabinet is a delicate object, warm with a light that seems to breathe. The Manor has entrusted you with something that was meant to be found.</p>
           <div className="seed-art-placeholder"><img className="seed-art-image" src="/manor-artifacts/seed-of-harmony.png" alt="Seed of Harmony" /></div>
-          <button className="enter-button hall-modal-action" onClick={() => { setSeedAccepted(true); setResearchPoint(null); setView('conservatory') }}><span>{seedAccepted ? 'Return to the hall' : 'Accept the Seed'}</span><ArrowRight aria-hidden="true" /></button>
+          <button className="enter-button hall-modal-action" onClick={() => { setSeedAccepted(true); setResearchPoint(null); setView('room') }}><span>{seedAccepted ? 'Return to the hall' : 'Accept the Seed'}</span><ArrowRight aria-hidden="true" /></button>
           <p className="seed-note">The Conservatory remains beyond the next door.</p>
         </section>
       </div>}
