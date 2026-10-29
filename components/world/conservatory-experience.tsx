@@ -22,7 +22,7 @@ const places: Place[] = [
 // The answer is based on relationships between the notes and the locations, not visible plant damage.
 const solution: Record<PlantId, PlaceId> = { silverleaf: 'fountain', moonfern: 'stillcorner', amberbell: 'sunroom' }
 
-export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => void; onLibrary: () => void }) {
+export function ConservatoryExperience({ onBack, onLibrary, onLibraryUnlocked }: { onBack: () => void; onLibrary: () => void; onLibraryUnlocked: () => void }) {
   const [positions, setPositions] = useState<Record<PlantId, PlaceId>>({ silverleaf: 'sunroom', moonfern: 'fountain', amberbell: 'stillcorner' })
   const [selectedPlant, setSelectedPlant] = useState<PlantId | null>(null)
   const [inspecting, setInspecting] = useState<PlantId | null>(null)
@@ -156,7 +156,7 @@ export function ConservatoryExperience({ onBack, onLibrary }: { onBack: () => vo
         <div className="cabinet-reveal-copy"><p className="kicker">A secret entrusted</p><h2 id="quill-title">Archivist’s Quill</h2>
         <p>The sphere opens, revealing a feather-dark quill, its golden nib still marked with ink. It feels less like a tool than a witness to stories carefully kept.</p>
         <p>As you lift it free, something clicks far away — a small, deliberate sound from somewhere within the Main Hall. A long-sealed door has answered.</p>
-        <button className="enter-button" onClick={() => { setArtifactFound(true); setShowArtifact(false) }}><span>Accept the Archivist’s Quill</span><ArrowRight/></button></div>
+        <button className="enter-button" onClick={() => { setArtifactFound(true); onLibraryUnlocked(); setShowArtifact(false) }}><span>Accept the Archivist’s Quill</span><ArrowRight/></button></div>
       </section></div>}
     <div className="conservatory-bottom-mark">EVERY LEAF WAS ONCE A BEGINNING · THE MANOR, UNWRITTEN</div>
   </main>
