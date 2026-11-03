@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   description: 'Enter a living archive of the almost-known.',
   generator: 'Janope',
   manifest: '/manifest.webmanifest',
+  icons: {
+    icon: '/apple-icon.png',
+    apple: '/apple-icon.png',
+  },
 }
 
 export const viewport: Viewport = {
