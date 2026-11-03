@@ -792,3 +792,8 @@ body { min-height:100dvh; }
 .plant-place-confirm:disabled{opacity:.55;cursor:default}
 .conservatory-hotspot .hotspot-occupant{position:absolute;top:calc(100% + 5px);left:50%;transform:translateX(-50%);display:block;width:max-content;max-width:160px;padding:5px 8px;border:1px solid #d7bd7d;background:#07100ef2;color:#f8e9c6;font:10px Arial,sans-serif;letter-spacing:.04em;box-shadow:0 3px 12px #0009;pointer-events:none;white-space:nowrap}
 @media(max-width:700px){.plant-place-select{min-height:44px;font-size:13px}.conservatory-hotspot .hotspot-occupant{font-size:9px;max-width:125px}}
+
+/* Main Hall lists every room the player has unlocked. */
+.hall-room-list{display:flex;align-items:center;justify-content:flex-end;gap:10px;max-width:min(58vw,720px)}
+.hall-room-list .hall-room-unlock{white-space:nowrap}
+@media(max-width:700px){.hall-room-list{gap:6px;max-width:68vw;flex-wrap:wrap}.hall-room-list .hall-room-unlock{min-height:34px;padding:7px 8px;gap:5px;font-size:7px;letter-spacing:.025em}.hall-room-list .hall-room-unlock svg{width:11px;height:11px}}
