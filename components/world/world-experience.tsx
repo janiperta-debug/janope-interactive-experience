@@ -157,7 +157,7 @@ export function WorldExperience() {
   if (view === 'library') {
     return <main className="conservatory-screen library-unlocked-screen">
       <div className="conservatory-backdrop library-placeholder-backdrop" aria-hidden="true" />
-      <header className="conservatory-header"><button className="back-button" onClick={() => setView('conservatory')}><ArrowLeft aria-hidden="true" /><span>Conservatory</span></button><div className="conservatory-title">THE MANOR <i>·</i> LIBRARY</div><div className="conservatory-progress">ROOM UNLOCKED</div></header>
+      <header className="conservatory-header"><button className="back-button" onClick={() => setView('room')}><ArrowLeft aria-hidden="true" /><span>Main Hall</span></button><div className="conservatory-title">THE MANOR <i>·</i> LIBRARY</div><div className="conservatory-progress">ROOM UNLOCKED</div></header>
       <section className="library-unlocked-card"><p className="kicker">The next door has opened</p><h1>The Library</h1><p>Within these walls, countless stories are preserved. Knowledge is the key that unlocks every other door.</p><ArchiveFrame weight="thin"><div className="library-placeholder-art"><BookOpen aria-hidden="true"/><span>LIBRARY SCENE ARTWORK PLACEHOLDER</span><small>/manor-library/library-scene.png</small></div></ArchiveFrame><p className="seed-note">The Archivist’s Quill has been added to your collection. The Library’s mystery awaits.</p><button className="enter-button" onClick={() => setView('room')}><span>Return to the Main Hall</span><ArrowRight/></button></section>
     </main>
   }
@@ -201,7 +201,7 @@ export function WorldExperience() {
         <header className="hall-header">
           <button className="back-button" onClick={() => setView('threshold')} aria-label="Return to the threshold"><ArrowLeft aria-hidden="true" /><span>The Threshold</span></button>
           <div className="hall-title">THE MANOR <i>·</i> MAIN HALL</div>
-          {libraryUnlocked ? <button className="hall-room-unlock" onClick={() => setView('library')}><BookOpen aria-hidden="true" /><span>Enter the Library</span><ArrowRight aria-hidden="true" /></button> : seedAccepted ? <button className="hall-room-unlock" onClick={() => setView('conservatory')}><Sparkles aria-hidden="true" /><span>Enter the Conservatory</span><ArrowRight aria-hidden="true" /></button> : <div className="hall-progress">{discoveredTiles.length} <span>/ 9 fragments</span></div>}
+          {seedAccepted || libraryUnlocked ? <nav className="hall-room-list" aria-label="Unlocked rooms">{seedAccepted && <button className="hall-room-unlock" onClick={() => setView('conservatory')}><Sparkles aria-hidden="true" /><span>Enter the Conservatory</span><ArrowRight aria-hidden="true" /></button>}{libraryUnlocked && <button className="hall-room-unlock" onClick={() => setView('library')}><BookOpen aria-hidden="true" /><span>Enter the Library</span><ArrowRight aria-hidden="true" /></button>}</nav> : <div className="hall-progress">{discoveredTiles.length} <span>/ 9 fragments</span></div>}
         </header>
         <button className={`hall-hotspot hotspot-portrait ${foundGroups.includes('portrait') ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('portrait')} aria-label="Examine portrait"><span aria-hidden="true">X</span></button>
         <button className={`hall-hotspot hotspot-staircase ${foundGroups.includes('staircase') ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('staircase')} aria-label="Examine staircase stonework"><span aria-hidden="true">X</span></button>
