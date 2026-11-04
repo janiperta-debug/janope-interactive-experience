@@ -65,33 +65,31 @@ export function LibraryExperience({ onBack, onArtifactUnlocked }: { onBack: () =
   const placeFragment = (slot: number) => {
     if (solved) return
     setWrongOrder(false)
+
     if (selected === null) {
       const existing = order[slot]
-      if (existing !== null) {
-        setSelected(existing)
-        setOrder((current) => current.map((value, index) => index === slot ? null : value))
-      }
+      if (existing !== null) setSelected(existing)
       return
     }
-    setOrder((current) => {
-      const next = [...current]
-      const previous = next.indexOf(selected)
-      if (previous >= 0) next[previous] = null
-      next[slot] = selected
-      if (next.every((value) => value !== null)) {
-        const correct = next[0] === 0 && next[1] === 1 && next[2] === 2
-        if (correct) {
-          window.setTimeout(() => {
-            setSolved(true)
-            window.setTimeout(() => setReveal(true), 1800)
-          }, 250)
-        } else {
-          setWrongOrder(true)
-        }
-      }
-      return next
-    })
+
+    const next = [...order]
+    const sourceSlot = next.indexOf(selected)
+    const displaced = next[slot]
+
+    if (sourceSlot >= 0) next[sourceSlot] = displaced
+    next[slot] = selected
+
+    setOrder(next)
     setSelected(null)
+
+    if (next.every((value) => value !== null)) {
+      const correct = next[0] === 0 && next[1] === 1 && next[2] === 2
+      if (correct) {
+        setSolved(true)
+      } else {
+        setWrongOrder(true)
+      }
+    }
   }
 
   const closeBook = () => {
@@ -123,29 +121,35 @@ export function LibraryExperience({ onBack, onArtifactUnlocked }: { onBack: () =
           {point === 'book' ? <>
             <p className="kicker">LIBRARY · THE MISSING PAGE</p>
             <h2 id="library-modal-title">The Three Watchers</h2>
-            <div className="library-book-layout">
-              <img className="library-book-detail" src="/manor-library/open-book-detail.png" alt="An old open book with a page missing" />
-              <div className="library-book-clue">
-                <p>Three verses have been torn from the book. Their meaning is incomplete, but the original page offers a clue.</p>
-                <img src="/manor-library/bird-order-illustration.png" alt="A raven near the earth, a swallow in the middle air, and an eagle high above" />
-                <blockquote>“Read the watchers as they rise, from the silent earth to the endless sky.”</blockquote>
+            {!solved ? <>
+              <div className="library-book-layout">
+                <img className="library-book-detail" src="/manor-library/open-book-detail.png" alt="An old open book with a page missing" />
+                <div className="library-book-clue">
+                  <p>Three verses have been torn from the book. Their meaning is incomplete. The scattered fragments may restore what is missing.</p>
+                  <blockquote>“Read the watchers as they rise, from the silent earth to the endless sky.”</blockquote>
+                </div>
               </div>
-            </div>
-            <p className="library-puzzle-instruction">Place the recovered verses in the order shown by the illustration, from the lowest watcher to the highest.</p>
-            <div className="library-assembly">
-              {order.map((fragmentIndex, slot) => <button key={slot} className={`library-assembly-slot ${fragmentIndex !== null ? 'has-fragment' : ''} ${selected !== null ? 'slot-ready' : ''}`} onClick={() => placeFragment(slot)} disabled={solved || selected === null} aria-label={`Place verse in position ${slot + 1}`}>
-                {fragmentIndex === null ? <span>{['I · LOWEST','II · MIDDLE','III · HIGHEST'][slot]}</span> : <span className="library-verse-preview">{fragments[fragmentIndex].text}</span>}
-              </button>)}
-            </div>
-            <div className="library-fragment-inventory">
-              {found.map((index) => order.includes(index) ? null : <button key={index} className={`library-fragment-card ${selected === index ? 'selected' : ''}`} onClick={() => setSelected(selected === index ? null : index)} disabled={solved}>
-                <img src={fragments[index].image} alt={`Recovered poem fragment ${index + 1}`} />
-                <span>{selected === index ? 'SELECTED' : 'SELECT VERSE'}</span>
-              </button>)}
-            </div>
-            {wrongOrder && <p className="library-wrong-order">The verses do not yet follow the order of the watchers. Study the illustration again.</p>}
-            {solved && <p className="library-solved-note"><Check aria-hidden="true" /> The missing page has been restored.</p>}
-            <button className="enter-button hall-modal-action" onClick={closeBook}><span>Close the book</span><ArrowRight aria-hidden="true" /></button>
+              <p className="library-puzzle-instruction">Place the recovered verses in order, from the lowest watcher to the highest.</p>
+              <div className="library-assembly">
+                {order.map((fragmentIndex, slot) => <button key={slot} className={`library-assembly-slot ${fragmentIndex !== null ? 'has-fragment' : ''} ${selected !== null ? 'slot-ready' : ''} ${fragmentIndex === selected ? 'is-selected' : ''}`} onClick={() => placeFragment(slot)} aria-label={fragmentIndex !== null ? `Select or exchange verse in position ${slot + 1}` : `Place verse in position ${slot + 1}`}>
+                  {fragmentIndex === null ? <span>{['I · LOWEST','II · MIDDLE','III · HIGHEST'][slot]}</span> : <span className="library-verse-preview">{fragments[fragmentIndex].text}</span>}
+                </button>)}
+              </div>
+              <div className="library-fragment-inventory">
+                {found.map((index) => order.includes(index) ? null : <button key={index} className={`library-fragment-card ${selected === index ? 'selected' : ''}`} onClick={() => setSelected(selected === index ? null : index)}>
+                  <img src={fragments[index].image} alt={`Recovered poem fragment ${index + 1}`} />
+                  <span>{selected === index ? 'SELECTED' : 'SELECT VERSE'}</span>
+                </button>)}
+              </div>
+              {selected !== null && <p className="library-puzzle-instruction">Choose a position to place the selected verse. Selecting an occupied position exchanges the verses.</p>}
+              {wrongOrder && <p className="library-wrong-order">The verses do not yet follow the order of the watchers. You can rearrange them.</p>}
+            </> : <>
+              <p className="kicker">THE MISSING PAGE RESTORED</p>
+              <h2>The Three Watchers</h2>
+              <img className="library-completed-page" src="/manor-library/bird-order-illustration.png" alt="The restored page of The Three Watchers, with all three verses in their correct order" />
+              <p className="library-solved-note"><Check aria-hidden="true" /> The missing page has been restored.</p>
+              <button className="enter-button hall-modal-action" onClick={() => { setPoint(null); setReveal(true) }}><span>Continue to the opened drawer</span><ArrowRight aria-hidden="true" /></button>
+            </>}
           </> : point === 'leftDesk' ? <>
             <p className="kicker">LIBRARY · THE WRITING DESK</p>
             <h2 id="library-modal-title">A Sealed Drawer</h2>
