@@ -797,3 +797,74 @@ body { min-height:100dvh; }
 .hall-room-list{display:flex;align-items:center;justify-content:flex-end;gap:10px;max-width:min(58vw,720px)}
 .hall-room-list .hall-room-unlock{white-space:nowrap}
 @media(max-width:700px){.hall-room-list{gap:6px;max-width:68vw;flex-wrap:wrap}.hall-room-list .hall-room-unlock{min-height:34px;padding:7px 8px;gap:5px;font-size:7px;letter-spacing:.025em}.hall-room-list .hall-room-unlock svg{width:11px;height:11px}}
+
+
+/* Library puzzle scene: image-backed hotspots are intentionally visible while positioning. */
+.library-screen{position:relative;min-height:100svh;height:100svh;overflow:hidden!important;padding:0!important;background:#100d12;color:#e9dfca}
+.library-backdrop{position:fixed;z-index:0;inset:0;background:#100d12 url('/manor-library/library-background.png') center center / cover no-repeat}
+.library-backdrop:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#08070bbd 0%,transparent 20%,transparent 76%,#08070b99 100%)}
+.library-header{z-index:5}
+.library-header .conservatory-progress{color:#d4c1e0}
+.library-hotspots{position:fixed;z-index:4;inset:0;pointer-events:none}
+.library-hotspot{position:absolute;pointer-events:auto;display:grid;place-items:center;width:clamp(38px,3.1vw,48px);height:clamp(38px,3.1vw,48px);padding:0;border:2px solid #d5b9df;background:#17101bdc;color:#fff0d4;box-shadow:0 0 0 2px #09070b99,0 0 22px #c69bdf77;font:700 14px Arial,sans-serif;cursor:pointer;transition:transform .2s,background .2s}
+.library-hotspot:hover{transform:scale(1.08);background:#392744;border-color:#f4d9ff}
+.library-hotspot.is-complete{border-color:#b7c98e;box-shadow:0 0 18px #b7c98e66}
+.library-hotspot-book{left:49%;top:58%}
+.library-hotspot-back-desk{left:23%;top:37%}
+.library-hotspot-staircase{left:39%;top:27%}
+.library-hotspot-bookshelf{left:77%;top:40%}
+.library-hotspot-left-desk{left:17%;top:67%}
+.library-tuning-note{position:fixed;z-index:5;left:50%;bottom:16px;transform:translateX(-50%);padding:8px 12px;border:1px solid #d5b9df88;background:#100b16df;color:#e6d2ee;font:9px Arial,sans-serif;letter-spacing:.15em;pointer-events:none}
+.library-modal-backdrop{z-index:30}
+.library-modal{width:min(980px,100%);background:linear-gradient(145deg,#211a28,#100e14 78%);border-color:#a98abb}
+.library-modal h2{color:#e5c8ed}
+.library-book-layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:22px;align-items:center;margin-top:14px}
+.library-book-detail{width:100%;max-height:300px;object-fit:contain;background:#17121a}
+.library-book-clue>p,.library-puzzle-instruction{color:#d0c5d3;font-size:13px;line-height:1.65}
+.library-book-clue>img{display:block;width:min(100%,340px);height:150px;object-fit:contain;margin:10px auto;background:#e6d8b9}
+.library-book-clue blockquote{margin:12px 0 0;padding:10px 14px;border-left:2px solid #b99a70;color:#e5d3b6;font-style:italic;line-height:1.6}
+.library-puzzle-instruction{margin:18px 0 10px}
+.library-assembly{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.library-assembly-slot{min-height:104px;padding:10px;border:1px dashed #a98abb88;background:#130f18;color:#a99aaf;cursor:pointer}
+.library-assembly-slot.slot-ready{border-color:#d5b9df;background:#21182a}
+.library-assembly-slot.has-fragment{border-style:solid;border-color:#b9a0c5;background:#251d2a}
+.library-assembly-slot>span:first-child{font:9px Arial,sans-serif;letter-spacing:.12em}
+.library-verse-preview{display:block;white-space:pre-line;color:#eadbc3;font:italic 13px/1.6 Georgia,serif}
+.library-fragment-inventory{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+.library-fragment-card{display:flex;align-items:center;gap:8px;max-width:220px;padding:7px 10px;border:1px solid #a98abb66;background:#17121c;color:#d7c6de;cursor:pointer}
+.library-fragment-card img{width:74px;height:58px;object-fit:contain}
+.library-fragment-card span{font:8px Arial,sans-serif;letter-spacing:.1em}
+.library-fragment-card.selected{border-color:#f0d49a;box-shadow:0 0 16px #d5b56a44}
+.library-wrong-order{color:#e2b2a5;font-size:12px}
+.library-solved-note{display:flex;align-items:center;gap:8px;color:#c6d49e;font-size:13px}
+.library-solved-note svg{width:17px}
+.library-point-detail{display:block;width:100%;max-height:260px;object-fit:contain;margin:8px auto 16px;background:#17121a}
+.library-discovery-layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:22px;align-items:center}
+.library-found-fragment{display:flex;align-items:center;gap:10px;margin-top:14px;padding:9px;border:1px solid #a98abb55;background:#17121c}
+.library-found-fragment img{width:100px;height:65px;object-fit:contain}
+.library-found-fragment span{color:#c9b5d2;font:8px Arial,sans-serif;letter-spacing:.1em}
+.library-reveal-backdrop{z-index:140}
+.library-reveal-scene .cabinet-reveal-vignette{background:linear-gradient(90deg,#08060be8 0%,#08060bb8 36%,#08060b22 70%,transparent 100%),linear-gradient(0deg,#08060b99,transparent 42%,#08060b44)}
+.library-reveal-scene .cabinet-reveal-copy{width:min(480px,44vw)}
+.library-reveal-scene .cabinet-reveal-copy h2{color:#e6c8ed}
+.library-reveal-scene .cabinet-reveal-copy>p:not(.kicker){color:#e0d6e4;line-height:1.7}
+.library-artifact-reveal{display:block;width:130px;height:110px;object-fit:contain;margin:12px 0}
+@media(max-width:700px){
+ .library-header{padding:13px 14px}
+ .library-header .conservatory-title{display:none}
+ .library-hotspot{width:38px;height:38px;font-size:12px}
+ .library-tuning-note{bottom:10px;font-size:8px;white-space:nowrap}
+ .library-modal{padding:26px 18px 20px}
+ .library-book-layout,.library-discovery-layout{grid-template-columns:1fr;gap:12px}
+ .library-book-detail{max-height:150px}
+ .library-book-clue>img{height:110px}
+ .library-assembly{gap:6px}
+ .library-assembly-slot{min-height:100px;padding:6px}
+ .library-verse-preview{font-size:10px;line-height:1.45}
+ .library-fragment-card{flex:1 1 100%;max-width:none}
+ .library-fragment-card img{width:66px;height:48px}
+ .library-point-detail{max-height:150px}
+ .library-reveal-scene .cabinet-reveal-copy{width:auto}
+ .library-artifact-reveal{width:90px;height:74px}
+}
+@media(prefers-reduced-motion:reduce){.library-hotspot{transition:none}}
