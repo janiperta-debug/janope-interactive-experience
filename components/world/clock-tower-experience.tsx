@@ -135,14 +135,14 @@ export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: (
 
     {reveal && <div className="cabinet-reveal-backdrop clock-tower-reveal">
       <section className="cabinet-reveal-scene clock-tower-reveal-scene" role="dialog" aria-modal="true" aria-labelledby="clock-tower-reveal-title">
-        <img className="cabinet-reveal-image" src="/manor-clock-tower/clockwork-awakened.png" alt="The great clock has awakened and revealed the Heart of Time"/>
+        <img className="cabinet-reveal-image" src="/manor-clock-tower/clockwork-awakened.png" alt="The great clock has awakened and revealed the Seeker’s Compass"/>
         <div className="cabinet-reveal-vignette" aria-hidden="true"/>
         <div className="cabinet-reveal-copy">
           <p className="kicker">THE MANOR REMEMBERS</p>
-          <h2 id="clock-tower-reveal-title">The Heart of Time</h2>
-          <p>The four gears begin to turn. One awakens the next, until the entire mechanism moves as a single living thing. The great clock strikes for the first time in many years. At its heart, the Heart of Time has been waiting for you.</p>
-          <img className="clock-tower-artifact" src="/manor-clock-tower/heart-of-time.png" alt="The Heart of Time artifact"/>
-          <button className="enter-button" onClick={onArtifactUnlocked}><span>Receive the Heart of Time</span><ArrowRight/></button>
+          <h2 id="clock-tower-reveal-title">Seeker’s Compass</h2>
+          <p>The four gears begin to turn. One awakens the next, until the entire mechanism moves as a single living thing. The great clock strikes for the first time in many years. At its heart, the Seeker’s Compass has been waiting for you.</p>
+          <img className="clock-tower-artifact" src="/manor-clock-tower/seekers-compass.png" alt="Seeker’s Compass artifact"/>
+          <button className="enter-button" onClick={onArtifactUnlocked}><span>Receive the Seeker’s Compass</span><ArrowRight/></button>
         </div>
       </section>
     </div>}
