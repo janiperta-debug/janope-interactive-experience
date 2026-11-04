@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { ArrowLeft, ArrowRight, BookOpen, Check, LockKeyhole, Sparkles, X } from 'lucide-react'
 
-type MemoryId = 'fragment' | 'seed' | 'quill' | 'watchers' | 'heart'
+type MemoryId = 'fragment' | 'seed' | 'quill' | 'hourglass' | 'compass'
 
 const memories: {
   id: MemoryId
@@ -42,13 +42,13 @@ const memories: {
     meaning: 'Understanding often begins by noticing where things belong.',
   },
   {
-    id: 'watchers',
-    title: 'The Three Watchers',
+    id: 'hourglass',
+    title: 'Hourglass of Clarity',
     room: 'THE LIBRARY',
     image: '/manor-library/library-artifact.png',
-    symbol: '✥',
-    recollection: 'A scattered poem was restored by reading its watchers from the earth towards the sky.',
-    meaning: 'A fragment changes its meaning when seen in the right order.',
+    symbol: '⌛',
+    recollection: 'The Three Watchers revealed their order, and the Library entrusted you with the Hourglass of Clarity.',
+    meaning: 'It sharpens perception, reveals the right moment, and grants the clarity to act when it matters most.',
   },
   {
     id: 'compass',
