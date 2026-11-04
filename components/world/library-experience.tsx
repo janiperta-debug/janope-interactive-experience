@@ -177,9 +177,9 @@ export function LibraryExperience({ onBack, onArtifactUnlocked }: { onBack: () =
           <div className="cabinet-reveal-copy">
             <p className="kicker">THE LIBRARY HAS REVEALED ITS SECRET</p>
             <h2 id="library-reveal-title">The page remembers.</h2>
-            <p>The verses have found their place. Somewhere in the old desk, a hidden mechanism answers. The drawer opens, revealing an artifact entrusted to the next part of your journey.</p>
-            <img className="library-artifact-reveal" src="/manor-library/library-artifact.png" alt="The artifact discovered in the Library" />
-            <button className="enter-button" onClick={onArtifactUnlocked}><span>Receive the artifact</span><ArrowRight aria-hidden="true" /></button>
+            <p>The verses have found their place. Somewhere in the old desk, a hidden mechanism answers. The drawer opens, revealing the Hourglass of Clarity, entrusted to the next part of your journey.</p>
+            <img className="library-artifact-reveal" src="/manor-library/library-artifact.png" alt="The Hourglass of Clarity discovered in the Library" />
+            <button className="enter-button" onClick={onArtifactUnlocked}><span>Receive the Hourglass of Clarity</span><ArrowRight aria-hidden="true" /></button>
           </div>
         </section>
       </div>}
