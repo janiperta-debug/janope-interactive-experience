@@ -52,9 +52,9 @@ const memories: {
   },
   {
     id: 'heart',
-    title: 'The Heart of Time',
+    title: 'The Hourglass of Clarity',
     room: 'THE CLOCK TOWER',
-    image: '/manor-clock-tower/heart-of-time.png',
+    image: '/manor-clock-tower/hourglass-of-clarity.png',
     symbol: '◉',
     recollection: 'Four memories were placed in the order in which the Manor entrusted them to you. The great clock began to turn.',
     meaning: 'The path behind you is what makes the next step possible.',
@@ -93,9 +93,9 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
 
       {!templeAwakened && (
         <div className="temple-arrival-card">
-          <p className="kicker">THE HEART OF TIME · THE FINAL PASSAGE</p>
+          <p className="kicker">THE HOURGLASS OF CLARITY · THE FINAL PASSAGE</p>
           <h2>The Temple has been waiting.</h2>
-          <p>The Heart of Time stirs in your hands. Across the chamber, forgotten memories begin to answer its call.</p>
+          <p>The Hourglass of Clarity rests in your hands. Its quiet measure brings the forgotten memories into focus, and the Temple begins to answer its call.</p>
           <button className="enter-button" onClick={() => setTempleAwakened(true)}><span>Awaken the Temple</span><Sparkles aria-hidden="true" /></button>
         </div>
       )}
