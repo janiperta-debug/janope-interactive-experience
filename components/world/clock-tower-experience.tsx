@@ -74,7 +74,13 @@ export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: (
       <div className="clockwork-slots">
         {placed.map((id, index) => {
           const gear = gears.find(item => item.id === id)
-          return <button key={index} className={`clockwork-slot ${gear ? 'has-gear' : ''} ${selected ? 'slot-ready' : ''}`} onClick={() => place(index)} disabled={!selected || solved}>
+          return <button key={index} className={`clockwork-slot ${gear ? 'has-gear' : ''} ${selected ? 'slot-ready' : ''}`} onClick={() => {
+            if (selected) place(index)
+            else if (id) {
+              setSelected(id)
+              setPlaced(current => current.map((value, slot) => slot === index ? null : value))
+            }
+          }} disabled={solved}>
             <span className="clockwork-slot-number">0{index + 1}</span>
             {gear ? <><span className="clockwork-gear-symbol">{gear.symbol}</span><strong>{gear.name}</strong><small>{gear.relic}</small></> : <><span className="clockwork-empty">⚙</span><small>Place a gear</small></>}
           </button>
