@@ -140,8 +140,8 @@ export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: (
         <div className="cabinet-reveal-copy">
           <p className="kicker">THE MANOR REMEMBERS</p>
           <h2 id="clock-tower-reveal-title">The Heart of Time</h2>
-          <p>The four gears begin to turn. One awakens the next, until the entire mechanism moves as a single living thing. The great clock strikes for the first time in many years. At its heart, the Hourglass of Clarity has been waiting for you.</p>
-          <img className="clock-tower-artifact" src="/manor-clock-tower/heart-of-time.png" alt="The Hourglass of Clarity artifact"/>
+          <p>The four gears begin to turn. One awakens the next, until the entire mechanism moves as a single living thing. The great clock strikes for the first time in many years. At its heart, the Heart of Time has been waiting for you.</p>
+          <img className="clock-tower-artifact" src="/manor-clock-tower/heart-of-time.png" alt="The Heart of Time artifact"/>
           <button className="enter-button" onClick={onArtifactUnlocked}><span>Receive the Heart of Time</span><ArrowRight/></button>
         </div>
       </section>
