@@ -93,9 +93,9 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
 
       {!templeAwakened && (
         <div className="temple-arrival-card">
-          <p className="kicker">THE HOURGLASS OF CLARITY · THE FINAL PASSAGE</p>
+          <p className="kicker">THE HEART OF TIME · THE FINAL PASSAGE</p>
           <h2>The Temple has been waiting.</h2>
-          <p>The Hourglass of Clarity rests in your hands. Its quiet measure brings the forgotten memories into focus, and the Temple begins to answer its call.</p>
+          <p>The Heart of Time rests in your hands. Its steady pulse brings the forgotten memories into focus, and the Temple begins to answer its call.</p>
           <button className="enter-button" onClick={() => setTempleAwakened(true)}><span>Awaken the Temple</span><Sparkles aria-hidden="true" /></button>
         </div>
       )}
