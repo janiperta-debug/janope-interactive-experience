@@ -868,3 +868,81 @@ body { min-height:100dvh; }
  .library-artifact-reveal{width:90px;height:74px}
 }
 @media(prefers-reduced-motion:reduce){.library-hotspot{transition:none}}
+
+
+/* Clock Tower: the four-gear memory puzzle */
+.clock-tower-screen{position:relative;width:100%;height:100svh;min-height:680px;overflow:hidden;background:#080b0e;color:#eee2c7}
+.clock-tower-backdrop{position:absolute;inset:0;background:#080b0e url('/manor-clock-tower/clock-tower-background.png') center center/cover no-repeat}
+.clock-tower-shade{position:absolute;inset:0;background:linear-gradient(180deg,#050709a8 0%,transparent 18%,transparent 45%,#050709c9 100%),radial-gradient(ellipse at 50% 48%,transparent 25%,#02040555 100%);pointer-events:none}
+.clock-tower-header{z-index:8}
+.clock-tower-header .conservatory-title{color:#e0bd79}
+.clock-tower-header .conservatory-progress{color:#e0bd79}
+.clock-tower-hotspots{position:absolute;z-index:5;inset:0;pointer-events:none}
+.clock-tower-hotspot{position:absolute;pointer-events:auto;display:grid;place-items:center;width:clamp(38px,3.1vw,48px);height:clamp(38px,3.1vw,48px);padding:0;border:2px solid #e0bd79;background:#101417dc;color:#fff0c8;box-shadow:0 0 0 2px #05070999,0 0 20px #e0bd7970;font:700 14px Arial,sans-serif;cursor:pointer}
+.clock-tower-hotspot:hover{background:#3a3020;border-color:#fff0b3;transform:scale(1.07)}
+.clock-tower-hotspot.is-found{border-color:#b9c992;color:#dce9b5}
+.clock-tower-hotspot-1{left:13%;top:47%}.clock-tower-hotspot-2{left:35%;top:64%}.clock-tower-hotspot-3{left:67%;top:64%}.clock-tower-hotspot-4{left:86%;top:47%}
+.clock-tower-hotspot-clock{left:48%;top:22%;width:52px;height:52px;border-radius:50%}
+.clock-tower-tuning-note{position:absolute;z-index:7;left:50%;top:74%;transform:translateX(-50%);padding:8px 12px;border:1px solid #d4b56f88;background:#080d11df;color:#f0d7a0;font:9px Arial,sans-serif;letter-spacing:.14em;white-space:nowrap;pointer-events:none}
+.clockwork-panel{position:absolute;z-index:6;left:50%;bottom:clamp(18px,4vh,42px);transform:translateX(-50%);width:min(900px,calc(100% - 36px));max-height:65vh;overflow:auto;padding:20px 24px 18px;border:1px solid #c6a56588;background:linear-gradient(145deg,#11191deF,#090e12f5 75%);box-shadow:0 18px 70px #000b,inset 0 0 36px #c99c3b0b;backdrop-filter:blur(12px)}
+.clockwork-heading{text-align:center;max-width:650px;margin:0 auto 16px}
+.clockwork-heading .kicker{color:#d5b56e}
+.clockwork-heading h1{margin:5px 0 7px;color:#f0d49a;font:400 clamp(25px,3vw,36px)/1.1 Georgia,serif}
+.clockwork-heading>p:last-child{margin:0;color:#cfc6b5;font-size:12px;line-height:1.55}
+.clockwork-slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.clockwork-slot{position:relative;display:flex;min-height:108px;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:12px 7px;border:1px dashed #b69a6277;background:radial-gradient(ellipse at center,#242a2b,#0b1012 78%);color:#e8d8b8;cursor:pointer}
+.clockwork-slot.slot-ready{border-color:#e4c477;box-shadow:inset 0 0 22px #d4a64a20}
+.clockwork-slot.has-gear{border-style:solid;border-color:#c8a45d;background:radial-gradient(ellipse at center,#343022,#111514 78%)}
+.clockwork-slot-number{position:absolute;top:6px;left:9px;color:#a38b5e;font:9px Arial,sans-serif;letter-spacing:.1em}
+.clockwork-gear-symbol{display:grid;place-items:center;width:42px;height:42px;border:2px solid #b99a5c;border-radius:50%;color:#e6c77f;font:27px Georgia,serif;box-shadow:0 0 15px #d5ad4a22}
+.clockwork-slot strong{font:12px Georgia,serif;color:#f0dfbd}
+.clockwork-slot small{font:9px Arial,sans-serif;color:#bcb09b;text-align:center}
+.clockwork-empty{font-size:34px;color:#776b53}
+.clockwork-inventory{margin-top:14px}
+.clockwork-inventory-heading{display:flex;justify-content:space-between;color:#bda574;font:9px Arial,sans-serif;letter-spacing:.15em}
+.clockwork-gear-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}
+.clockwork-gear-card{display:flex;align-items:center;gap:8px;min-width:0;padding:8px;border:1px solid #8c795355;background:#111719;color:#e9ddc5;text-align:left;cursor:pointer}
+.clockwork-gear-card.is-selected{border-color:#e3c477;background:#2a261b;box-shadow:0 0 14px #d5ad4a2b}
+.clockwork-gear-card.is-placed{opacity:.42;cursor:default}
+.clockwork-gear-medallion{display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;border:1px solid #b99a5c;border-radius:50%;color:#e8cb83;font:21px Georgia,serif}
+.clockwork-gear-card>span:nth-child(2){display:grid;min-width:0;gap:3px}
+.clockwork-gear-card strong{font:10px Georgia,serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.clockwork-gear-card small{font:8px Arial,sans-serif;color:#b9ad99;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.clockwork-gear-card svg{width:14px;flex:0 0 auto;color:#d9c58e}
+.clockwork-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px}
+.clockwork-inscription-button{padding:10px 13px;border:1px solid #a38b5e88;background:#151b1c;color:#d9c89f;font:10px Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.clockwork-actions .enter-button{margin:0;min-width:250px}
+.clockwork-actions .enter-button:disabled{opacity:.42;cursor:not-allowed}
+.clockwork-feedback{margin:10px 0 0;text-align:center;color:#e2b2a5;font:10px Arial,sans-serif;letter-spacing:.08em}
+.clockwork-feedback.is-solved{color:#d8d49a}
+.clockwork-modal-backdrop{z-index:60}
+.clockwork-inscription{max-width:580px;border-color:#b99a5c;background:linear-gradient(145deg,#1b2020,#0b1012)}
+.clockwork-inscription h2{color:#e5cb91}
+.clockwork-inscription blockquote{margin:18px 0;padding:16px 18px;border-left:2px solid #b99a5c;color:#e8d9b8;font:italic 18px/1.7 Georgia,serif}
+.clock-tower-reveal{z-index:160}
+.clock-tower-reveal-scene .cabinet-reveal-vignette{background:linear-gradient(90deg,#05090ceF 0%,#05090cb8 36%,#05090c22 70%,transparent 100%),linear-gradient(0deg,#05090c99,transparent 42%,#05090c44)}
+.clock-tower-reveal-scene .cabinet-reveal-copy{width:min(490px,45vw)}
+.clock-tower-reveal-scene .cabinet-reveal-copy h2{color:#e7c77f}
+.clock-tower-artifact{display:block;width:120px;height:100px;object-fit:contain;margin:12px 0}
+@media(max-width:700px){
+ .clock-tower-screen{height:auto;min-height:100svh;overflow:auto;padding-bottom:18px}
+ .clock-tower-backdrop{position:fixed;background-position:52% center}
+ .clock-tower-header{position:absolute;padding:13px 14px}
+ .clock-tower-header .conservatory-title{display:none}
+ .clock-tower-hotspot{width:36px;height:36px;font-size:12px}
+ .clock-tower-hotspot-clock{width:42px;height:42px}
+ .clock-tower-hotspot-1{left:5%;top:29%}.clock-tower-hotspot-2{left:28%;top:39%}.clock-tower-hotspot-3{left:69%;top:39%}.clock-tower-hotspot-4{left:89%;top:29%}
+ .clock-tower-hotspot-clock{left:47%;top:18%}
+ .clock-tower-tuning-note{top:48%;font-size:8px}
+ .clockwork-panel{position:relative;left:auto;bottom:auto;transform:none;width:calc(100% - 20px);max-height:none;margin:56vh auto 0;padding:16px 12px}
+ .clockwork-slots{gap:5px}
+ .clockwork-slot{min-height:98px;padding:8px 4px}
+ .clockwork-slot strong{font-size:9px}
+ .clockwork-slot small{font-size:7px}
+ .clockwork-gear-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .clockwork-actions{align-items:stretch;flex-direction:column}
+ .clockwork-actions .enter-button{width:100%;min-width:0}
+ .clockwork-reveal-scene .cabinet-reveal-copy{width:auto}
+ .clock-tower-reveal-scene .cabinet-reveal-copy{width:auto}
+}
+@media(prefers-reduced-motion:reduce){.clock-tower-hotspot{transition:none}}
