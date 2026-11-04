@@ -64,6 +64,7 @@ export function LibraryExperience({ onBack, onArtifactUnlocked }: { onBack: () =
 
   const placeFragment = (slot: number) => {
     if (solved) return
+    setWrongOrder(false)
     if (selected === null) {
       const existing = order[slot]
       if (existing !== null) {
