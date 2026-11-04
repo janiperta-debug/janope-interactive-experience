@@ -8,6 +8,7 @@ import { ArchiveFrame } from '@/components/ui/archive-frame'
 import { ConservatoryExperience } from '@/components/world/conservatory-experience'
 import { LibraryExperience } from '@/components/world/library-experience'
 import { ClockTowerExperience } from '@/components/world/clock-tower-experience'
+import { UndergroundTempleExperience } from '@/components/world/underground-temple-experience'
 
 const artifact = artifacts[0]
 const discovery = discoveries.find((item) => item.id === artifact.discoveryId) ?? discoveries[0]
@@ -163,7 +164,7 @@ export function WorldExperience() {
   }
 
   if (view === 'undergroundTemple') {
-    return <main className="conservatory-screen library-unlocked-screen"><div className="library-backdrop" aria-hidden="true" /><header className="conservatory-header library-header"><button className="back-button" onClick={() => setView('room')}><ArrowLeft aria-hidden="true" /><span>Main Hall</span></button><div className="conservatory-title">THE MANOR <i>·</i> UNDERGROUND TEMPLE</div><div className="conservatory-progress">THE FINAL CHAMBER</div></header><section className="library-unlocked-card"><p className="kicker">The final passage has opened</p><h1>The Underground Temple</h1><p>The Heart of Time has revealed a passage beneath the Manor. The final question waits below.</p><button className="enter-button" onClick={() => setView('room')}><span>Return to the Main Hall</span><ArrowRight /></button></section></main>
+    return <UndergroundTempleExperience onBack={() => setView('room')} />
   }
 
   if (view === 'library') {
