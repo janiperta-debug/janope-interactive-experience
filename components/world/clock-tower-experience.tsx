@@ -1,21 +1,22 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowLeft, ArrowRight, Check, LockKeyhole, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, X } from 'lucide-react'
 
 type GearId = 'arrival' | 'key' | 'plant' | 'bird'
-const gears: { id: GearId; symbol: string; name: string; relic: string; memory: string }[] = [
-  { id: 'arrival', symbol: '✧', name: 'The First Fragment', relic: 'The Manor’s first gift', memory: 'A fragment was placed in your hands before you knew what it belonged to.' },
-  { id: 'key', symbol: '⚿', name: 'The Key', relic: 'Seed of Harmony', memory: 'The cabinet opened only after the nine fragments had become one.' },
-  { id: 'plant', symbol: '❧', name: 'The Living Leaf', relic: 'Archivist’s Quill', memory: 'The celestial sphere yielded its secret when every plant found its place.' },
-  { id: 'bird', symbol: '♧', name: 'The Watcher', relic: 'The Library artifact', memory: 'The missing page was restored when the watchers found their order.' },
+const gears: { id: GearId; symbol: string; name: string; relic: string; memory: string; meaning: string }[] = [
+  { id: 'arrival', symbol: '✧', name: 'The First Fragment', relic: 'The Manor’s first gift', memory: 'A fragment was placed in your hands before you knew what it belonged to.', meaning: 'Every journey begins with something small. The first fragment was the Manor’s invitation to look closer.' },
+  { id: 'key', symbol: '⚿', name: 'The Key', relic: 'Seed of Harmony', memory: 'The cabinet opened only after the nine fragments had become one.', meaning: 'What seemed broken became whole. The Seed of Harmony was entrusted to you when the hidden shape was restored.' },
+  { id: 'plant', symbol: '❧', name: 'The Living Leaf', relic: 'Archivist’s Quill', memory: 'The celestial sphere yielded its secret when every plant found its place.', meaning: 'The Conservatory taught that every living thing has its place, and every place has its purpose.' },
+  { id: 'bird', symbol: '♧', name: 'The Watcher', relic: 'The Library artifact', memory: 'The missing page was restored when the watchers found their order.', meaning: 'The three watchers revealed their message only when their verses were brought together.' },
 ]
 const solution: GearId[] = ['arrival', 'key', 'plant', 'bird']
 
 export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: () => void; onArtifactUnlocked: () => void }) {
   const [found, setFound] = useState<GearId[]>([])
-  const [selected, setSelected] = useState<GearId | null>(null)
+  const [activeGear, setActiveGear] = useState<GearId | null>(null)
   const [placed, setPlaced] = useState<(GearId | null)[]>([null, null, null, null])
+  const [showPuzzle, setShowPuzzle] = useState(false)
   const [showInscription, setShowInscription] = useState(false)
   const [feedback, setFeedback] = useState('')
   const [solved, setSolved] = useState(false)
@@ -23,26 +24,28 @@ export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: (
 
   const collect = (id: GearId) => {
     setFound(current => current.includes(id) ? current : [...current, id])
-    setSelected(id)
-    setFeedback('')
+    setActiveGear(null)
   }
   const place = (slot: number) => {
-    if (!selected || solved) return
+    if (!activeGear || solved) return
     setPlaced(current => {
       const next = [...current]
-      const old = next.indexOf(selected)
-      if (old >= 0) next[old] = null
-      next[slot] = selected
+      const previous = next.indexOf(activeGear)
+      if (previous >= 0) next[previous] = null
+      next[slot] = activeGear
       return next
     })
-    setSelected(null)
+    setActiveGear(null)
     setFeedback('')
   }
   const check = () => {
     if (placed.every((id, index) => id === solution[index])) {
       setSolved(true)
       setFeedback('THE FOUR MEMORIES HAVE FOUND THEIR PLACE')
-      window.setTimeout(() => setReveal(true), 2600)
+      window.setTimeout(() => {
+        setShowPuzzle(false)
+        setReveal(true)
+      }, 1800)
     } else {
       setFeedback('The mechanism resists. The memories are not yet in the right order.')
     }
@@ -58,50 +61,69 @@ export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: (
     </header>
 
     <div className="clock-tower-hotspots">
-      {gears.map((gear, index) => <button key={gear.id} className={`clock-tower-hotspot clock-tower-hotspot-${index + 1} ${found.includes(gear.id) ? 'is-found' : ''}`} onClick={() => collect(gear.id)} aria-label={`Examine ${gear.name}`}>
-        <span>{found.includes(gear.id) ? '✓' : index + 1}</span>
+      {gears.map((gear, index) => <button key={gear.id} className={`clock-tower-hotspot clock-tower-hotspot-${index + 1} ${found.includes(gear.id) ? 'is-found' : ''}`} onClick={() => setActiveGear(gear.id)} aria-label={`Examine ${gear.name}`}>
+        <span>{found.includes(gear.id) ? '✓' : '✧'}</span>
       </button>)}
-      <button className="clock-tower-hotspot clock-tower-hotspot-clock" onClick={() => setShowInscription(true)} aria-label="Examine the great clock"><span>✧</span></button>
+      <button className="clock-tower-hotspot clock-tower-hotspot-clock" onClick={() => setShowPuzzle(true)} aria-label="Examine the clock mechanism"><span>⚙</span></button>
     </div>
     <div className="clock-tower-tuning-note">CLOCK TOWER · HOTSPOT PLACEMENT MODE</div>
 
-    <section className="clockwork-panel">
-      <div className="clockwork-heading">
-        <p className="kicker">THE MECHANISM OF REMEMBRANCE</p>
-        <h1>The Four Gears</h1>
-        <p>Four memories brought you here. Place them in the order in which the Manor entrusted them to you.</p>
+    {activeGear && (() => {
+      const gear = gears.find(item => item.id === activeGear)!
+      const alreadyFound = found.includes(activeGear)
+      return <div className="hall-modal-backdrop clockwork-modal-backdrop" role="presentation" onClick={() => setActiveGear(null)}>
+        <section className="hall-modal clockwork-discovery" role="dialog" aria-modal="true" aria-labelledby="clockwork-discovery-title" onClick={event => event.stopPropagation()}>
+          <button className="hall-modal-close" onClick={() => setActiveGear(null)} aria-label="Close"><X/></button>
+          <p className="kicker">CLOCK TOWER · MEMORY {String(gears.indexOf(gear) + 1).padStart(2, '0')}</p>
+          <div className="clockwork-discovery-symbol">{gear.symbol}</div>
+          <h2 id="clockwork-discovery-title">{gear.name}</h2>
+          <p className="research-body">{gear.memory}</p>
+          <p className="clockwork-discovery-relic">{gear.relic}</p>
+          <button className="enter-button hall-modal-action" onClick={() => collect(activeGear)}><span>{alreadyFound ? 'Return to the clock tower' : 'Recover this memory'}</span><ArrowRight/></button>
+        </section>
       </div>
-      <div className="clockwork-slots">
-        {placed.map((id, index) => {
-          const gear = gears.find(item => item.id === id)
-          return <button key={index} className={`clockwork-slot ${gear ? 'has-gear' : ''} ${selected ? 'slot-ready' : ''}`} onClick={() => {
-            if (selected) place(index)
-            else if (id) {
-              setSelected(id)
-              setPlaced(current => current.map((value, slot) => slot === index ? null : value))
-            }
-          }} disabled={solved}>
-            <span className="clockwork-slot-number">0{index + 1}</span>
-            {gear ? <><span className="clockwork-gear-symbol">{gear.symbol}</span><strong>{gear.name}</strong><small>{gear.relic}</small></> : <><span className="clockwork-empty">⚙</span><small>Place a gear</small></>}
-          </button>
-        })}
-      </div>
-      <div className="clockwork-inventory">
-        <div className="clockwork-inventory-heading"><span>RECOVERED GEARS</span><span>{found.length} / 4</span></div>
-        <div className="clockwork-gear-list">
-          {gears.map(gear => found.includes(gear.id) && <button key={gear.id} className={`clockwork-gear-card ${selected === gear.id ? 'is-selected' : ''} ${placed.includes(gear.id) ? 'is-placed' : ''}`} onClick={() => setSelected(selected === gear.id ? null : gear.id)} disabled={solved || placed.includes(gear.id)}>
-            <span className="clockwork-gear-medallion">{gear.symbol}</span><span><strong>{gear.name}</strong><small>{gear.relic}</small></span>{selected === gear.id && <Check/>}
-          </button>)}
-        </div>
-      </div>
-      <div className="clockwork-actions">
-        <button className="clockwork-inscription-button" onClick={() => setShowInscription(true)}>Read the inscription</button>
-        <button className="enter-button" onClick={check} disabled={found.length !== 4 || placed.some(id => id === null) || solved}><span>{solved ? 'The mechanism is aligned' : 'Set the mechanism in motion'}</span><ArrowRight/></button>
-      </div>
-      {feedback && <p className={`clockwork-feedback ${solved ? 'is-solved' : ''}`}>{feedback}</p>}
-    </section>
+    })()}
 
-    {showInscription && <div className="hall-modal-backdrop clockwork-modal-backdrop" role="presentation" onClick={() => setShowInscription(false)}>
+    {showPuzzle && <div className="hall-modal-backdrop clockwork-modal-backdrop" role="presentation" onClick={() => { setShowPuzzle(false); setActiveGear(null) }}>
+      <section className="hall-modal clockwork-puzzle-modal" role="dialog" aria-modal="true" aria-labelledby="clockwork-title" onClick={event => event.stopPropagation()}>
+        <button className="hall-modal-close" onClick={() => setShowPuzzle(false)} aria-label="Close"><X/></button>
+        <div className="clockwork-heading">
+          <p className="kicker">THE MECHANISM OF REMEMBRANCE</p>
+          <h2 id="clockwork-title">The Four Gears</h2>
+          <p>Four memories brought you here. Place them in the order in which the Manor entrusted them to you.</p>
+        </div>
+        <div className="clockwork-slots">
+          {placed.map((id, index) => {
+            const gear = gears.find(item => item.id === id)
+            return <button key={index} className={`clockwork-slot ${gear ? 'has-gear' : ''} ${activeGear ? 'slot-ready' : ''}`} onClick={() => {
+              if (activeGear) place(index)
+              else if (id) {
+                setActiveGear(id)
+                setPlaced(current => current.map((value, slot) => slot === index ? null : value))
+              }
+            }} disabled={solved}>
+              <span className="clockwork-slot-number">0{index + 1}</span>
+              {gear ? <><span className="clockwork-gear-symbol">{gear.symbol}</span><strong>{gear.name}</strong><small>{gear.relic}</small></> : <><span className="clockwork-empty">⚙</span><small>{activeGear ? 'Place memory here' : 'Empty gear'}</small></>}
+            </button>
+          })}
+        </div>
+        <div className="clockwork-inventory">
+          <div className="clockwork-inventory-heading"><span>RECOVERED MEMORIES</span><span>{found.length} / 4</span></div>
+          <div className="clockwork-gear-list">
+            {gears.map(gear => found.includes(gear.id) && <button key={gear.id} className={`clockwork-gear-card ${activeGear === gear.id ? 'is-selected' : ''} ${placed.includes(gear.id) ? 'is-placed' : ''}`} onClick={() => setActiveGear(activeGear === gear.id ? null : gear.id)} disabled={solved || placed.includes(gear.id)}>
+              <span className="clockwork-gear-medallion">{gear.symbol}</span><span><strong>{gear.name}</strong><small>{gear.relic}</small></span>{activeGear === gear.id && <Check/>}
+            </button>)}
+          </div>
+        </div>
+        <div className="clockwork-actions">
+          <button className="clockwork-inscription-button" onClick={() => setShowInscription(true)}>Read the inscription</button>
+          <button className="enter-button" onClick={check} disabled={found.length !== 4 || placed.some(id => id === null) || solved}><span>{solved ? 'The mechanism is aligned' : 'Set the mechanism in motion'}</span><ArrowRight/></button>
+        </div>
+        {feedback && <p className={`clockwork-feedback ${solved ? 'is-solved' : ''}`}>{feedback}</p>}
+      </section>
+    </div>}
+
+    {showInscription && <div className="hall-modal-backdrop clockwork-modal-backdrop clockwork-inscription-layer" role="presentation" onClick={() => setShowInscription(false)}>
       <section className="hall-modal clockwork-inscription" role="dialog" aria-modal="true" aria-labelledby="clockwork-inscription-title" onClick={event => event.stopPropagation()}>
         <button className="hall-modal-close" onClick={() => setShowInscription(false)} aria-label="Close"><X/></button>
         <p className="kicker">AN INSCRIPTION ON THE CLOCK</p><h2 id="clockwork-inscription-title">The order of remembrance</h2>
