@@ -27,7 +27,7 @@ const memories: {
     id: 'seed',
     title: 'Seed of Harmony',
     room: 'THE MAIN HALL',
-    image: '/manor-main-hall/seed-of-harmony.png',
+    image: '/manor-main-hall/cabinet-open-seed.png',
     symbol: '❖',
     recollection: 'Nine scattered pieces became one, revealing what the locked cabinet had kept hidden.',
     meaning: 'What seems incomplete may still hold the shape of something whole.',
@@ -62,6 +62,7 @@ const memories: {
 ]
 
 export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) {
+  const [templeAwakened, setTempleAwakened] = useState(false)
   const [examined, setExamined] = useState<MemoryId[]>([])
   const [selected, setSelected] = useState<MemoryId | null>(null)
   const [bookRevealed, setBookRevealed] = useState(false)
@@ -90,12 +91,21 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
         <p>Some places preserve what the world forgets to ask.</p>
       </section>
 
-      <div className="temple-memory-prompt">
+      {!templeAwakened && (
+        <div className="temple-arrival-card">
+          <p className="kicker">THE HEART OF TIME · THE FINAL PASSAGE</p>
+          <h2>The Temple has been waiting.</h2>
+          <p>The Heart of Time stirs in your hands. Across the chamber, forgotten memories begin to answer its call.</p>
+          <button className="enter-button" onClick={() => setTempleAwakened(true)}><span>Awaken the Temple</span><Sparkles aria-hidden="true" /></button>
+        </div>
+      )}
+
+      <div className="temple-memory-prompt" style={{ opacity: templeAwakened ? 1 : 0, pointerEvents: templeAwakened ? "auto" : "none" }}>
         <Sparkles aria-hidden="true" />
         <span>The journey has brought you here. The Temple remembers every step.</span>
       </div>
 
-      <div className="temple-memory-orbit" aria-label="Memories from your journey">
+      <div className="temple-memory-orbit" aria-label="Memories from your journey" style={{ opacity: templeAwakened ? 1 : 0, pointerEvents: templeAwakened ? "auto" : "none" }}>
         {memories.map((memory, index) => (
           <button
             key={memory.id}
@@ -109,7 +119,7 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
         ))}
       </div>
 
-      <div className="temple-progress-note">
+      <div className="temple-progress-note" style={{ opacity: templeAwakened ? 1 : 0 }}>
         <span>MEMORIES REVISITED</span>
         <span>{examined.length} / 5</span>
         <div className="temple-progress-track"><span style={{ width: `${examined.length / memories.length * 100}%` }} /></div>
