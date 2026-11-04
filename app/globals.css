@@ -946,3 +946,77 @@ body { min-height:100dvh; }
  .clock-tower-reveal-scene .cabinet-reveal-copy{width:auto}
 }
 @media(prefers-reduced-motion:reduce){.clock-tower-hotspot{transition:none}}
+
+
+/* Underground Temple: reflective epilogue and bridge into GameTable. */
+.temple-screen{position:relative;width:100%;height:100svh;min-height:680px;overflow:hidden;background:#070c11;color:#eee2c7}
+.temple-backdrop{position:absolute;inset:0;background:#070c11 url('/manor-underground-temple/temple-background.png') center center/cover no-repeat}
+.temple-atmosphere{position:absolute;inset:0;background:linear-gradient(180deg,#03070ab8 0%,#03070a18 24%,#03070a22 56%,#03070ac9 100%),radial-gradient(ellipse at 50% 42%,transparent 20%,#02050788 100%);pointer-events:none}
+.temple-header{z-index:8}
+.temple-header .conservatory-title,.temple-header .conservatory-progress{color:#dfbd7e}
+.temple-intro{position:absolute;z-index:2;top:clamp(76px,10vh,112px);left:50%;transform:translateX(-50%);width:min(650px,90vw);text-align:center;text-shadow:0 2px 16px #000}
+.temple-intro .kicker{color:#d8b875}
+.temple-intro h1{margin:7px 0 8px;color:#f0d49a;font:400 clamp(30px,4vw,48px)/1.08 Georgia,serif}
+.temple-intro>p:last-child{margin:0;color:#e0d5c1;font:italic 15px Georgia,serif}
+.temple-memory-prompt{position:absolute;z-index:3;top:27%;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;width:max-content;max-width:90vw;padding:10px 16px;border:1px solid #c9a66b66;background:#081014d9;color:#e2d0ac;font:11px Georgia,serif;letter-spacing:.03em;text-align:center;backdrop-filter:blur(8px)}
+.temple-memory-prompt svg{width:16px;color:#d9b76e;flex:0 0 auto}
+.temple-memory-orbit{position:absolute;z-index:4;inset:34% 8% 17%;pointer-events:none}
+.temple-memory-point{position:absolute;pointer-events:auto;display:flex;flex-direction:column;align-items:center;gap:7px;min-width:116px;padding:8px 10px;border:1px solid #d2b47466;background:#081014c9;color:#e7d4ad;cursor:pointer;backdrop-filter:blur(7px);transition:transform .2s,border-color .2s,background .2s}
+.temple-memory-point:hover,.temple-memory-point.is-selected{transform:translateY(-3px);border-color:#f0d18a;background:#172027ed}
+.temple-memory-point.is-examined .temple-memory-symbol{color:#d6e0ac;border-color:#c6d49a}
+.temple-memory-symbol{display:grid;place-items:center;width:43px;height:43px;border:1px solid #c8a665;border-radius:50%;color:#e4c47f;font:25px Georgia,serif;box-shadow:0 0 20px #d5ad4a22}
+.temple-memory-symbol svg{width:19px}
+.temple-memory-label{font:11px Georgia,serif;text-align:center}
+.temple-memory-point-1{left:4%;top:35%}.temple-memory-point-2{left:25%;top:4%}.temple-memory-point-3{left:46%;top:40%}.temple-memory-point-4{right:23%;top:4%}.temple-memory-point-5{right:3%;top:35%}
+.temple-progress-note{position:absolute;z-index:5;left:50%;bottom:9%;transform:translateX(-50%);display:grid;grid-template-columns:1fr auto;gap:8px 18px;width:min(330px,80vw);color:#d7c39b;font:9px Arial,sans-serif;letter-spacing:.13em}
+.temple-progress-track{grid-column:1/-1;height:3px;background:#b89c6244}.temple-progress-track span{display:block;height:100%;background:#dfbf7c;transition:width .4s}
+.temple-modal-backdrop{z-index:80}
+.temple-memory-modal{max-width:540px;border-color:#c2a36b;background:linear-gradient(145deg,#1a2022,#0a1014)}
+.temple-memory-modal h2{color:#e7ca8f}
+.temple-memory-artifact{display:block;width:130px;height:110px;object-fit:contain;margin:10px auto 16px}
+.temple-memory-meaning{margin:14px 0;padding:12px 16px;border-left:2px solid #c2a36b;color:#e5d1a8;font:italic 15px/1.6 Georgia,serif}
+.temple-book-invitation{position:absolute;z-index:12;left:50%;bottom:5%;transform:translateX(-50%);width:min(520px,calc(100% - 28px));padding:18px 22px;border:1px solid #d2b47488;background:#080f13ed;text-align:center;box-shadow:0 15px 60px #000b}
+.temple-book-invitation>p:not(.kicker){color:#d5c9b3;font:13px/1.6 Georgia,serif}
+.temple-book-invitation .enter-button{margin:10px auto 0}
+.temple-book-backdrop,.temple-ending-backdrop{position:fixed;z-index:180;inset:0;display:grid;place-items:center;padding:24px;background:#020507eF;backdrop-filter:blur(9px)}
+.temple-book-reveal{position:relative;display:flex;flex-direction:column;align-items:center;width:min(560px,100%);padding:34px 30px;border:1px solid #c5a568;background:linear-gradient(145deg,#172126,#090e12);text-align:center;overflow:hidden;box-shadow:0 25px 100px #000}
+.temple-book-glow{position:absolute;top:10%;left:50%;width:260px;height:220px;transform:translateX(-50%);background:radial-gradient(ellipse,#b7d6db22,transparent 70%);pointer-events:none}
+.temple-book-reveal .kicker,.temple-ending .kicker{position:relative;color:#d7b875}
+.temple-book-reveal img{position:relative;width:min(260px,70%);height:210px;object-fit:contain;margin:4px auto 10px;filter:drop-shadow(0 12px 22px #000)}
+.temple-book-reveal h2{position:relative;margin:0 0 10px;color:#efd49b;font:400 32px Georgia,serif}
+.temple-book-reveal>p:not(.kicker){position:relative;max-width:420px;color:#d6cbb8;font:14px/1.7 Georgia,serif}
+.temple-ending{width:min(720px,100%);max-height:90svh;overflow:auto;padding:clamp(25px,5vw,52px);border:1px solid #c5a568;background:radial-gradient(ellipse at 50% 0%,#23323a,#0b1115 65%);text-align:center;box-shadow:0 25px 100px #000}
+.temple-ending h2{max-width:590px;margin:12px auto 20px;color:#efd49b;font:400 clamp(27px,4vw,40px)/1.2 Georgia,serif}
+.temple-ending-rule{display:flex;align-items:center;gap:15px;width:min(300px,80%);margin:0 auto 22px;color:#d6b674}.temple-ending-rule:before,.temple-ending-rule:after{content:'';height:1px;flex:1;background:#b99a5c66}
+.temple-ending>p:not(.kicker){max-width:560px;margin:12px auto;color:#d8cdb9;font:15px/1.75 Georgia,serif}
+.temple-ending blockquote{max-width:530px;margin:25px auto;padding:16px 12px;border-top:1px solid #b99a5c55;border-bottom:1px solid #b99a5c55;color:#e6ce9f;font:italic 19px/1.6 Georgia,serif}
+.temple-ending .temple-ending-signoff{color:#e6c98f;font-style:italic}
+.temple-gametable-link{display:flex;justify-content:center;align-items:center;gap:14px;width:fit-content;max-width:100%;margin:25px auto 0;padding:14px 22px;text-decoration:none}
+.temple-return-button{display:block;margin:15px auto 0;padding:8px 12px;border:0;background:transparent;color:#a99c84;font:10px Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.temple-return-button:hover{color:#e7d3a8}
+@media(max-width:700px){
+ .temple-screen{height:auto;min-height:100svh;overflow:auto;padding-bottom:20px}
+ .temple-backdrop{position:fixed;background-position:50% center}
+ .temple-header{position:absolute;padding:13px 14px}
+ .temple-header .conservatory-title{display:none}
+ .temple-intro{top:76px}
+ .temple-intro h1{font-size:30px}
+ .temple-memory-prompt{top:23%;font-size:10px}
+ .temple-memory-orbit{position:absolute;inset:30% 3% 25%}
+ .temple-memory-point{min-width:94px;padding:7px 6px;gap:5px}
+ .temple-memory-symbol{width:36px;height:36px;font-size:21px}
+ .temple-memory-label{font-size:9px;max-width:105px}
+ .temple-memory-point-1{left:0;top:32%}.temple-memory-point-2{left:23%;top:0}.temple-memory-point-3{left:50%;top:36%;transform:translateX(-50%)}.temple-memory-point-4{right:20%;top:0}.temple-memory-point-5{right:0;top:32%}
+ .temple-memory-point-3:hover,.temple-memory-point-3.is-selected{transform:translate(-50%,-3px)}
+ .temple-progress-note{bottom:12%;width:78vw}
+ .temple-book-invitation{bottom:3%;padding:14px}
+ .temple-book-reveal{padding:25px 18px}
+ .temple-book-reveal img{height:165px}
+ .temple-ending-backdrop{padding:12px}
+ .temple-ending{max-height:94svh;padding:25px 18px}
+ .temple-ending h2{font-size:27px}
+ .temple-ending>p:not(.kicker){font-size:13px}
+ .temple-ending blockquote{font-size:16px}
+ .temple-gametable-link{width:100%;padding:13px 12px;font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){.temple-memory-point,.temple-progress-track span{transition:none}}
