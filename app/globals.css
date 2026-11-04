@@ -1060,3 +1060,11 @@ body { min-height:100dvh; }
 .temple-memory-prompt,.temple-memory-orbit,.temple-progress-note{transition:opacity .7s ease}
 @media(max-width:700px){.temple-arrival-card{top:52%;padding:22px 18px}}
 @media(prefers-reduced-motion:reduce){.temple-memory-prompt,.temple-memory-orbit,.temple-progress-note{transition:none}}
+
+
+/* Library restored-page state and movable verse slots. */
+.library-completed-page{display:block;width:min(100%,720px);max-height:42vh;object-fit:contain;margin:16px auto 12px;border:1px solid #b99a6b55;background:#eadbb8}
+.library-assembly-slot{cursor:pointer}
+.library-assembly-slot.is-selected{border-color:#e7c77f;background:#332a22;box-shadow:0 0 0 2px #d2ad6a55,inset 0 0 22px #d2ad6a22}
+.library-modal .library-solved-note{display:flex;align-items:center;justify-content:center;gap:8px;color:#d8d49a}
+@media(max-width:700px){.library-completed-page{max-height:34vh}}
