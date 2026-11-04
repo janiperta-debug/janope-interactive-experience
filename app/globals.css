@@ -1,3 +1,35 @@
+
+/* Clock Tower: scene-first interaction, with discovery and mechanism opened as modals. */
+.clock-tower-hotspot{border-radius:50%;background:radial-gradient(circle,#25302fdc,#090f12eF 72%);border:1px solid #e0bd79;box-shadow:0 0 0 3px #05070999,0 0 24px #e0bd7966}
+.clock-tower-hotspot span{font-size:19px;color:#f0d49a}
+.clock-tower-hotspot.is-found{background:radial-gradient(circle,#34402bdc,#0b1110ed 72%);border-color:#cbd99c}
+.clock-tower-hotspot.is-found span{color:#dce9b5}
+.clockwork-discovery{max-width:520px;border-color:#b99a5c;background:linear-gradient(145deg,#1b2020,#0b1012)}
+.clockwork-discovery h2,.clockwork-puzzle-modal .clockwork-heading h2{color:#e5cb91}
+.clockwork-discovery-symbol{display:grid;place-items:center;width:74px;height:74px;margin:12px auto;border:1px solid #c8a665;border-radius:50%;color:#e4c47f;font:40px Georgia,serif;box-shadow:0 0 28px #d5ad4a2b}
+.clockwork-discovery-relic{margin:12px 0 18px;color:#e2c78c;font:italic 15px Georgia,serif;text-align:center}
+.clockwork-puzzle-modal{width:min(900px,calc(100vw - 32px));max-width:900px;max-height:min(88vh,900px);overflow:auto;border-color:#b99a5c;background:linear-gradient(145deg,#1b2020f7,#090f12f7);padding:28px}
+.clockwork-puzzle-modal .clockwork-heading{margin-bottom:20px}
+.clockwork-puzzle-modal .clockwork-heading>p:last-child{color:#cfc6b5;font-size:12px;line-height:1.55}
+.clockwork-puzzle-modal .clockwork-slots{grid-template-columns:repeat(4,minmax(0,1fr))}
+.clockwork-puzzle-modal .clockwork-actions{margin-top:18px}
+.clockwork-puzzle-modal .clockwork-actions .enter-button{margin:0;min-width:250px}
+.clockwork-inscription-layer{z-index:100}
+.clockwork-inscription-layer .clockwork-inscription{max-height:85vh;overflow:auto}
+@media(max-width:700px){
+ .clock-tower-screen{height:100svh;min-height:620px;overflow:hidden}
+ .clock-tower-backdrop{position:absolute;background-position:center center}
+ .clock-tower-hotspot-1{left:5%;top:29%}.clock-tower-hotspot-2{left:28%;top:39%}.clock-tower-hotspot-3{left:69%;top:39%}.clock-tower-hotspot-4{left:89%;top:29%}
+ .clock-tower-hotspot-clock{left:47%;top:18%}
+ .clock-tower-tuning-note{top:auto;bottom:5%;font-size:8px}
+ .clockwork-puzzle-modal{width:calc(100vw - 20px);max-height:90svh;padding:24px 14px 18px}
+ .clockwork-puzzle-modal .clockwork-slots{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+ .clockwork-puzzle-modal .clockwork-slot{min-height:92px}
+ .clockwork-puzzle-modal .clockwork-gear-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .clockwork-puzzle-modal .clockwork-actions{align-items:stretch;flex-direction:column}
+ .clockwork-puzzle-modal .clockwork-actions .enter-button{width:100%;min-width:0}
+}
+
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
