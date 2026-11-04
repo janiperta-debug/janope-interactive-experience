@@ -63,7 +63,15 @@ export function LibraryExperience({ onBack, onArtifactUnlocked }: { onBack: () =
   }
 
   const placeFragment = (slot: number) => {
-    if (selected === null || solved) return
+    if (solved) return
+    if (selected === null) {
+      const existing = order[slot]
+      if (existing !== null) {
+        setSelected(existing)
+        setOrder((current) => current.map((value, index) => index === slot ? null : value))
+      }
+      return
+    }
     setOrder((current) => {
       const next = [...current]
       const previous = next.indexOf(selected)
