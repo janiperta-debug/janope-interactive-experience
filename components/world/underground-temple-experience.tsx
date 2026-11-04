@@ -51,13 +51,13 @@ const memories: {
     meaning: 'A fragment changes its meaning when seen in the right order.',
   },
   {
-    id: 'heart',
-    title: 'The Hourglass of Clarity',
+    id: 'compass',
+    title: 'Seeker’s Compass',
     room: 'THE CLOCK TOWER',
-    image: '/manor-clock-tower/hourglass-of-clarity.png',
-    symbol: '◉',
-    recollection: 'Four memories were placed in the order in which the Manor entrusted them to you. The great clock began to turn.',
-    meaning: 'The path behind you is what makes the next step possible.',
+    image: '/manor-clock-tower/seekers-compass.png',
+    symbol: '✥',
+    recollection: 'Four memories were placed in the order in which the Manor entrusted them to you. The great clock began to turn, revealing the Seeker’s Compass.',
+    meaning: 'It does not point north. It points towards the question you have not yet dared to ask.',
   },
 ]
 
@@ -93,9 +93,9 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
 
       {!templeAwakened && (
         <div className="temple-arrival-card">
-          <p className="kicker">THE HEART OF TIME · THE FINAL PASSAGE</p>
+          <p className="kicker">THE SEEKER’S COMPASS · THE FINAL PASSAGE</p>
           <h2>The Temple has been waiting.</h2>
-          <p>The Heart of Time rests in your hands. Its steady pulse brings the forgotten memories into focus, and the Temple begins to answer its call.</p>
+          <p>The Seeker’s Compass rests in your hands. It does not point north, but towards the questions that still await you. The Temple begins to answer its call.</p>
           <button className="enter-button" onClick={() => setTempleAwakened(true)}><span>Awaken the Temple</span><Sparkles aria-hidden="true" /></button>
         </div>
       )}
