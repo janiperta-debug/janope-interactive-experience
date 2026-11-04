@@ -48,6 +48,7 @@ export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: (
   const [found, setFound] = useState<GearId[]>([])
   const [activeGear, setActiveGear] = useState<GearId | null>(null)
   const [selectedGear, setSelectedGear] = useState<GearId | null>(null)
+  const [selectedFromSlot, setSelectedFromSlot] = useState<number | null>(null)
   const [placed, setPlaced] = useState<(GearId | null)[]>([null, null, null, null])
   const [showPuzzle, setShowPuzzle] = useState(false)
   const [showInscription, setShowInscription] = useState(false)
@@ -69,6 +70,7 @@ export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: (
       const existing = placed[slot]
       if (existing) {
         setSelectedGear(existing)
+        setSelectedFromSlot(slot)
         setPlaced(current => current.map((value, index) => index === slot ? null : value))
       }
       return
@@ -76,13 +78,13 @@ export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: (
 
     setPlaced(current => {
       const next = [...current]
-      const previous = next.indexOf(selectedGear)
       const displaced = next[slot]
-      if (previous >= 0) next[previous] = displaced
       next[slot] = selectedGear
+      if (selectedFromSlot !== null && selectedFromSlot !== slot) next[selectedFromSlot] = displaced
       return next
     })
     setSelectedGear(null)
+    setSelectedFromSlot(null)
   }
 
   const check = () => {
@@ -148,9 +150,9 @@ export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: (
       })()}
 
       {showPuzzle && (
-        <div className="hall-modal-backdrop clockwork-modal-backdrop" role="presentation" onClick={() => { if (!solved) { setShowPuzzle(false); setSelectedGear(null) } }}>
+        <div className="hall-modal-backdrop clockwork-modal-backdrop" role="presentation" onClick={() => { if (!solved) { setShowPuzzle(false); setSelectedGear(null); setSelectedFromSlot(null) } }}>
           <section className={`hall-modal clockwork-puzzle-modal ${awakening ? 'is-awakening' : ''}`} role="dialog" aria-modal="true" aria-labelledby="clockwork-title" onClick={event => event.stopPropagation()}>
-            {!awakening && <button className="hall-modal-close" onClick={() => { setShowPuzzle(false); setSelectedGear(null) }} aria-label="Close"><X /></button>}
+            {!awakening && <button className="hall-modal-close" onClick={() => { setShowPuzzle(false); setSelectedGear(null); setSelectedFromSlot(null) }} aria-label="Close"><X /></button>}
             <div className="clockwork-heading">
               <p className="kicker">THE MECHANISM OF REMEMBRANCE</p>
               <h2 id="clockwork-title">{awakening ? 'The Clock Awakens' : 'The Four Gears'}</h2>
@@ -185,7 +187,7 @@ export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: (
                       <button
                         key={gear.id}
                         className={`clockwork-gear-card ${selectedGear === gear.id ? 'is-selected' : ''} ${placed.includes(gear.id) ? 'is-placed' : ''}`}
-                        onClick={() => setSelectedGear(selectedGear === gear.id ? null : gear.id)}
+                        onClick={() => { setSelectedGear(selectedGear === gear.id ? null : gear.id); setSelectedFromSlot(null) }}
                         disabled={solved}
                       >
                         <img src={gear.image} alt="" />
