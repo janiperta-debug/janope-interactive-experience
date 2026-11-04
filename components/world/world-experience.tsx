@@ -7,11 +7,12 @@ import { markDiscovered, readDiscoveries } from '@/lib/discovery-state'
 import { ArchiveFrame } from '@/components/ui/archive-frame'
 import { ConservatoryExperience } from '@/components/world/conservatory-experience'
 import { LibraryExperience } from '@/components/world/library-experience'
+import { ClockTowerExperience } from '@/components/world/clock-tower-experience'
 
 const artifact = artifacts[0]
 const discovery = discoveries.find((item) => item.id === artifact.discoveryId) ?? discoveries[0]
 
-type View = 'arrival' | 'journey' | 'fragment' | 'threshold' | 'room' | 'conservatory' | 'library' | 'clockTower'
+type View = 'arrival' | 'journey' | 'fragment' | 'threshold' | 'room' | 'conservatory' | 'library' | 'clockTower' | 'undergroundTemple'
 type ResearchPoint = 'portrait' | 'staircase' | 'table' | 'cabinet' | 'seed' | null
 type AmbientPoint = 'chandelier' | 'leftPlant' | 'crest' | 'window' | 'chair' | 'sofa' | null
 
@@ -51,6 +52,7 @@ export function WorldExperience() {
   const [seedAccepted, setSeedAccepted] = useState(false)
   const [libraryUnlocked, setLibraryUnlocked] = useState(false)
   const [clockTowerUnlocked, setClockTowerUnlocked] = useState(false)
+  const [undergroundTempleUnlocked, setUndergroundTempleUnlocked] = useState(false)
 
   useEffect(() => {
     setDiscovered(readDiscoveries())
@@ -157,7 +159,11 @@ export function WorldExperience() {
   }
 
   if (view === 'clockTower') {
-    return <main className="conservatory-screen library-unlocked-screen"><div className="library-backdrop" aria-hidden="true" /><header className="conservatory-header library-header"><button className="back-button" onClick={() => setView('room')}><ArrowLeft aria-hidden="true" /><span>Main Hall</span></button><div className="conservatory-title">THE MANOR <i>·</i> CLOCK TOWER</div><div className="conservatory-progress">ROOM UNLOCKED</div></header><section className="library-unlocked-card"><p className="kicker">A new passage has opened</p><h1>The Clock Tower</h1><p>The Library has yielded its secret. The next mystery waits above.</p><button className="enter-button" onClick={() => setView('room')}><span>Return to the Main Hall</span><ArrowRight /></button></section></main>
+    return <ClockTowerExperience onBack={() => setView('room')} onArtifactUnlocked={() => { setUndergroundTempleUnlocked(true); setView('room') }} />
+  }
+
+  if (view === 'undergroundTemple') {
+    return <main className="conservatory-screen library-unlocked-screen"><div className="library-backdrop" aria-hidden="true" /><header className="conservatory-header library-header"><button className="back-button" onClick={() => setView('room')}><ArrowLeft aria-hidden="true" /><span>Main Hall</span></button><div className="conservatory-title">THE MANOR <i>·</i> UNDERGROUND TEMPLE</div><div className="conservatory-progress">THE FINAL CHAMBER</div></header><section className="library-unlocked-card"><p className="kicker">The final passage has opened</p><h1>The Underground Temple</h1><p>The Heart of Time has revealed a passage beneath the Manor. The final question waits below.</p><button className="enter-button" onClick={() => setView('room')}><span>Return to the Main Hall</span><ArrowRight /></button></section></main>
   }
 
   if (view === 'library') {
@@ -203,7 +209,7 @@ export function WorldExperience() {
         <header className="hall-header">
           <button className="back-button" onClick={() => setView('threshold')} aria-label="Return to the threshold"><ArrowLeft aria-hidden="true" /><span>The Threshold</span></button>
           <div className="hall-title">THE MANOR <i>·</i> MAIN HALL</div>
-          {seedAccepted || libraryUnlocked ? <nav className="hall-room-list" aria-label="Unlocked rooms">{seedAccepted && <button className="hall-room-unlock" onClick={() => setView('conservatory')}><Sparkles aria-hidden="true" /><span>Enter the Conservatory</span><ArrowRight aria-hidden="true" /></button>}{libraryUnlocked && <button className="hall-room-unlock" onClick={() => setView('library')}><BookOpen aria-hidden="true" /><span>Enter the Library</span><ArrowRight aria-hidden="true" /></button>}{clockTowerUnlocked && <button className="hall-room-unlock" onClick={() => setView('clockTower')}><Sparkles aria-hidden="true" /><span>Enter the Clock Tower</span><ArrowRight aria-hidden="true" /></button>}</nav> : <div className="hall-progress">{discoveredTiles.length} <span>/ 9 fragments</span></div>}
+          {seedAccepted || libraryUnlocked ? <nav className="hall-room-list" aria-label="Unlocked rooms">{seedAccepted && <button className="hall-room-unlock" onClick={() => setView('conservatory')}><Sparkles aria-hidden="true" /><span>Enter the Conservatory</span><ArrowRight aria-hidden="true" /></button>}{libraryUnlocked && <button className="hall-room-unlock" onClick={() => setView('library')}><BookOpen aria-hidden="true" /><span>Enter the Library</span><ArrowRight aria-hidden="true" /></button>}{clockTowerUnlocked && <button className="hall-room-unlock" onClick={() => setView('clockTower')}><Sparkles aria-hidden="true" /><span>Enter the Clock Tower</span><ArrowRight aria-hidden="true" /></button>}{undergroundTempleUnlocked && <button className="hall-room-unlock" onClick={() => setView('undergroundTemple')}><LockKeyhole aria-hidden="true" /><span>Enter the Temple</span><ArrowRight aria-hidden="true" /></button>}</nav> : <div className="hall-progress">{discoveredTiles.length} <span>/ 9 fragments</span></div>}
         </header>
         <button className={`hall-hotspot hotspot-portrait ${foundGroups.includes('portrait') ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('portrait')} aria-label="Examine portrait"><span aria-hidden="true">X</span></button>
         <button className={`hall-hotspot hotspot-staircase ${foundGroups.includes('staircase') ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('staircase')} aria-label="Examine staircase stonework"><span aria-hidden="true">X</span></button>
