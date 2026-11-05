@@ -53,10 +53,10 @@ export function WorldExperience() {
   const [seedAccepted, setSeedAccepted] = useState(false)
   const [libraryUnlocked, setLibraryUnlocked] = useState(false)
   const [clockTowerUnlocked, setClockTowerUnlocked] = useState(false)
-  const [undergroundTempleUnlocked, setUndergroundTempleUnlocked] = useState(false)
+  const [undergroundTempleUnlocked, setUndergroundTempleUnlocked] = useState(false)\n  const [testMode, setTestMode] = useState(false)
 
   useEffect(() => {
-    setDiscovered(readDiscoveries())
+    setTestMode(new URLSearchParams(window.location.search).get('test') === '1')\n    setDiscovered(readDiscoveries())
     setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   }, [])
 
@@ -198,6 +198,18 @@ export function WorldExperience() {
 
   return (
     <main className="main-hall-screen">
+      {testMode && <aside className="manor-test-panel" aria-label="Developer room selector">
+        <strong>MANOR · TEST MODE</strong>
+        <div>
+          <button onClick={() => { setView('room'); setSeedAccepted(true); setLibraryUnlocked(true); setClockTowerUnlocked(true); setUndergroundTempleUnlocked(true) }}>Main Hall</button>
+          <button onClick={() => { setSeedAccepted(true); setView('conservatory') }}>Conservatory</button>
+          <button onClick={() => { setSeedAccepted(true); setLibraryUnlocked(true); setView('library') }}>Library</button>
+          <button onClick={() => { setSeedAccepted(true); setClockTowerUnlocked(true); setView('clockTower') }}>Clock Tower</button>
+          <button onClick={() => { setSeedAccepted(true); setUndergroundTempleUnlocked(true); setView('undergroundTemple') }}>Temple</button>
+          <button onClick={() => { setFoundGroups([]); setPlacedTiles(Array(9).fill(null)); setCabinetSolved(false); setCabinetReveal(false); setSeedAccepted(true); setView('room') }}>Reset Hall</button>
+        </div>
+        <small>Rooms open directly. Re-entering a room resets its local puzzle state.</small>
+      </aside>}
       <div className="main-hall-scene">
         <img className="main-hall-background" src="/manor-main-hall/main-hall.png" alt="The Manor's Main Hall" />
         <div className="main-hall-vignette" aria-hidden="true" />
