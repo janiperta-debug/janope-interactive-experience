@@ -62,7 +62,7 @@ export function WorldExperience() {
 
   useEffect(() => {
     if (view !== 'journey') return
-    const duration = reducedMotion ? 0 : 21000
+    const duration = reducedMotion ? 0 : 27000
     const timer = window.setTimeout(() => setView('fragment'), duration)
     return () => window.clearTimeout(timer)
   }, [view, reducedMotion])
