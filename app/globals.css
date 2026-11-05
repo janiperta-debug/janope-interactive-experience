@@ -1225,3 +1225,30 @@ body { min-height:100dvh; }
 .fragment-reveal-scene .cabinet-reveal-copy h2,
 .fragment-reveal-scene .cabinet-reveal-copy > p:not(.kicker),
 .fragment-reveal-scene .cabinet-reveal-copy .enter-button { position:relative; z-index:1; }
+
+
+/* Arrival finale: the first-fragment story appears directly over the fourth arrival image. */
+.journey-fragment-copy {
+  position:absolute; z-index:4;
+  left:clamp(24px,8vw,120px); bottom:clamp(28px,10vh,100px);
+  width:min(480px,44vw); color:#eee2c7;
+  opacity:0; pointer-events:none;
+  animation:journey-fragment-copy-in 27s ease both;
+}
+.journey-fragment-copy .kicker { color:#d9bb76; letter-spacing:.22em; }
+.journey-fragment-copy h2 { margin:12px 0 18px; color:#f0d79d; font-size:clamp(28px,4vw,54px); font-weight:400; line-height:1.08; }
+.journey-fragment-copy > p:not(.kicker) { color:#e0d6c3; font-size:clamp(14px,1.4vw,18px); line-height:1.75; }
+.journey-fragment-copy .enter-button { margin-top:18px; pointer-events:auto; }
+@keyframes journey-fragment-copy-in {
+  0%,86% { opacity:0; transform:translateY(14px); }
+  93%,100% { opacity:1; transform:translateY(0); }
+}
+.journey-screen .journey-text { animation:journey-text-out 27s linear both; }
+@keyframes journey-text-out { 0%,72% { opacity:1; } 80%,100% { opacity:0; } }
+.journey-screen .skip-intro { animation:skip-intro-out 27s linear both; }
+@keyframes skip-intro-out { 0%,78% { opacity:1; } 84%,100% { opacity:0; pointer-events:none; } }
+@media(max-width:700px) {
+  .journey-fragment-copy { left:22px; right:22px; bottom:clamp(76px,12vh,112px); width:auto; }
+  .journey-fragment-copy h2 { font-size:clamp(26px,7vw,38px); }
+  .journey-fragment-copy > p:not(.kicker) { font-size:14px; line-height:1.55; }
+}
