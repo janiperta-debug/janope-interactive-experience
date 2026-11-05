@@ -1599,3 +1599,60 @@ body { min-height:100dvh; }
  .manor-test-panel { top:auto; bottom:10px; left:10px; width:min(270px,calc(100vw - 20px)); padding:9px; }
  .manor-test-panel button { padding:7px 8px; }
 }
+
+
+/* Final landscape layout for Conservatory plant notes.
+   Keep the whole plant visible and reserve enough height for the place selector and action. */
+@media (orientation: landscape) {
+  .hall-modal-backdrop:has(.conservatory-modal) {
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    overflow: auto;
+  }
+  .conservatory-modal {
+    box-sizing: border-box;
+    width: min(920px, 100%);
+    max-height: calc(100svh - 16px);
+    overflow-y: auto;
+    padding: clamp(10px, 2svh, 18px) clamp(12px, 2vw, 22px);
+  }
+  .conservatory-modal .hall-modal-close { top: 10px; right: 12px; }
+  .conservatory-modal > .kicker { margin: 0 40px 2px 0; font-size: clamp(9px, 1.5svh, 12px); line-height: 1.15; }
+  .conservatory-modal #plant-modal-title {
+    margin: 0 40px clamp(5px, 1svh, 10px) 0;
+    font-size: clamp(19px, 3svh, 28px);
+    line-height: 1.05;
+  }
+  .plant-profile-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    align-items: center;
+    gap: clamp(12px, 2vw, 24px);
+  }
+  .plant-profile-art {
+    width: 100%;
+    height: clamp(125px, 25svh, 190px);
+    min-height: 0;
+    overflow: visible;
+  }
+  .plant-profile-art img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+  .plant-profile-copy .research-body {
+    margin: 0 0 clamp(5px, 1svh, 10px);
+    font-size: clamp(11px, 1.8svh, 15px);
+    line-height: 1.3;
+  }
+  .plant-profile-copy .plant-note-card { padding: clamp(5px, 1svh, 10px) clamp(7px, 1vw, 12px); gap: 7px; }
+  .plant-profile-copy .plant-note-card p { font-size: clamp(9px, 1.5svh, 12px); line-height: 1.25; }
+  .plant-place-choice { margin-top: clamp(7px, 1.5svh, 13px); gap: clamp(3px, .7svh, 7px); }
+  .plant-place-choice > label { font-size: clamp(9px, 1.5svh, 12px); line-height: 1.15; }
+  .plant-place-choice .plant-place-select { min-height: clamp(34px, 5svh, 44px); padding: 5px 30px 5px 10px; font-size: clamp(11px, 1.8svh, 15px); }
+  .plant-place-choice .plant-place-description { margin: 0; font-size: clamp(9px, 1.5svh, 12px); line-height: 1.2; }
+  .plant-place-choice .plant-place-confirm { min-height: clamp(34px, 5svh, 44px); margin: 0; padding: 6px 12px; font-size: clamp(9px, 1.5svh, 12px); }
+}
