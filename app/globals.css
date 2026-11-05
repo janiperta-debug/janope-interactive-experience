@@ -1342,3 +1342,24 @@ body { min-height:100dvh; }
   .plant-place-choice .plant-place-description { font-size:11px; }
   .plant-place-choice .plant-place-confirm { min-height:40px; font-size:10px; }
 }
+
+
+/* Conservatory discovery points stay interactive but visually hidden; only the main clue glows. */
+.conservatory-debug-scene .conservatory-hotspot {
+  color:transparent !important;
+  font-size:0 !important;
+  text-indent:-9999px;
+  border-color:transparent !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  outline:none;
+}
+.conservatory-debug-scene .conservatory-hotspot:not(.place-hotspot-guided)::before,
+.conservatory-debug-scene .conservatory-hotspot:not(.place-hotspot-guided)::after {
+  display:none !important;
+}
+.conservatory-debug-scene .place-hotspot-guided {
+  border:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
