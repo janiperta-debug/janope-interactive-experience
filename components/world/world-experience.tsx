@@ -201,11 +201,16 @@ export function WorldExperience() {
       <div className="main-hall-scene">
         <img className="main-hall-background" src="/manor-main-hall/main-hall.png" alt="The Manor's Main Hall" />
         <div className="main-hall-vignette" aria-hidden="true" />
-        <header className="hall-header">
-          <button className="back-button" onClick={() => setView('threshold')} aria-label="Return to the threshold"><ArrowLeft aria-hidden="true" /><span>The Threshold</span></button>
-          <div className="hall-title">THE MANOR <i>·</i> MAIN HALL</div>
-          {seedAccepted || libraryUnlocked ? <nav className="hall-room-list" aria-label="Unlocked rooms">{seedAccepted && <button className="hall-room-unlock" onClick={() => setView('conservatory')}><Sparkles aria-hidden="true" /><span>Enter the Conservatory</span><ArrowRight aria-hidden="true" /></button>}{libraryUnlocked && <button className="hall-room-unlock" onClick={() => setView('library')}><BookOpen aria-hidden="true" /><span>Enter the Library</span><ArrowRight aria-hidden="true" /></button>}{clockTowerUnlocked && <button className="hall-room-unlock" onClick={() => setView('clockTower')}><Sparkles aria-hidden="true" /><span>Enter the Clock Tower</span><ArrowRight aria-hidden="true" /></button>}{undergroundTempleUnlocked && <button className="hall-room-unlock" onClick={() => setView('undergroundTemple')}><LockKeyhole aria-hidden="true" /><span>Enter the Temple</span><ArrowRight aria-hidden="true" /></button>}</nav> : <div className="hall-progress">{discoveredTiles.length} <span>/ 9 fragments</span></div>}
-        </header>
+        {(seedAccepted || libraryUnlocked || clockTowerUnlocked || undergroundTempleUnlocked) && (
+          <header className="hall-header hall-header--rooms">
+            <nav className="hall-room-list" aria-label="Unlocked rooms">
+              {seedAccepted && <button className="hall-room-unlock" onClick={() => setView('conservatory')}><Sparkles aria-hidden="true" /><span>Enter the Conservatory</span><ArrowRight aria-hidden="true" /></button>}
+              {libraryUnlocked && <button className="hall-room-unlock" onClick={() => setView('library')}><BookOpen aria-hidden="true" /><span>Enter the Library</span><ArrowRight aria-hidden="true" /></button>}
+              {clockTowerUnlocked && <button className="hall-room-unlock" onClick={() => setView('clockTower')}><Sparkles aria-hidden="true" /><span>Enter the Clock Tower</span><ArrowRight aria-hidden="true" /></button>}
+              {undergroundTempleUnlocked && <button className="hall-room-unlock" onClick={() => setView('undergroundTemple')}><LockKeyhole aria-hidden="true" /><span>Enter the Temple</span><ArrowRight aria-hidden="true" /></button>}
+            </nav>
+          </header>
+        )}
         <button className={`hall-hotspot hotspot-portrait ${foundGroups.includes('portrait') ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('portrait')} aria-label="Examine portrait"><span aria-hidden="true">X</span></button>
         <button className={`hall-hotspot hotspot-staircase ${foundGroups.includes('staircase') ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('staircase')} aria-label="Examine staircase stonework"><span aria-hidden="true">X</span></button>
         <button className={`hall-hotspot hotspot-table ${foundGroups.includes('table') ? 'hotspot-complete' : ''}`} onClick={() => setResearchPoint('table')} aria-label="Examine open book"><span aria-hidden="true">X</span></button>
