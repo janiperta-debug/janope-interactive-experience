@@ -1127,3 +1127,65 @@ body { min-height:100dvh; }
 @media(prefers-reduced-motion:reduce){
  .clockwork-puzzle-modal.is-awakening,.clockwork-puzzle-modal.is-awakening .clock-face-board,.clock-face-awakening-flash{animation:none}
 }
+
+
+/* Main Hall: the cabinet is the first clearly signposted puzzle hotspot. */
+.main-hall-scene .hotspot-cabinet:not(.hotspot-complete) {
+  opacity: 1;
+  color: transparent;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  overflow: visible;
+  isolation: isolate;
+  transform: none;
+}
+.main-hall-scene .hotspot-cabinet:not(.hotspot-complete)::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -24px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(231,184,101,.22) 0%, rgba(214,166,83,.12) 34%, rgba(205,157,76,.035) 58%, transparent 74%);
+  filter: blur(5px);
+  opacity: .72;
+  animation: cabinet-hotspot-breathe 3.8s ease-in-out infinite;
+  pointer-events: none;
+}
+.main-hall-scene .hotspot-cabinet:not(.hotspot-complete)::after {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  background: #f0d49a;
+  box-shadow: 0 0 7px 2px rgba(242,199,119,.65), 0 0 20px 7px rgba(221,171,86,.28);
+  transform: translate(-50%,-50%);
+  animation: cabinet-hotspot-glint 3.8s ease-in-out infinite;
+  pointer-events: none;
+}
+.main-hall-scene .hotspot-cabinet:not(.hotspot-complete) > span,
+.main-hall-scene .hotspot-cabinet:not(.hotspot-complete) svg {
+  opacity: 0;
+}
+.main-hall-scene .hotspot-cabinet:not(.hotspot-complete):hover::before,
+.main-hall-scene .hotspot-cabinet:not(.hotspot-complete):focus-visible::before {
+  opacity: 1;
+}
+.main-hall-scene .hotspot-cabinet.hotspot-complete {
+  opacity: 0;
+}
+@keyframes cabinet-hotspot-breathe {
+  0%,100% { opacity:.38; transform:scale(.88); }
+  50% { opacity:.9; transform:scale(1.12); }
+}
+@keyframes cabinet-hotspot-glint {
+  0%,100% { opacity:.55; transform:translate(-50%,-50%) scale(.82); }
+  50% { opacity:1; transform:translate(-50%,-50%) scale(1.18); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .main-hall-scene .hotspot-cabinet::before,
+  .main-hall-scene .hotspot-cabinet::after { animation:none; }
+}
