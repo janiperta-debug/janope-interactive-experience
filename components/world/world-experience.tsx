@@ -69,10 +69,10 @@ export function WorldExperience() {
 
   const acceptFragment = () => {
     setDiscovered(markDiscovered(artifact.id))
-    setView('threshold')
+    setView('room')
   }
 
-  const skipArrival = () => setView('fragment')
+  const skipArrival = () => setView('fragmentReveal')
 
   if (view === 'arrival' || view === 'journey') {
     const journeyStarted = view === 'journey'
@@ -116,42 +116,36 @@ export function WorldExperience() {
     )
   }
 
-  if (view === 'fragment') {
+  if (view === 'fragmentReveal') {
     return (
-      <main className="fragment-screen">
-        <div className="fragment-backdrop" aria-hidden="true" />
-        <ArchiveFrame className="fragment-frame"><div className="fragment-panel">
-          <p className="kicker">A gift from the Manor</p>
-          <p className="fragment-overline">Artifact · 001</p>
-          <h1>The First Fragment</h1>
-          <div className="fragment-art">
-            <img className="first-fragment-image" src="/manor-arrival/first-fragment.png" alt="A weathered metal fragment bearing the Manor's crest" />
+      <main className="fragment-reveal-screen">
+        <section className="cabinet-reveal-scene fragment-reveal-scene" role="dialog" aria-modal="true" aria-labelledby="fragment-reveal-title">
+          <img className="cabinet-reveal-image fragment-reveal-image" src="/manor-arrival/04-open-doors.png" alt="The Manor’s open entrance, warmly lit from within" />
+          <div className="cabinet-reveal-vignette" aria-hidden="true" />
+          <div className="cabinet-reveal-copy">
+            <p className="kicker">A gift from the Manor</p>
+            <h2 id="fragment-reveal-title">Every guest is given a beginning.</h2>
+            <p>As the doors open, a small fragment bearing the Manor’s seal is placed in your keeping. Its purpose is not yet known. Perhaps its meaning will become clear as you explore the rooms and uncover the stories held within.</p>
+            <button className="enter-button" onClick={() => setView('fragment')}><span>Discover the fragment</span><ArrowRight aria-hidden="true" /></button>
           </div>
-          <p className="fragment-description">A small metal fragment bearing the seal of the Manor.<br />Its purpose is unknown.</p>
-          <p className="fragment-lore">Every guest receives one upon entering.</p>
-          <button className="enter-button fragment-accept" onClick={acceptFragment}>
-            <span>Accept the fragment</span><ArrowRight aria-hidden="true" />
-          </button>
-          <button className="skip-intro fragment-skip" onClick={acceptFragment}>Continue <ArrowRight aria-hidden="true" /></button>
-        </div></ArchiveFrame>
+        </section>
       </main>
     )
   }
 
-  if (view === 'threshold') {
+  if (view === 'fragment') {
     return (
-      <main className="threshold-screen">
-        <div className="threshold-glow" aria-hidden="true" />
-        <ArchiveFrame className="threshold-card" weight="hairline" corners cornerSize="sm">
-          <p className="kicker">The Manor remembers</p>
-          <div className="threshold-mark"><Sparkles aria-hidden="true" /></div>
-          <h1>A fragment has been entrusted to you.</h1>
-          <p>You do not yet know what it belongs to, or why it was given.</p>
-          <p>There will be time for questions. For now, the Manor awaits.</p>
-          <button className="enter-button" onClick={() => setView('room')}>
-            <span>Enter the Main Hall</span><ArrowRight aria-hidden="true" />
-          </button>
-        </ArchiveFrame>
+      <main className="fragment-receive-screen">
+        <div className="hall-modal-backdrop seed-backdrop" role="presentation">
+          <section className="hall-modal seed-modal fragment-receive-modal" role="dialog" aria-modal="true" aria-labelledby="fragment-title">
+            <div className="seed-emblem"><Sparkles aria-hidden="true" /></div>
+            <p className="kicker">The Manor’s first gift</p>
+            <h2 id="fragment-title">The First Fragment</h2>
+            <p className="research-body">A small metal fragment bearing the seal of the Manor. Its purpose is unknown, but it is now yours to keep.</p>
+            <div className="seed-art-placeholder"><img className="seed-art-image" src="/manor-arrival/first-fragment.png" alt="The First Fragment, a weathered metal piece bearing the Manor’s crest" /></div>
+            <button className="enter-button hall-modal-action" onClick={acceptFragment}><span>Accept the Fragment</span><ArrowRight aria-hidden="true" /></button>
+          </section>
+        </div>
       </main>
     )
   }
