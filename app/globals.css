@@ -1363,3 +1363,48 @@ body { min-height:100dvh; }
   background:transparent !important;
   box-shadow:none !important;
 }
+
+
+/* Library: hide incidental markers, keep only the glowing book as the main puzzle clue. */
+.library-hotspot { color:transparent !important; font-size:0 !important; text-indent:-9999px; border-color:transparent !important; background:transparent !important; box-shadow:none !important; }
+.library-hotspot:not(.library-hotspot-guided)::before,.library-hotspot:not(.library-hotspot-guided)::after { display:none !important; }
+.library-hotspot-guided { border:0 !important; background:transparent !important; }
+.library-hotspot-guided::before {
+ content:""; position:absolute; inset:-18px; border-radius:50%;
+ background:radial-gradient(circle,#d9b4e044 0%,#c89add20 40%,transparent 72%);
+ animation:library-book-glow 3.4s ease-in-out infinite;
+}
+.library-hotspot-guided::after {
+ content:""; position:absolute; inset:-6px; border:1px solid #d8b6e077; border-radius:50%;
+ box-shadow:0 0 18px #c89add33; animation:library-book-ring 3.4s ease-in-out infinite;
+}
+@keyframes library-book-glow { 0%,100%{opacity:.4;transform:scale(.92)} 50%{opacity:1;transform:scale(1.12)} }
+@keyframes library-book-ring { 0%,100%{opacity:.3;transform:scale(.95)} 50%{opacity:.8;transform:scale(1.08)} }
+.library-tuning-note { display:none !important; }
+.library-discovery-layout.library-paper-discovery { display:flex; flex-direction:column; align-items:flex-start; gap:12px; }
+.library-paper-discovery .research-body { margin:0; }
+.library-found-fragment-large { width:min(100%,440px); margin:0 auto; display:flex; flex-direction:column; align-items:center; }
+.library-found-fragment-large img { display:block; width:100%; height:clamp(130px,24vh,220px); object-fit:contain; background:transparent; }
+.library-found-fragment-large span { margin-top:5px; font:9px Arial,sans-serif; letter-spacing:.14em; color:#cdb6d8; }
+.library-puzzle-workspace { display:grid; grid-template-columns:minmax(0,1fr) minmax(130px,.34fr); gap:16px; align-items:stretch; }
+.library-assembly { display:flex; flex-direction:column; gap:8px; }
+.library-assembly-slot { min-height:82px; }
+.library-fragment-inventory { display:flex; flex-direction:column; gap:8px; margin:0; padding-left:14px; border-left:1px solid #a98abb55; }
+.library-inventory-heading { margin:0 0 4px; font:9px Arial,sans-serif; letter-spacing:.15em; color:#cdb6d8; }
+.library-fragment-card { width:100%; max-width:none; display:flex; flex-direction:column; align-items:center; gap:5px; padding:7px; }
+.library-fragment-card img { width:100%; height:65px; object-fit:contain; }
+.library-fragment-card span { font:9px Arial,sans-serif; letter-spacing:.08em; }
+.library-fragment-reader-backdrop { position:fixed; z-index:50; inset:0; display:grid; place-items:center; padding:16px; background:#050308dd; backdrop-filter:blur(8px); }
+.library-fragment-reader { position:relative; width:min(520px,100%); max-height:calc(100svh - 32px); overflow:auto; padding:26px; border:1px solid #b99acb; background:linear-gradient(145deg,#211a28,#100e14 78%); text-align:center; }
+.library-fragment-reader h2 { color:#e5c8ed; margin:0 36px 12px; }
+.library-fragment-reader>img { display:block; width:100%; height:clamp(140px,27vh,230px); object-fit:contain; }
+.library-fragment-reader blockquote { margin:12px 0 20px; padding:14px; color:#eadbc3; background:#17121c; border-left:2px solid #b99a70; white-space:pre-line; line-height:1.7; }
+@media(max-width:700px) {
+ .library-puzzle-workspace { grid-template-columns:minmax(0,1fr) 112px; gap:10px; }
+ .library-assembly-slot { min-height:76px; padding:7px; }
+ .library-verse-preview { font-size:11px; line-height:1.4; }
+ .library-fragment-inventory { padding-left:9px; }
+ .library-fragment-card img { height:52px; }
+ .library-fragment-card span { font-size:8px; }
+ .library-found-fragment-large img { height:clamp(120px,22vh,180px); }
+}
