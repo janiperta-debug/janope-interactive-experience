@@ -56,8 +56,17 @@ export function WorldExperience() {
   const [undergroundTempleUnlocked, setUndergroundTempleUnlocked] = useState(false)\n  const [testMode, setTestMode] = useState(false)
 
   useEffect(() => {
-    setTestMode(new URLSearchParams(window.location.search).get('test') === '1')\n    setDiscovered(readDiscoveries())
+    const enabled = new URLSearchParams(window.location.search).get('test') === '1'
+    setTestMode(enabled)
+    setDiscovered(readDiscoveries())
     setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+    if (enabled) {
+      setView('room')
+      setSeedAccepted(true)
+      setLibraryUnlocked(true)
+      setClockTowerUnlocked(true)
+      setUndergroundTempleUnlocked(true)
+    }
   }, [])
 
   const acceptFragment = () => {
