@@ -53,7 +53,8 @@ export function WorldExperience() {
   const [seedAccepted, setSeedAccepted] = useState(false)
   const [libraryUnlocked, setLibraryUnlocked] = useState(false)
   const [clockTowerUnlocked, setClockTowerUnlocked] = useState(false)
-  const [undergroundTempleUnlocked, setUndergroundTempleUnlocked] = useState(false)\n  const [testMode, setTestMode] = useState(false)
+  const [undergroundTempleUnlocked, setUndergroundTempleUnlocked] = useState(false)
+  const [testMode, setTestMode] = useState(false)
 
   useEffect(() => {
     const enabled = new URLSearchParams(window.location.search).get('test') === '1'
