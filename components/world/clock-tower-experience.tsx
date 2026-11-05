@@ -167,6 +167,10 @@ export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: (
                   <button
                     key={index}
                     className={`clock-face-slot clock-face-slot-${index + 1} ${gear ? 'has-gear' : ''} ${selectedGear ? 'slot-ready' : ''}`}
+                    style={{
+                      left: `${[49.5, 68.3, 49.5, 30.9][index]}%`,
+                      top: `${[28.4, 47.5, 67.9, 47.5][index]}%`,
+                    }}
                     onClick={() => place(index)}
                     disabled={solved}
                     aria-label={gear ? `Gear position ${index + 1}: ${gear.name}` : `Empty gear position ${index + 1}`}
