@@ -1822,3 +1822,85 @@ body { min-height:100dvh; }
     font-size: clamp(9px, 1.5svh, 12px);
   }
 }
+
+
+/* Clock Tower correction: preserve the artwork's proportions and keep the gear
+   targets attached to the actual square clock-face image on landscape screens. */
+@media (orientation: landscape) {
+  .clock-tower-backdrop {
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+  .clockwork-modal-backdrop {
+    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+    padding: 8px;
+    overflow: hidden;
+  }
+  .clockwork-puzzle-modal {
+    box-sizing: border-box;
+    width: min(1080px, calc(100vw - 24px));
+    max-width: 1080px;
+    height: calc(100svh - 16px);
+    max-height: calc(100svh - 16px);
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+    align-content: stretch;
+    gap: 5px;
+    padding: clamp(9px, 1.5svh, 14px) clamp(14px, 2vw, 24px);
+  }
+  .clockwork-heading {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .clockwork-heading .kicker { margin: 0 0 3px; font-size: 9px; }
+  .clockwork-heading h2 { margin: 0 0 3px; font-size: clamp(18px, 2.8svh, 25px); }
+  .clockwork-heading > p:last-child {
+    margin: 0;
+    font-size: clamp(10px, 1.6svh, 12px);
+    line-height: 1.25;
+  }
+  .clock-face-board {
+    position: relative;
+    width: min( min(44svh, 38vw), 460px );
+    height: auto;
+    aspect-ratio: 1 / 1;
+    max-height: 100%;
+    margin: 0 auto;
+    align-self: center;
+  }
+  .clock-face-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: contain;
+  }
+  .clock-face-slot {
+    width: clamp(46px, 8.5svh, 68px);
+    height: clamp(46px, 8.5svh, 68px);
+  }
+  .clock-face-slot-1 { left: 50%; top: 22%; }
+  .clock-face-slot-2 { left: 78%; top: 50%; }
+  .clock-face-slot-3 { left: 50%; top: 78%; }
+  .clock-face-slot-4 { left: 22%; top: 50%; }
+  .clockwork-inventory { min-width: 0; margin: 0; }
+  .clockwork-inventory-heading { margin: 0 0 4px; font-size: 9px; }
+  .clockwork-gear-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin: 0; }
+  .clockwork-gear-card {
+    min-width: 0;
+    min-height: 48px;
+    padding: 4px 7px;
+    gap: 6px;
+  }
+  .clockwork-gear-card > img { width: 34px; height: 34px; flex-basis: 34px; }
+  .clockwork-gear-card strong { font-size: 10px; line-height: 1.1; }
+  .clockwork-gear-card small { font-size: 8px; line-height: 1.1; }
+  .clockwork-placement-hint { margin: 2px 0; font-size: 10px; }
+  .clockwork-actions { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 2px; }
+  .clockwork-actions .enter-button,
+  .clockwork-inscription-button { min-height: 34px; padding: 6px 12px; font-size: 10px; }
+}
