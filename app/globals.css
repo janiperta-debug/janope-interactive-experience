@@ -1519,3 +1519,83 @@ body { min-height:100dvh; }
   .clock-face-slot-4 { left:37%; top:50%; }
 }
 .clock-tower-tuning-note { display:none !important; }
+
+
+/* Unified Manor investigation marker: every hotspot uses the same quiet breathing ring. */
+.hall-hotspot,
+.conservatory-hotspot,
+.library-hotspot,
+.clock-tower-hotspot,
+.temple-memory-point {
+  color:transparent !important;
+  font-size:0 !important;
+  text-indent:-9999px;
+  border:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  overflow:visible;
+}
+.hall-hotspot::before,
+.conservatory-hotspot::before,
+.library-hotspot::before,
+.clock-tower-hotspot::before {
+  content:"";
+  position:absolute;
+  inset:-5px;
+  border:1px solid #d9bd7880;
+  border-radius:50%;
+  background:radial-gradient(circle,#d9bd7822 0%,#d9bd780c 45%,transparent 74%);
+  box-shadow:0 0 12px #d9bd7822;
+  animation:manor-investigation-pulse 3.2s ease-in-out infinite;
+  pointer-events:none;
+}
+.hall-hotspot::after,
+.conservatory-hotspot::after,
+.library-hotspot::after,
+.clock-tower-hotspot::after {
+  content:"";
+  position:absolute;
+  inset:2px;
+  border-radius:50%;
+  background:radial-gradient(circle,#e8d39b70 0%,#d9bd7828 35%,transparent 72%);
+  animation:manor-investigation-core 3.2s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes manor-investigation-pulse {
+  0%,100% { opacity:.38; transform:scale(.92); }
+  50% { opacity:.78; transform:scale(1.08); }
+}
+@keyframes manor-investigation-core {
+  0%,100% { opacity:.25; }
+  50% { opacity:.55; }
+}
+.manor-test-panel {
+  position:fixed;
+  z-index:120;
+  top:12px;
+  left:12px;
+  width:min(290px,calc(100vw - 24px));
+  padding:12px;
+  color:#eadfc8;
+  background:#100e0deF;
+  border:1px solid #c7a66b88;
+  box-shadow:0 8px 28px #0009;
+  backdrop-filter:blur(10px);
+  font:11px/1.4 Arial,sans-serif;
+}
+.manor-test-panel strong { display:block; margin-bottom:8px; letter-spacing:.16em; color:#e4c88f; }
+.manor-test-panel>div { display:flex; flex-wrap:wrap; gap:5px; }
+.manor-test-panel button {
+  padding:7px 9px;
+  color:#f2e7d2;
+  background:#ffffff12;
+  border:1px solid #c7a66b55;
+  border-radius:2px;
+  font:10px Arial,sans-serif;
+}
+.manor-test-panel button:active { background:#c7a66b44; }
+.manor-test-panel small { display:block; margin-top:8px; color:#b9ad9b; font-size:9px; }
+@media(max-width:700px) {
+ .manor-test-panel { top:auto; bottom:10px; left:10px; width:min(270px,calc(100vw - 20px)); padding:9px; }
+ .manor-test-panel button { padding:7px 8px; }
+}
