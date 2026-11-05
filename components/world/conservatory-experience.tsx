@@ -115,8 +115,15 @@ export function ConservatoryExperience({ onBack, onLibrary, onLibraryUnlocked }:
       <section className="hall-modal conservatory-modal" role="dialog" aria-modal="true" aria-labelledby="plant-modal-title" onClick={event => event.stopPropagation()}>
         <button className="hall-modal-close" onClick={() => setInspecting(null)} aria-label="Close"><X/></button>
         <p className="kicker">The Gardener’s field notes</p><h2 id="plant-modal-title">{plants.find(p => p.id === inspecting)?.name}</h2>
-        <p className="research-body">{plants.find(p => p.id === inspecting)?.detail}</p>
-        <div className="plant-note-card"><Leaf/><p>{plants.find(p => p.id === inspecting)?.note}</p></div>
+        <div className="plant-profile-layout">
+          <div className="plant-profile-art">
+            <img src={`/manor-conservatory/${inspecting === 'silverleaf' ? 'silverleaf' : inspecting === 'moonfern' ? 'moon-fern' : 'amber-bell'}.png`} alt={plants.find(p => p.id === inspecting)?.name ?? 'Conservatory plant'} />
+          </div>
+          <div className="plant-profile-copy">
+            <p className="research-body">{plants.find(p => p.id === inspecting)?.detail}</p>
+            <div className="plant-note-card"><Leaf/><p>{plants.find(p => p.id === inspecting)?.note}</p></div>
+          </div>
+        </div>
         <div className="plant-place-choice">
           <label className="kicker" htmlFor="plant-place-select">Choose its place</label>
           <select id="plant-place-select" className="plant-place-select" value={placeChoice} onChange={event => setPlaceChoice(event.target.value as PlaceId)} disabled={solved}>
