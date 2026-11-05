@@ -1408,3 +1408,38 @@ body { min-height:100dvh; }
  .library-fragment-card span { font-size:8px; }
  .library-found-fragment-large img { height:clamp(120px,22vh,180px); }
 }
+
+
+/* Clock Tower: keep the placement targets generous, but scale the gear artwork down
+   so each recovered gear sits inside the engraved mechanism rather than covering it. */
+.clock-face-slot {
+  width:clamp(54px,7.4vw,78px);
+  height:clamp(54px,7.4vw,78px);
+  padding:2px;
+  border-color:transparent;
+  background:transparent;
+  box-shadow:none;
+}
+.clock-face-slot img {
+  width:76%;
+  height:76%;
+  object-fit:contain;
+  filter:drop-shadow(0 3px 5px #000c);
+}
+.clock-face-slot.has-gear {
+  border-color:transparent;
+  background:transparent;
+  box-shadow:none;
+}
+.clock-face-slot.slot-ready {
+  border:1px solid #f0d28b99;
+  background:radial-gradient(circle,#eac56d18,transparent 72%);
+  box-shadow:0 0 16px #eac56d55;
+}
+@media(max-width:700px) {
+  .clock-face-slot {
+    width:clamp(44px,12vw,60px);
+    height:clamp(44px,12vw,60px);
+  }
+  .clock-face-slot img { width:76%; height:76%; }
+}
