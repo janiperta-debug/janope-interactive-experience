@@ -1266,3 +1266,26 @@ body { min-height:100dvh; }
   .hall-header--rooms .hall-room-list { top:14px; right:12px; width:min(172px,48vw); gap:6px; }
   .hall-header--rooms .hall-room-unlock { min-height:32px; padding:6px 8px; font-size:7px; }
 }
+
+
+/* Conservatory: seven meaningful investigation points; one growing place is the clue. */
+.ambient-hotspot,.conservatory-debug-hint { display:none !important; }
+.place-hotspot-guided { border-color:transparent; background:transparent; box-shadow:none; }
+.place-hotspot-guided::before {
+ content:""; position:absolute; inset:-15px; border-radius:50%;
+ background:radial-gradient(circle,#e6bd6838 0%,#e6bd681c 38%,transparent 72%);
+ animation:conservatory-growing-place-glow 3.2s ease-in-out infinite; pointer-events:none;
+}
+.place-hotspot-guided::after {
+ content:""; position:absolute; inset:-5px; border:1px solid #e6bd6870;
+ border-radius:50%; box-shadow:0 0 15px #e6bd6830;
+ animation:conservatory-growing-place-ring 3.2s ease-in-out infinite; pointer-events:none;
+}
+@keyframes conservatory-growing-place-glow {
+ 0%,100% { opacity:.45; transform:scale(.92); }
+ 50% { opacity:1; transform:scale(1.12); }
+}
+@keyframes conservatory-growing-place-ring {
+ 0%,100% { opacity:.35; transform:scale(.94); }
+ 50% { opacity:.8; transform:scale(1.08); }
+}
