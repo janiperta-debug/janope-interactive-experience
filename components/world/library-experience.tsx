@@ -55,7 +55,8 @@ export function LibraryExperience({ onBack, onArtifactUnlocked }: { onBack: () =
   const [selected, setSelected] = useState<number | null>(null)
   const [solved, setSolved] = useState(false)
   const [reveal, setReveal] = useState(false)
-  const [wrongOrder, setWrongOrder] = useState(false)\n  const [readingFragment, setReadingFragment] = useState<number | null>(null)
+  const [wrongOrder, setWrongOrder] = useState(false)
+  const [readingFragment, setReadingFragment] = useState<number | null>(null)
 
   const collect = (index: number) => {
     setFound((current) => current.includes(index) ? current : [...current, index])
