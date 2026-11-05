@@ -60,13 +60,6 @@ export function WorldExperience() {
     setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   }, [])
 
-  useEffect(() => {
-    if (view !== 'journey') return
-    const duration = reducedMotion ? 0 : 27000
-    const timer = window.setTimeout(() => setView('fragment'), duration)
-    return () => window.clearTimeout(timer)
-  }, [view, reducedMotion])
-
   const acceptFragment = () => {
     setDiscovered(markDiscovered(artifact.id))
     setView('room')
@@ -108,6 +101,12 @@ export function WorldExperience() {
               <p className="journey-last-line">And some have been waiting for someone to continue them.</p>
               <p className="journey-emphasis">Your journey begins with a fragment.</p>
             </div>
+          </div>
+          <div className="journey-fragment-copy">
+            <p className="kicker">A gift from the Manor</p>
+            <h2>Every guest is given a beginning.</h2>
+            <p>As the doors open, a small fragment bearing the Manor’s seal is placed in your keeping. Its purpose is not yet known. Perhaps its meaning will become clear as you explore the rooms and uncover the stories held within.</p>
+            <button className="enter-button" onClick={() => setView('fragment')}><span>Discover the fragment</span><ArrowRight aria-hidden="true" /></button>
           </div>
           <button className="skip-intro" onClick={skipArrival}>Skip intro <ArrowRight aria-hidden="true" /></button>
           <div className="arrival-footer"><span>THE MANOR · UNWRITTEN</span><span>THE ARRIVAL</span></div>
