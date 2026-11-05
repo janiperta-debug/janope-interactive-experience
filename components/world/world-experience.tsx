@@ -82,6 +82,7 @@ export function WorldExperience() {
         {journeyStarted && <>
           <div className="arrival-image journey-stage journey-stage-approach" aria-hidden="true" />
           <div className="arrival-image journey-stage journey-stage-entrance" aria-hidden="true" />
+          <div className="arrival-image journey-stage journey-stage-open-doors" aria-hidden="true" />
         </>}
         <div className={`arrival-vignette ${journeyStarted ? 'journey-vignette' : ''}`} aria-hidden="true" />
         {!journeyStarted && <>
