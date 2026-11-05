@@ -1907,3 +1907,136 @@ body { min-height:100dvh; }
   .clockwork-actions .enter-button,
   .clockwork-inscription-button { min-height: 34px; padding: 6px 12px; font-size: 10px; }
 }
+
+
+/* -------------------------------------------------------------------------
+   MANOR UNIVERSAL MODAL SYSTEM
+   Every dialog shares one viewport contract: fixed outer frame, bounded panel,
+   normal-flow content and panel-level scrolling when the content is taller
+   than the available screen. Individual rooms only style their own contents.
+   ------------------------------------------------------------------------- */
+.hall-modal-backdrop {
+  box-sizing: border-box;
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: clamp(8px, 2.2vh, 20px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.hall-modal-backdrop > [role="dialog"] {
+  box-sizing: border-box;
+  position: relative;
+  width: min(960px, 100%);
+  min-width: 0;
+  max-width: 100%;
+  max-height: calc(100dvh - 2 * clamp(8px, 2.2vh, 20px));
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
+}
+.hall-modal-backdrop > [role="dialog"] > .hall-modal-close {
+  position: absolute;
+  z-index: 20;
+  top: 10px;
+  right: 12px;
+  flex: none;
+}
+.hall-modal-backdrop > [role="dialog"] > :not(.hall-modal-close) {
+  min-width: 0;
+}
+.hall-modal-backdrop > [role="dialog"] img {
+  max-width: 100%;
+}
+
+/* Clock Tower uses the same modal shell. Its clock remains a bounded,
+   aspect-ratio-preserving object; heading, inventory and actions flow below it. */
+@media (orientation: landscape) {
+  .hall-modal-backdrop > .clockwork-puzzle-modal {
+    width: min(1080px, 100%);
+    max-height: calc(100dvh - 16px);
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(5px, 1vh, 10px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: clamp(12px, 2vh, 20px) clamp(14px, 2vw, 24px);
+  }
+  .clockwork-puzzle-modal > .clockwork-heading {
+    flex: none;
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    padding-right: 34px;
+  }
+  .clockwork-puzzle-modal > .clock-face-board {
+    flex: none;
+    width: min(40svh, 34vw, 420px);
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1293 / 1216;
+    margin: 2px auto;
+    align-self: center;
+  }
+  .clockwork-puzzle-modal > .clockwork-inventory {
+    flex: none;
+    min-width: 0;
+    margin: 0;
+  }
+  .clockwork-puzzle-modal > .clockwork-actions {
+    flex: none;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .clockwork-puzzle-modal > .clockwork-placement-hint,
+  .clockwork-puzzle-modal > .clockwork-feedback {
+    flex: none;
+  }
+}
+
+/* Conservatory controls stay in the same scrollable dialog flow as the plant
+   profile, rather than being clipped by a fixed-height artwork panel. */
+@media (orientation: landscape) {
+  .hall-modal-backdrop > .conservatory-modal {
+    width: min(960px, 100%);
+    max-height: calc(100dvh - 16px);
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: clamp(14px, 2vh, 22px) clamp(16px, 2vw, 26px);
+  }
+  .conservatory-modal .plant-profile-layout {
+    flex: none;
+    min-height: 0;
+  }
+  .conservatory-modal .plant-profile-art {
+    height: clamp(120px, 24svh, 190px);
+  }
+  .conservatory-modal .plant-place-choice,
+  .conservatory-modal .plant-place-confirm {
+    flex: none;
+  }
+}
+@media (max-height: 520px) {
+  .hall-modal-backdrop {
+    place-items: start center;
+  }
+  .hall-modal-backdrop > [role="dialog"] {
+    max-height: calc(100dvh - 16px);
+  }
+  .hall-modal-backdrop > .clockwork-puzzle-modal > .clock-face-board {
+    width: min(34svh, 30vw, 340px);
+  }
+}
