@@ -110,15 +110,15 @@ h1,h2,p { margin:0; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; scroll-behavior:auto !important; } }
 
 
-/* The Arrival: one continuous, unhurried approach in three matching views */
+/* The Arrival: a continuous approach, then a distinct open-door final scene */
 .journey-screen { padding:0; background:#030608; }
 .journey-screen .arrival-image { background-size:cover; background-position:center center; will-change:transform,opacity; }
 .journey-screen .journey-stage-gates { background-image:url('/manor-arrival/01-gates.png'); }
 .journey-screen .journey-stage-approach { background-image:url('/manor-arrival/02-approach.png'); }
 .journey-screen .journey-stage-entrance { background-image:url('/manor-arrival/03-entrance.png'); }
 .journey-screen .journey-stage-open-doors { background-image:url('/manor-arrival/04-open-doors.png'); }
-.journey-screen .journey-stage { opacity:0; animation-duration:21s; animation-timing-function:cubic-bezier(.45,0,.2,1); animation-fill-mode:both; }
-.journey-screen .arrival-image:not(.journey-stage) { will-change:transform,opacity; animation:stage-gates 21s cubic-bezier(.45,0,.2,1) both; }
+.journey-screen .journey-stage { opacity:0; animation-duration:27s; animation-timing-function:cubic-bezier(.45,0,.2,1); animation-fill-mode:both; }
+.journey-screen .arrival-image:not(.journey-stage) { will-change:transform,opacity; animation:stage-gates 27s cubic-bezier(.45,0,.2,1) both; }
 .journey-screen .journey-stage-gates { opacity:1; transform:scale(1); animation-name:stage-gates; }
 .journey-screen .journey-stage-approach { transform:scale(1.02); animation-name:stage-approach; }
 .journey-screen .journey-stage-entrance { transform:scale(1.02); animation-name:stage-entrance; }
@@ -137,26 +137,28 @@ h1,h2,p { margin:0; }
 .journey-screen .arrival-footer { position:absolute; z-index:3; right:7vw; bottom:28px; left:7vw; }
 @keyframes stage-gates {
   0% { opacity:1; transform:scale(1); }
-  29% { opacity:1; transform:scale(1.15); }
-  36% { opacity:0; transform:scale(1.19); }
-  100% { opacity:0; transform:scale(1.19); }
+  25% { opacity:1; transform:scale(1.13); }
+  31% { opacity:0; transform:scale(1.16); }
+  100% { opacity:0; transform:scale(1.16); }
 }
 @keyframes stage-approach {
-  0%,28% { opacity:0; transform:scale(1.02); }
-  36% { opacity:1; transform:scale(1.08); }
-  63% { opacity:1; transform:scale(1.19); }
-  71% { opacity:0; transform:scale(1.23); }
-  100% { opacity:0; transform:scale(1.23); }
+  0%,25% { opacity:0; transform:scale(1.02); }
+  31% { opacity:1; transform:scale(1.07); }
+  54% { opacity:1; transform:scale(1.16); }
+  61% { opacity:0; transform:scale(1.19); }
+  100% { opacity:0; transform:scale(1.19); }
 }
 @keyframes stage-entrance {
-  0%,63% { opacity:0; transform:scale(1.02); }
-  71% { opacity:1; transform:scale(1.10); }
-  100% { opacity:1; transform:scale(1.25); }
+  0%,54% { opacity:0; transform:scale(1.02); }
+  61% { opacity:1; transform:scale(1.08); }
+  75% { opacity:1; transform:scale(1.16); }
+  80% { opacity:0; transform:scale(1.18); }
+  100% { opacity:0; transform:scale(1.18); }
 }
 @keyframes stage-open-doors {
-  0%,71% { opacity:0; transform:scale(1.02); }
-  79% { opacity:1; transform:scale(1.035); }
-  100% { opacity:1; transform:scale(1.055); }
+  0%,84% { opacity:0; transform:scale(1.02); }
+  92% { opacity:1; transform:scale(1.025); }
+  100% { opacity:1; transform:scale(1.045); }
 }
 @keyframes welcome-line-one {
   0%,3% { opacity:0; transform:translateY(12px); }
