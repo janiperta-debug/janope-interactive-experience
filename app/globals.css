@@ -2040,3 +2040,43 @@ body { min-height:100dvh; }
     width: min(34svh, 30vw, 340px);
   }
 }
+
+
+/* Ensure every Main Hall and Library research point uses the shared marker.
+   The Library previously hid all non-guided points with a legacy rule. */
+.hall-hotspot::before,
+.hall-hotspot::after,
+.library-hotspot::before,
+.library-hotspot::after {
+  display: block !important;
+  content: "" !important;
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+}
+.hall-hotspot,
+.library-hotspot {
+  position: absolute;
+  overflow: visible !important;
+}
+.hall-hotspot::before,
+.library-hotspot::before {
+  inset: -5px;
+  border: 1px solid #d9bd7880;
+  background: radial-gradient(circle, #d9bd7822 0%, #d9bd780c 45%, transparent 74%);
+  box-shadow: 0 0 12px #d9bd7822;
+  animation: manor-investigation-pulse 3.2s ease-in-out infinite;
+}
+.hall-hotspot::after,
+.library-hotspot::after {
+  inset: 2px;
+  border: 0;
+  background: radial-gradient(circle, #e8d39b70 0%, #d9bd7828 35%, transparent 72%);
+  animation: manor-investigation-core 3.2s ease-in-out infinite;
+}
+/* Legacy Library book glow must not create a different hotspot hierarchy. */
+.library-hotspot-guided::before,
+.library-hotspot-guided::after {
+  border-radius: 50%;
+  box-shadow: none;
+}
