@@ -820,7 +820,7 @@ body { min-height:100dvh; }
 .conservatory-debug-scene{position:fixed;z-index:4;inset:0;pointer-events:none}
 .conservatory-hotspot{position:absolute;pointer-events:auto;display:grid;place-items:center;width:clamp(38px,3.1vw,48px);height:clamp(38px,3.1vw,48px);padding:0;border:2px solid #e6bd68;background:#0b1214d9;color:#fff0c8;box-shadow:0 0 0 2px #070b0c99,0 0 20px #e6bd6870;font:700 14px Arial,sans-serif;cursor:pointer}
 .conservatory-hotspot:hover{background:#283323f5;border-color:#fff0b3;box-shadow:0 0 28px #e6bd68aa}
-.plant-hotspot-1{left:20%;top:54%}.plant-hotspot-2{left:41%;top:51%}.plant-hotspot-3{left:40%;top:56%}
+.plant-hotspot-1{left:20%;top:54%}.plant-hotspot-2{left:68%;top:42%}.plant-hotspot-3{left:34%;top:44%}
 .place-hotspot-1{left:3%;top:47%}.place-hotspot-2{left:58%;top:53%}.place-hotspot-3{left:87%;top:57%}
 .sphere-hotspot{left:49%;top:58%}
 .ambient-hotspot-1{left:33%;top:20%}.ambient-hotspot-2{left:24%;top:38%}.ambient-hotspot-3{left:68%;top:50%}.ambient-hotspot-4{left:8%;top:67%}.ambient-hotspot-5{left:59%;top:70%}
