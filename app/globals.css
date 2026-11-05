@@ -1504,3 +1504,18 @@ body { min-height:100dvh; }
   .plant-place-choice .plant-place-description { font-size:8px; line-height:1.05; margin:0; }
   .plant-place-choice .plant-place-confirm { min-height:30px; padding:4px 8px; font-size:8px; }
 }
+
+
+/* Clock Tower: fit the complete room artwork to the phone viewport and align
+   the four draggable gears with the four smaller gear wells in the dial art. */
+@media (max-width:700px) {
+  .clock-tower-backdrop {
+    background-size:100% 100%;
+    background-position:center center;
+  }
+  .clock-face-slot-1 { left:50%; top:23%; }
+  .clock-face-slot-2 { left:63%; top:50%; }
+  .clock-face-slot-3 { left:50%; top:77%; }
+  .clock-face-slot-4 { left:37%; top:50%; }
+}
+.clock-tower-tuning-note { display:none !important; }
