@@ -1207,3 +1207,21 @@ body { min-height:100dvh; }
   .fragment-reveal-screen .cabinet-reveal-vignette { background:linear-gradient(0deg,#030403f5 0%,#030403d9 42%,transparent 84%),linear-gradient(90deg,#03040333,transparent); }
   .fragment-reveal-screen .cabinet-reveal-copy { left:22px; right:22px; bottom:24px; width:auto; }
 }
+
+
+/* Ensure the First Fragment story copy always sits above its doorway artwork. */
+.fragment-reveal-scene { position:relative; isolation:isolate; min-height:100svh; }
+.fragment-reveal-scene .fragment-reveal-image { z-index:0; }
+.fragment-reveal-scene .cabinet-reveal-vignette { z-index:1; }
+.fragment-reveal-scene .cabinet-reveal-copy {
+  display:block;
+  position:absolute;
+  z-index:3;
+  visibility:visible;
+  opacity:1;
+  color:#eee2c7;
+}
+.fragment-reveal-scene .cabinet-reveal-copy .kicker,
+.fragment-reveal-scene .cabinet-reveal-copy h2,
+.fragment-reveal-scene .cabinet-reveal-copy > p:not(.kicker),
+.fragment-reveal-scene .cabinet-reveal-copy .enter-button { position:relative; z-index:1; }
