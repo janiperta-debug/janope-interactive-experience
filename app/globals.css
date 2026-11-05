@@ -1191,3 +1191,19 @@ body { min-height:100dvh; }
   .main-hall-scene .hotspot-cabinet::before,
   .main-hall-scene .hotspot-cabinet::after { animation:none; }
 }
+
+
+/* First Fragment: cinematic discovery scene, followed by the shared artifact acceptance treatment. */
+.fragment-reveal-screen { position:relative; min-height:100svh; width:100%; overflow:hidden; background:#030403; }
+.fragment-reveal-scene { min-height:100svh; }
+.fragment-reveal-image { animation:fragment-reveal-settle 7s cubic-bezier(.16,.55,.3,1) both; }
+.fragment-reveal-scene .cabinet-reveal-copy { width:min(480px,44vw); }
+.fragment-reveal-screen .cabinet-reveal-vignette { background:linear-gradient(90deg,#050605eb 0%,#050605bd 38%,#05060522 72%,transparent 100%),linear-gradient(0deg,#03040399,transparent 38%,#03040344); }
+@keyframes fragment-reveal-settle { 0% { transform:scale(1.015); } 100% { transform:scale(1.09); } }
+.fragment-receive-screen { min-height:100svh; position:relative; }
+.fragment-receive-modal .seed-art-placeholder { min-height:130px; }
+@media(max-width:700px) {
+  .fragment-reveal-screen .cabinet-reveal-image { object-position:center; }
+  .fragment-reveal-screen .cabinet-reveal-vignette { background:linear-gradient(0deg,#030403f5 0%,#030403d9 42%,transparent 84%),linear-gradient(90deg,#03040333,transparent); }
+  .fragment-reveal-screen .cabinet-reveal-copy { left:22px; right:22px; bottom:24px; width:auto; }
+}
