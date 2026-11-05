@@ -116,11 +116,13 @@ h1,h2,p { margin:0; }
 .journey-screen .journey-stage-gates { background-image:url('/manor-arrival/01-gates.png'); }
 .journey-screen .journey-stage-approach { background-image:url('/manor-arrival/02-approach.png'); }
 .journey-screen .journey-stage-entrance { background-image:url('/manor-arrival/03-entrance.png'); }
+.journey-screen .journey-stage-open-doors { background-image:url('/manor-arrival/04-open-doors.png'); }
 .journey-screen .journey-stage { opacity:0; animation-duration:21s; animation-timing-function:cubic-bezier(.45,0,.2,1); animation-fill-mode:both; }
 .journey-screen .arrival-image:not(.journey-stage) { will-change:transform,opacity; animation:stage-gates 21s cubic-bezier(.45,0,.2,1) both; }
 .journey-screen .journey-stage-gates { opacity:1; transform:scale(1); animation-name:stage-gates; }
 .journey-screen .journey-stage-approach { transform:scale(1.02); animation-name:stage-approach; }
 .journey-screen .journey-stage-entrance { transform:scale(1.02); animation-name:stage-entrance; }
+.journey-screen .journey-stage-open-doors { transform:scale(1.02); animation-name:stage-open-doors; }
 .journey-vignette { background:linear-gradient(0deg,rgba(3,7,9,.68),rgba(3,7,9,.04) 48%,rgba(3,7,9,.16)),radial-gradient(ellipse at 50% 50%,transparent 35%,rgba(2,5,8,.18) 100%); }
 .journey-text { position:absolute; z-index:2; inset:0; display:grid; place-items:center; padding:16vh 9vw 18vh; text-align:center; }
 .journey-line { position:absolute; width:min(760px,82vw); color:#f5e8d3; font-size:clamp(1.2rem,2.6vw,2.05rem); line-height:1.7; letter-spacing:.015em; text-shadow:0 2px 24px #000,0 1px 5px #000; opacity:0; }
@@ -150,6 +152,11 @@ h1,h2,p { margin:0; }
   0%,63% { opacity:0; transform:scale(1.02); }
   71% { opacity:1; transform:scale(1.10); }
   100% { opacity:1; transform:scale(1.25); }
+}
+@keyframes stage-open-doors {
+  0%,71% { opacity:0; transform:scale(1.02); }
+  79% { opacity:1; transform:scale(1.035); }
+  100% { opacity:1; transform:scale(1.055); }
 }
 @keyframes welcome-line-one {
   0%,3% { opacity:0; transform:translateY(12px); }
