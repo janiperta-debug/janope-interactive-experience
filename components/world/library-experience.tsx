@@ -8,16 +8,16 @@ type ResearchPoint = 'book' | 'backDesk' | 'staircase' | 'bookshelf' | 'readingC
 
 const fragments = [
   {
-    id: 'swallow',
-    image: '/manor-library/poem-fragment-1.png',
-    text: 'Where wandering winds embrace the air,\nA fleeting shadow dances there.',
-    clue: 'A fleeting shadow moves with the wandering winds.',
-  },
-  {
     id: 'eagle',
-    image: '/manor-library/poem-fragment-2.png',
+    image: '/manor-library/poem-fragment-1.png',
     text: 'Where stars look down on realms below,\nA watchful gaze surveys the world.',
     clue: 'The watchful gaze reaches from the highest skies.',
+  },
+  {
+    id: 'swallow',
+    image: '/manor-library/poem-fragment-2.png',
+    text: 'Where wandering winds embrace the air,\nA fleeting shadow dances there.',
+    clue: 'A fleeting shadow moves with the wandering winds.',
   },
   {
     id: 'raven',
@@ -99,7 +99,7 @@ export function LibraryExperience({ onBack, onArtifactUnlocked }: { onBack: () =
     setSelected(null)
 
     if (next.every((value) => value !== null)) {
-      const correct = next[0] === 2 && next[1] === 0 && next[2] === 1
+      const correct = next[0] === 2 && next[1] === 1 && next[2] === 0
       if (correct) {
         setSolved(true)
       } else {
