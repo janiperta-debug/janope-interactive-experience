@@ -2617,3 +2617,67 @@ body { min-height:100dvh; }
   .temple-memory-point-3 { left:52% !important; right:auto !important; top:70% !important; transform:translateX(-50%) !important; }
   .temple-memory-point-5 { right:10% !important; left:auto !important; top:51% !important; }
 }
+
+
+/* Clockwork puzzle: keep gear targets attached to the clock artwork while
+   giving the clock enough room to separate all four interactive positions.
+   The dialog itself scrolls when the larger board needs more vertical space. */
+.hall-modal-backdrop > .clockwork-puzzle-modal {
+  max-height: calc(100dvh - 28px) !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+}
+.clockwork-puzzle-modal > .clock-face-board {
+  flex: 0 0 auto !important;
+  width: min(72svh, 58vw, 620px) !important;
+  max-width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 1293 / 1216 !important;
+  max-height: none !important;
+  margin: 10px auto 16px !important;
+}
+.clockwork-puzzle-modal > .clock-face-board .clock-face-image {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-height: none !important;
+  object-fit: fill !important;
+}
+.clockwork-puzzle-modal .clock-face-slot {
+  width: 13% !important;
+  height: 13% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 3px !important;
+  aspect-ratio: 1 / 1;
+}
+.clockwork-puzzle-modal .clock-face-slot img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
+@media (orientation: landscape) {
+  .hall-modal-backdrop > .clockwork-puzzle-modal {
+    width: min(1120px, calc(100vw - 28px)) !important;
+    max-height: calc(100dvh - 24px) !important;
+    padding: clamp(14px, 2vh, 24px) clamp(18px, 2.5vw, 32px) !important;
+    gap: clamp(8px, 1.5vh, 16px) !important;
+  }
+  .clockwork-puzzle-modal > .clock-face-board {
+    width: min(76svh, 58vw, 640px) !important;
+  }
+}
+@media (orientation: portrait) {
+  .hall-modal-backdrop > .clockwork-puzzle-modal {
+    max-height: calc(100dvh - 20px) !important;
+    padding: 18px 16px !important;
+  }
+  .clockwork-puzzle-modal > .clock-face-board {
+    width: min(78vw, 54svh, 520px) !important;
+  }
+  .clockwork-puzzle-modal .clock-face-slot {
+    width: 14% !important;
+    height: 14% !important;
+  }
+}
