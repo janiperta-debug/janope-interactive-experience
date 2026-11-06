@@ -48,6 +48,7 @@ export function WorldExperience() {
   const [foundGroups, setFoundGroups] = useState<string[]>([])
   const [selectedTile, setSelectedTile] = useState<number | null>(null)
   const [placedTiles, setPlacedTiles] = useState<(number | null)[]>(Array(9).fill(null))
+  const [inventoryOrder, setInventoryOrder] = useState<number[]>([0, 1, 2, 3, 4, 5, 6, 7, 8])
   const [cabinetSolved, setCabinetSolved] = useState(false)
   const [cabinetReveal, setCabinetReveal] = useState(false)
   const [seedAccepted, setSeedAccepted] = useState(false)
@@ -61,6 +62,12 @@ export function WorldExperience() {
     setTestMode(enabled)
     setDiscovered(readDiscoveries())
     setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+    const shuffledInventory = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    for (let i = shuffledInventory.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[shuffledInventory[i], shuffledInventory[j]] = [shuffledInventory[j], shuffledInventory[i]]
+    }
+    setInventoryOrder(shuffledInventory)
     if (enabled) {
       setView('room')
       setSeedAccepted(true)
@@ -279,14 +286,14 @@ export function WorldExperience() {
             </div>
           </> : <>
             <div className="cabinet-puzzle-layout">
-              <div className="cabinet-modal-inventory cabinet-inventory-left">{fragmentTiles.slice(0, 5).map((filename, index) => ({ filename, index })).filter(({ index }) => discoveredTiles.includes(index) && !placedTiles.includes(index)).map(({ filename, index }) => <button key={filename} className={`inventory-tile tile-available ${selectedTile === index ? 'tile-selected' : ''}`} disabled={cabinetSolved} onClick={() => setSelectedTile(selectedTile === index ? null : index)} aria-label={`Select fragment ${index + 1}`}><img src={`/manor-puzzle/fragments/${filename}`} alt="" /></button>)}</div>
+              <div className="cabinet-modal-inventory cabinet-inventory-left">{inventoryOrder.slice(0, 5).map((index) => ({ filename: fragmentTiles[index], index })).filter(({ index }) => discoveredTiles.includes(index) && !placedTiles.includes(index)).map(({ filename, index }) => <button key={filename} className={`inventory-tile tile-available ${selectedTile === index ? 'tile-selected' : ''}`} disabled={cabinetSolved} onClick={() => setSelectedTile(selectedTile === index ? null : index)} aria-label={`Select fragment ${index + 1}`}><img src={`/manor-puzzle/fragments/${filename}`} alt="" /></button>)}</div>
               <div className={`cabinet-artboard ${cabinetSolved ? 'cabinet-artboard-awakened' : ''}`}>
                 <img className="cabinet-artwork" src="/manor-main-hall/locked-cabinet-detail.png" alt="The ornate cabinet with its nine-square puzzle" />
                 <div className="cabinet-overlay-grid">{placedTiles.map((tile, cell) => <button key={cell} className={`cabinet-overlay-cell ${tile !== null ? 'cabinet-overlay-cell-filled' : ''} ${selectedTile !== null ? 'cabinet-overlay-cell-target' : ''}`} disabled={cabinetSolved || selectedTile === null} onClick={() => placeTile(cell)} aria-label={`Cabinet square ${cell + 1}`}>
                   {tile !== null && <img src={`/manor-puzzle/fragments/${fragmentTiles[tile]}`} alt="" />}
                 </button>)}</div>
               </div>
-              <div className="cabinet-modal-inventory cabinet-inventory-right">{fragmentTiles.slice(5).map((filename, offset) => ({ filename, index: offset + 5 })).filter(({ index }) => discoveredTiles.includes(index) && !placedTiles.includes(index)).map(({ filename, index }) => <button key={filename} className={`inventory-tile tile-available ${selectedTile === index ? 'tile-selected' : ''}`} disabled={cabinetSolved} onClick={() => setSelectedTile(selectedTile === index ? null : index)} aria-label={`Select fragment ${index + 1}`}><img src={`/manor-puzzle/fragments/${filename}`} alt="" /></button>)}</div>
+              <div className="cabinet-modal-inventory cabinet-inventory-right">{inventoryOrder.slice(5).map((index) => ({ filename: fragmentTiles[index], index })).filter(({ index }) => discoveredTiles.includes(index) && !placedTiles.includes(index)).map(({ filename, index }) => <button key={filename} className={`inventory-tile tile-available ${selectedTile === index ? 'tile-selected' : ''}`} disabled={cabinetSolved} onClick={() => setSelectedTile(selectedTile === index ? null : index)} aria-label={`Select fragment ${index + 1}`}><img src={`/manor-puzzle/fragments/${filename}`} alt="" /></button>)}</div>
             </div>
             {cabinetSolved && !cabinetReveal && <p className="cabinet-success cabinet-success-awakened">The hidden shape begins to glow…</p>}
           </>}
