@@ -2223,3 +2223,68 @@ body { min-height:100dvh; }
   .clock-tower-hotspot-ambient-2 { left: 76%; top: 19%; }
   .clock-tower-hotspot-ambient-3 { left: 50%; top: 76%; }
 }
+
+
+/* Underground Temple relic markers: the collected artifacts themselves sit
+   inside the shared investigation glow; no numbered or text placeholders. */
+.temple-memory-point {
+  width: 116px !important;
+  height: 82px !important;
+  min-width: 116px !important;
+  min-height: 82px !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+}
+.temple-memory-point::before,
+.temple-memory-point::after {
+  inset: 50% auto auto 50% !important;
+  width: 66px !important;
+  height: 66px !important;
+  transform: translate(-50%, -50%) !important;
+}
+.temple-memory-point .temple-memory-symbol {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 68px !important;
+  height: 68px !important;
+  max-width: none;
+  object-fit: contain;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: transparent !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 0 8px #e8c77b70);
+  transition: filter .25s ease, transform .25s ease;
+}
+.temple-memory-point:hover .temple-memory-symbol,
+.temple-memory-point.is-selected .temple-memory-symbol {
+  filter: drop-shadow(0 0 13px #f2d58e);
+  transform: scale(1.08);
+}
+.temple-memory-point.is-examined .temple-memory-symbol {
+  border: 0 !important;
+  color: transparent !important;
+  filter: drop-shadow(0 0 12px #e8d39b) brightness(1.08);
+}
+@media(max-width:700px) {
+  .temple-memory-point {
+    width: 94px !important;
+    height: 70px !important;
+    min-width: 94px !important;
+    min-height: 70px !important;
+  }
+  .temple-memory-point::before,
+  .temple-memory-point::after {
+    width: 56px !important;
+    height: 56px !important;
+  }
+  .temple-memory-point .temple-memory-symbol {
+    width: 58px !important;
+    height: 58px !important;
+  }
+}
