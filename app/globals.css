@@ -2716,3 +2716,11 @@ body { min-height:100dvh; }
 .library-fragment-reader-backdrop {
   z-index: 1200 !important;
 }
+
+
+/* The restored Library page artwork is a transparent PNG; do not place it
+   on the parchment-colored tile background used by the earlier preview. */
+.library-completed-page {
+  background: transparent !important;
+  border: 0 !important;
+}
