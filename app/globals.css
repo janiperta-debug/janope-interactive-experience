@@ -2681,3 +2681,30 @@ body { min-height:100dvh; }
     height: 14% !important;
   }
 }
+
+
+/* Increase the actual gear targets: the 13% hit areas made the recovered
+   artwork look tiny inside the enlarged clock. Preserve their centers. */
+.clockwork-puzzle-modal .clock-face-slot {
+  width: 20% !important;
+  height: 20% !important;
+  padding: 1px !important;
+  border-width: 1px !important;
+}
+.clockwork-puzzle-modal .clock-face-slot img {
+  width: 122% !important;
+  height: 122% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: contain !important;
+}
+@media (orientation: portrait) {
+  .clockwork-puzzle-modal .clock-face-slot {
+    width: 21% !important;
+    height: 21% !important;
+  }
+  .clockwork-puzzle-modal .clock-face-slot img {
+    width: 122% !important;
+    height: 122% !important;
+  }
+}
