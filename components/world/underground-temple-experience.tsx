@@ -171,15 +171,15 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
       )}
 
       {bookRevealed && !endingCinematic && (
-        <div className="temple-book-backdrop">
-          <section className="temple-book-reveal" role="dialog" aria-modal="true" aria-labelledby="temple-book-title">
-            <div className="temple-book-glow" aria-hidden="true" />
+        <div className="temple-book-cinematic">
+          <img src="/manor-underground-temple/the-unwritten-book.png" alt="An ancient open book bearing the title The Unwritten" />
+          <div className="temple-book-cinematic-vignette" aria-hidden="true" />
+          <div className="temple-book-cinematic-copy">
             <p className="kicker">A FINAL DISCOVERY</p>
-            <img src="/manor-underground-temple/the-unwritten-book.png" alt="An ancient book bearing the title The Unwritten" />
             <h2 id="temple-book-title">The Unwritten</h2>
             <p>The Temple has kept this book beyond the reach of time. Its pages hold more than this journey could reveal.</p>
             <button className="enter-button" onClick={() => setEndingCinematic(true)}><span>Open the book</span><BookOpen aria-hidden="true" /></button>
-          </section>
+          </div>
         </div>
       )}
 
