@@ -2818,3 +2818,63 @@ body { min-height:100dvh; }
     animation:none;opacity:1;transform:none
   }
 }
+
+
+/* The book reveal is a full-screen scene, continuous with the altar and final ending. */
+.temple-book-cinematic{
+  position:fixed;z-index:210;inset:0;display:grid;place-items:center;
+  overflow:hidden;padding:0;background:#080b0d;
+  animation:temple-book-scene-in 1.1s ease-out both;
+}
+.temple-book-cinematic>img{
+  position:absolute;inset:0;display:block;width:100%;height:100%;
+  object-fit:contain;object-position:center;
+  filter:drop-shadow(0 14px 36px #000b);
+  animation:temple-ending-book-settle 3.8s cubic-bezier(.2,.65,.25,1) both;
+}
+.temple-book-cinematic-vignette{
+  position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,#05080b12 25%,#05080b18 48%,#05080bcf 100%);
+}
+.temple-book-cinematic-copy{
+  position:absolute;z-index:2;left:50%;bottom:clamp(20px,5vh,58px);
+  transform:translateX(-50%);width:min(760px,90vw);
+  padding:clamp(18px,2.5vw,30px) clamp(18px,3vw,36px);
+  text-align:center;color:#e9ddc8;
+  background:linear-gradient(180deg,#08111600 0%,#081116b8 16%,#081116e8 100%);
+}
+.temple-book-cinematic-copy .kicker,
+.temple-book-cinematic-copy h2,
+.temple-book-cinematic-copy>p:not(.kicker),
+.temple-book-cinematic-copy .enter-button{
+  opacity:0;transform:translateY(13px);
+  animation:temple-ending-text-in .85s ease-out forwards;
+}
+.temple-book-cinematic-copy .kicker{color:#d7b875;margin:0 0 8px;animation-delay:.45s}
+.temple-book-cinematic-copy h2{
+  margin:0 0 9px;color:#efd49b;
+  font:400 clamp(28px,3.5vw,42px)/1.15 Georgia,serif;
+  text-shadow:0 3px 18px #000;animation-delay:1s;
+}
+.temple-book-cinematic-copy>p:not(.kicker){
+  max-width:600px;margin:0 auto 15px;color:#e0d5c2;
+  font:clamp(14px,1.3vw,17px)/1.6 Georgia,serif;
+  text-shadow:0 2px 12px #000;animation-delay:1.65s;
+}
+.temple-book-cinematic-copy .enter-button{margin:0 auto;animation-delay:2.3s}
+@keyframes temple-book-scene-in{
+  from{opacity:0}to{opacity:1}
+}
+@media(max-width:700px){
+  .temple-book-cinematic>img{
+    width:100%;height:72%;top:0;bottom:auto;
+    object-fit:contain;object-position:center top;
+  }
+  .temple-book-cinematic-vignette{
+    background:linear-gradient(180deg,#05080b00 25%,#05080b24 48%,#05080bf2 100%);
+  }
+  .temple-book-cinematic-copy{
+    bottom:max(18px,env(safe-area-inset-bottom));width:100%;
+    padding:22px 20px 18px;
+  }
+}
