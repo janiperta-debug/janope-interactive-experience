@@ -2211,3 +2211,15 @@ body { min-height:100dvh; }
   .library-hotspot-window { left: 88%; top: 67%; }
   .library-ambient-note { font-size: 13px; line-height: 1.7; }
 }
+
+
+/* Clock Tower ambient discoveries: atmospheric observations, separate from the four memory gears. */
+.clock-tower-hotspot-ambient-1 { left: 23%; top: 27%; }
+.clock-tower-hotspot-ambient-2 { left: 76%; top: 27%; }
+.clock-tower-hotspot-ambient-3 { left: 50%; top: 84%; }
+.clock-tower-ambient-discovery .clockwork-discovery-symbol { margin: 14px auto 18px; }
+@media(max-width:700px) {
+  .clock-tower-hotspot-ambient-1 { left: 20%; top: 19%; }
+  .clock-tower-hotspot-ambient-2 { left: 76%; top: 19%; }
+  .clock-tower-hotspot-ambient-3 { left: 50%; top: 76%; }
+}
