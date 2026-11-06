@@ -2566,3 +2566,21 @@ body { min-height:100dvh; }
 .main-hall-scene .hall-hotspot.hotspot-cabinet:not(.hotspot-complete) {
   overflow:visible !important; isolation:auto !important;
 }
+
+
+/* Library final hotspot pass: swap the two rear discoveries and move the
+   remaining markers to the hand-marked positions in the room reference. */
+.library-hotspot-back-desk { left:39% !important; top:27% !important; }
+.library-hotspot-staircase { left:23% !important; top:37% !important; }
+.library-hotspot-globe { left:54% !important; top:47% !important; }
+.library-hotspot-window { left:91% !important; top:29% !important; }
+.library-hotspot-reading-chair { left:31% !important; top:67% !important; }
+.library-hotspot-book { left:48% !important; top:60% !important; }
+@media(max-width:700px) {
+  .library-hotspot-back-desk { left:39% !important; top:27% !important; }
+  .library-hotspot-staircase { left:23% !important; top:37% !important; }
+  .library-hotspot-globe { left:54% !important; top:47% !important; }
+  .library-hotspot-window { left:88% !important; top:29% !important; }
+  .library-hotspot-reading-chair { left:29% !important; top:70% !important; }
+  .library-hotspot-book { left:48% !important; top:60% !important; }
+}
