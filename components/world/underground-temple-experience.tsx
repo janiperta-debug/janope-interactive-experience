@@ -59,6 +59,7 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
   const [templeAwakened, setTempleAwakened] = useState(false)
   const [examined, setExamined] = useState<MemoryId[]>([])
   const [selected, setSelected] = useState<MemoryId | null>(null)
+  const [symbolPulse, setSymbolPulse] = useState<MemoryId | null>(null)
   const [bookRevealed, setBookRevealed] = useState(false)
   const [bookOpened, setBookOpened] = useState(false)
 
@@ -67,10 +68,15 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
     setExamined(current => current.includes(id) ? current : [...current, id])
   }
 
+  const returnFromMemory = () => {
+    if (selected) setSymbolPulse(selected)
+    setSelected(null)
+  }
+
   const allExamined = examined.length === memories.length
 
   return (
-    <main className="temple-screen">
+    <main className={`temple-screen ${symbolPulse ? `temple-symbol-pulse-${symbolPulse}` : ""}`}>
       <div className="temple-backdrop" aria-hidden="true" />
       <div className="temple-atmosphere" aria-hidden="true" />
       <header className="conservatory-header temple-header">
@@ -93,6 +99,8 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
           <button className="enter-button" onClick={() => setTempleAwakened(true)}><span>Awaken the Temple</span><Sparkles aria-hidden="true" /></button>
         </div>
       )}
+
+      <div className="temple-symbol-reaction" aria-hidden="true" key={symbolPulse ?? "idle"} />
 
       <div className="temple-memory-prompt" style={{ opacity: templeAwakened ? 1 : 0, pointerEvents: templeAwakened ? "auto" : "none" }}>
         <Sparkles aria-hidden="true" />
@@ -119,15 +127,15 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
       </div>
 
       {selected && (
-        <div className="hall-modal-backdrop temple-modal-backdrop" role="presentation" onClick={() => setSelected(null)}>
+        <div className="hall-modal-backdrop temple-modal-backdrop" role="presentation" onClick={returnFromMemory}>
           <section className="hall-modal temple-memory-modal" role="dialog" aria-modal="true" aria-labelledby="temple-memory-title" onClick={event => event.stopPropagation()}>
-            <button className="hall-modal-close" onClick={() => setSelected(null)} aria-label="Close"><X aria-hidden="true" /></button>
+            <button className="hall-modal-close" onClick={returnFromMemory} aria-label="Close"><X aria-hidden="true" /></button>
             <p className="kicker">{memories.find(item => item.id === selected)?.room} · A MEMORY</p>
             <h2 id="temple-memory-title">{memories.find(item => item.id === selected)?.title}</h2>
             <img src={memories.find(item => item.id === selected)?.image} alt="" className="temple-memory-artifact" />
             <p className="research-body">{memories.find(item => item.id === selected)?.recollection}</p>
             <blockquote className="temple-memory-meaning">{memories.find(item => item.id === selected)?.meaning}</blockquote>
-            <button className="enter-button hall-modal-action" onClick={() => setSelected(null)}><span>Return to the Temple</span><ArrowRight aria-hidden="true" /></button>
+            <button className="enter-button hall-modal-action" onClick={returnFromMemory}><span>Return to the Temple</span><ArrowRight aria-hidden="true" /></button>
           </section>
         </div>
       )}
