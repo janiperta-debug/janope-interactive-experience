@@ -25,7 +25,7 @@ const memories: {
     id: 'seed',
     title: 'Seed of Harmony',
     room: 'THE MAIN HALL',
-    image: '/manor-main-hall/cabinet-open-seed.png',
+    image: '/manor-artifacts/seed-of-harmony.png',
     recollection: 'Nine scattered pieces became one, revealing what the locked cabinet had kept hidden.',
     meaning: 'What seems incomplete may still hold the shape of something whole.',
   },
