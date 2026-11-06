@@ -2604,3 +2604,16 @@ body { min-height:100dvh; }
 .clock-tower-hotspot-ambient-2{left:73%!important;top:40%!important}
 .clock-tower-hotspot-ambient-3{left:51%!important;top:69%!important}
 }
+
+
+/* Underground Temple: place the central memory on the altar table and
+   move the two lower side memories outward to the statue positions.
+   The two upper memories already sit at the rear statues and stay put. */
+.temple-memory-point-1 { left:15% !important; right:auto !important; top:51% !important; }
+.temple-memory-point-3 { left:52% !important; right:auto !important; top:70% !important; transform:translateX(-50%) !important; }
+.temple-memory-point-5 { right:14% !important; left:auto !important; top:51% !important; }
+@media(max-width:700px) {
+  .temple-memory-point-1 { left:10% !important; right:auto !important; top:51% !important; }
+  .temple-memory-point-3 { left:52% !important; right:auto !important; top:70% !important; transform:translateX(-50%) !important; }
+  .temple-memory-point-5 { right:10% !important; left:auto !important; top:51% !important; }
+}
