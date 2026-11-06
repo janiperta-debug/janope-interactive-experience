@@ -2584,3 +2584,23 @@ body { min-height:100dvh; }
   .library-hotspot-reading-chair { left:29% !important; top:70% !important; }
   .library-hotspot-book { left:48% !important; top:60% !important; }
 }
+
+
+/* Clock Tower final hotspot positions from the annotated room screenshot.
+   The left upper ambient discovery remains at its existing location. */
+.clock-tower-hotspot-1{left:8%!important;top:78%!important}
+.clock-tower-hotspot-2{left:30%!important;top:50%!important}
+.clock-tower-hotspot-3{left:79%!important;top:75%!important}
+.clock-tower-hotspot-4{left:94%!important;top:78%!important}
+.clock-tower-hotspot-clock{left:51%!important;top:32%!important}
+.clock-tower-hotspot-ambient-2{left:73%!important;top:40%!important}
+.clock-tower-hotspot-ambient-3{left:51%!important;top:69%!important}
+@media(max-width:700px){
+.clock-tower-hotspot-1{left:8%!important;top:78%!important}
+.clock-tower-hotspot-2{left:30%!important;top:50%!important}
+.clock-tower-hotspot-3{left:79%!important;top:75%!important}
+.clock-tower-hotspot-4{left:94%!important;top:78%!important}
+.clock-tower-hotspot-clock{left:51%!important;top:32%!important}
+.clock-tower-hotspot-ambient-2{left:73%!important;top:40%!important}
+.clock-tower-hotspot-ambient-3{left:51%!important;top:69%!important}
+}
