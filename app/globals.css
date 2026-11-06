@@ -2416,3 +2416,87 @@ body { min-height:100dvh; }
 @keyframes temple-seal-awaken{0%{opacity:0;transform:translate(-50%,-50%) scale(.58)}22%{opacity:1;transform:translate(-50%,-50%) scale(1)}58%{opacity:.72;transform:translate(-50%,-50%) scale(1.08)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.2)}}
 @media(max-width:700px){.temple-symbol-reaction{top:43%;width:min(58vw,280px)}}
 @media(prefers-reduced-motion:reduce){.temple-screen[class*="temple-symbol-pulse-"] .temple-symbol-reaction{animation-duration:.01ms}}
+
+
+/* Cinematic approach to the final altar. The image is supplied later at
+   /public/manor-underground-temple/temple-altar.png. */
+.temple-altar-cinematic {
+  position: fixed;
+  z-index: 1200;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #030609;
+  animation: temple-altar-sequence 5.2s cubic-bezier(.2,.7,.18,1) both;
+}
+.temple-altar-cinematic > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 56%;
+  transform: scale(1.22);
+  animation: temple-altar-camera 5.2s cubic-bezier(.18,.62,.22,1) both;
+}
+.temple-altar-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 58%, transparent 18%, #02050955 68%, #020509d9 100%),
+    linear-gradient(180deg, #02050988 0%, transparent 32%, #02050922 62%, #020509aa 100%);
+  animation: temple-altar-light 5.2s ease-out both;
+}
+.temple-altar-caption {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: clamp(42px, 9vh, 100px);
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  text-align: center;
+  opacity: 0;
+  animation: temple-altar-caption 5.2s ease both;
+}
+.temple-altar-caption .kicker {
+  color: #d8bb7d;
+  letter-spacing: .24em;
+}
+.temple-altar-caption span {
+  color: #f0e2c5;
+  font: italic clamp(18px, 2.4vw, 27px) Georgia, serif;
+  text-shadow: 0 2px 18px #000;
+}
+@keyframes temple-altar-sequence {
+  0% { opacity: 0; }
+  8% { opacity: 1; }
+  86% { opacity: 1; }
+  100% { opacity: 1; }
+}
+@keyframes temple-altar-camera {
+  0% { transform: scale(1.22); filter: brightness(.52) saturate(.72); }
+  18% { filter: brightness(.78) saturate(.9); }
+  72% { transform: scale(1.04); filter: brightness(1.04) saturate(1.08); }
+  100% { transform: scale(1); filter: brightness(1.08) saturate(1.12); }
+}
+@keyframes temple-altar-light {
+  0%, 18% { opacity: .95; }
+  72%, 100% { opacity: .55; }
+}
+@keyframes temple-altar-caption {
+  0%, 30% { opacity: 0; transform: translateY(12px); }
+  46%, 82% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-5px); }
+}
+@media(max-width:700px) {
+  .temple-altar-cinematic > img { object-position: center center; }
+  .temple-altar-caption { bottom: 8vh; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .temple-altar-cinematic,
+  .temple-altar-cinematic > img,
+  .temple-altar-vignette,
+  .temple-altar-caption { animation-duration: .8s; }
+}
