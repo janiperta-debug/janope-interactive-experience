@@ -2708,3 +2708,11 @@ body { min-height:100dvh; }
     height: 122% !important;
   }
 }
+
+
+/* The fragment reader is intentionally opened from inside the Library puzzle.
+   Keep it above the puzzle dialog so its content and "Use this verse" action
+   are immediately visible instead of appearing only after the parent closes. */
+.library-fragment-reader-backdrop {
+  z-index: 1200 !important;
+}
