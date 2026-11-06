@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight, BookOpen, Sparkles, X } from 'lucide-react'
 
 type MemoryId = 'fragment' | 'seed' | 'quill' | 'hourglass' | 'compass'
@@ -73,6 +73,17 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
     if (selected) setSymbolPulse(selected)
     setSelected(null)
   }
+
+  // Keep the altar-to-book handoff reliable even if a browser misses the CSS
+  // animationend event (notably on mobile Safari after tab/app interruptions).
+  useEffect(() => {
+    if (!altarApproach) return
+    const handoff = window.setTimeout(() => {
+      setAltarApproach(false)
+      setBookRevealed(true)
+    }, 5400)
+    return () => window.clearTimeout(handoff)
+  }, [altarApproach])
 
   const allExamined = examined.length === memories.length
 
@@ -151,16 +162,7 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
 
 
       {altarApproach && (
-        <div
-          className="temple-altar-cinematic"
-          role="presentation"
-          onAnimationEnd={event => {
-            if (event.target === event.currentTarget) {
-              setAltarApproach(false)
-              setBookRevealed(true)
-            }
-          }}
-        >
+        <div className="temple-altar-cinematic" role="presentation">
           <img src="/manor-underground-temple/temple-altar.png" alt="" />
           <div className="temple-altar-vignette" aria-hidden="true" />
           <div className="temple-altar-caption">
