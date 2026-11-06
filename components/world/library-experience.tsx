@@ -8,12 +8,6 @@ type ResearchPoint = 'book' | 'backDesk' | 'staircase' | 'bookshelf' | 'readingC
 
 const fragments = [
   {
-    id: 'raven',
-    image: '/manor-library/poem-fragment-3.png',
-    text: 'Where roots entwine beneath the stone,\nA silent guardian watches alone.',
-    clue: 'The silent guardian belongs where roots and stone meet.',
-  },
-  {
     id: 'swallow',
     image: '/manor-library/poem-fragment-1.png',
     text: 'Where wandering winds embrace the air,\nA fleeting shadow dances there.',
@@ -24,6 +18,12 @@ const fragments = [
     image: '/manor-library/poem-fragment-2.png',
     text: 'Where stars look down on realms below,\nA watchful gaze surveys the world.',
     clue: 'The watchful gaze reaches from the highest skies.',
+  },
+  {
+    id: 'raven',
+    image: '/manor-library/poem-fragment-3.png',
+    text: 'Where roots entwine beneath the stone,\nA silent guardian watches alone.',
+    clue: 'The silent guardian belongs where roots and stone meet.',
   },
 ]
 
@@ -46,19 +46,19 @@ const fragmentPoints: Record<'backDesk' | 'staircase' | 'bookshelf', { title: st
   backDesk: {
     title: 'The Writing Desk',
     body: 'Beneath a neat stack of correspondence, a narrow piece of old parchment catches against the wood. Its edges are torn, as though it once belonged to a larger page.',
-    fragment: 0,
+    fragment: 2,
     image: '/manor-library/poem-fragment-3.png',
   },
   staircase: {
     title: 'The Spiral Staircase',
     body: 'A loose ornament in the balustrade reveals a folded scrap of parchment. The ink has faded, but the verse remains legible.',
-    fragment: 1,
+    fragment: 0,
     image: '/manor-library/poem-fragment-1.png',
   },
   bookshelf: {
     title: 'The Bookshelf',
     body: 'A slim volume sits out of line with the others. Between its pages lies a fragment of a handwritten poem.',
-    fragment: 2,
+    fragment: 1,
     image: '/manor-library/poem-fragment-2.png',
   },
 }
@@ -157,7 +157,7 @@ export function LibraryExperience({ onBack, onArtifactUnlocked }: { onBack: () =
                   <p className="library-inventory-heading">RECOVERED VERSES</p>
                   {found.map((index) => <button key={index} className={`library-fragment-card ${selected === index ? 'selected' : ''}`} onClick={() => setReadingFragment(index)}>
                     <img src={fragments[index].image} alt="" />
-                    <span>Read fragment {found.indexOf(index) + 1}</span>
+                    <span>Read fragment {index + 1}</span>
                   </button>)}
                 </aside>
               </div>
