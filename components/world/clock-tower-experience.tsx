@@ -24,35 +24,30 @@ const ambientDiscoveries: Record<AmbientId, { title: string; body: string }> = {
 const gears: {
   id: GearId
   name: string
-  relic: string
   memory: string
   image: string
 }[] = [
   {
     id: 'arrival',
     name: 'The First Fragment',
-    relic: 'The Manor’s first gift',
     memory: 'A fragment was placed in your hands before you knew what it belonged to.',
     image: '/manor-clock-tower/gear-first-fragment.png',
   },
   {
     id: 'key',
     name: 'Seed of Harmony',
-    relic: 'The gift of the Main Hall',
     memory: 'The cabinet opened only after the nine fragments had become one.',
     image: '/manor-clock-tower/gear-seed-of-harmony.png',
   },
   {
     id: 'plant',
     name: 'Archivist’s Quill',
-    relic: 'The secret of the Conservatory',
     memory: 'The celestial sphere yielded its secret when every plant found its place.',
     image: '/manor-clock-tower/gear-archivists-quill.png',
   },
   {
     id: 'bird',
     name: 'The Three Watchers',
-    relic: 'The restored page of the Library',
     memory: 'The missing page was restored when the watchers found their order.',
     image: '/manor-clock-tower/gear-three-watchers.png',
   },
@@ -156,11 +151,10 @@ export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: (
           <div className="hall-modal-backdrop clockwork-modal-backdrop" role="presentation" onClick={() => setActiveGear(null)}>
             <section className="hall-modal clockwork-discovery" role="dialog" aria-modal="true" aria-labelledby="clockwork-discovery-title" onClick={event => event.stopPropagation()}>
               <button className="hall-modal-close" onClick={() => setActiveGear(null)} aria-label="Close"><X /></button>
-              <p className="kicker">CLOCK TOWER · MEMORY {String(gears.indexOf(gear) + 1).padStart(2, '0')}</p>
+              <p className="kicker">CLOCK TOWER · A RECOVERED MEMORY</p>
               <img className="clockwork-discovery-gear" src={gear.image} alt="" />
               <h2 id="clockwork-discovery-title">{gear.name}</h2>
               <p className="research-body">{gear.memory}</p>
-              <p className="clockwork-discovery-relic">{gear.relic}</p>
               <button className="enter-button hall-modal-action" onClick={() => collect(activeGear)}>
                 <span>{alreadyFound ? 'Return to the clock tower' : 'Recover this memory'}</span><ArrowRight />
               </button>
@@ -206,7 +200,7 @@ export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: (
                     }}
                     onClick={() => place(index)}
                     disabled={solved}
-                    aria-label={gear ? `Gear position ${index + 1}: ${gear.name}` : `Empty gear position ${index + 1}`}
+                    aria-label={gear ? `Placed gear: ${gear.name}` : "Empty gear slot"}
                   >
                     {gear && <img src={gear.image} alt={gear.name} />}
                   </button>
@@ -228,7 +222,7 @@ export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: (
                         disabled={solved}
                       >
                         <img src={gear.image} alt="" />
-                        <span><strong>{gear.name}</strong><small>{gear.relic}</small></span>
+                        <span><strong>{gear.name}</strong></span>
                         {selectedGear === gear.id && <Check />}
                       </button>
                     ))}
