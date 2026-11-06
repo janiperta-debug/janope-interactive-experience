@@ -208,7 +208,7 @@ export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: (
                     disabled={solved}
                     aria-label={gear ? `Gear position ${index + 1}: ${gear.name}` : `Empty gear position ${index + 1}`}
                   >
-                    {gear ? <img src={gear.image} alt={gear.name} /> : <span>{String(index + 1).padStart(2, '0')}</span>}
+                    {gear && <img src={gear.image} alt={gear.name} />}
                   </button>
                 )
               })}
