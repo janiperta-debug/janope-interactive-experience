@@ -170,7 +170,7 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
         </div>
       )}
 
-      {bookRevealed && !bookOpened && (
+      {bookRevealed && !endingCinematic && (
         <div className="temple-book-backdrop">
           <section className="temple-book-reveal" role="dialog" aria-modal="true" aria-labelledby="temple-book-title">
             <div className="temple-book-glow" aria-hidden="true" />
