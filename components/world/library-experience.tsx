@@ -9,19 +9,19 @@ type ResearchPoint = 'book' | 'backDesk' | 'staircase' | 'bookshelf' | 'readingC
 const fragments = [
   {
     id: 'raven',
-    image: '/manor-library/poem-fragment-1.png',
+    image: '/manor-library/poem-fragment-3.png',
     text: 'Where roots entwine beneath the stone,\nA silent guardian watches alone.',
     clue: 'The silent guardian belongs where roots and stone meet.',
   },
   {
     id: 'swallow',
-    image: '/manor-library/poem-fragment-2.png',
+    image: '/manor-library/poem-fragment-1.png',
     text: 'Where wandering winds embrace the air,\nA fleeting shadow dances there.',
     clue: 'A fleeting shadow moves with the wandering winds.',
   },
   {
     id: 'eagle',
-    image: '/manor-library/poem-fragment-3.png',
+    image: '/manor-library/poem-fragment-2.png',
     text: 'Where stars look down on realms below,\nA watchful gaze surveys the world.',
     clue: 'The watchful gaze reaches from the highest skies.',
   },
@@ -47,19 +47,19 @@ const fragmentPoints: Record<'backDesk' | 'staircase' | 'bookshelf', { title: st
     title: 'The Writing Desk',
     body: 'Beneath a neat stack of correspondence, a narrow piece of old parchment catches against the wood. Its edges are torn, as though it once belonged to a larger page.',
     fragment: 0,
-    image: '/manor-library/poem-fragment-1.png',
+    image: '/manor-library/poem-fragment-3.png',
   },
   staircase: {
     title: 'The Spiral Staircase',
     body: 'A loose ornament in the balustrade reveals a folded scrap of parchment. The ink has faded, but the verse remains legible.',
     fragment: 1,
-    image: '/manor-library/poem-fragment-2.png',
+    image: '/manor-library/poem-fragment-1.png',
   },
   bookshelf: {
     title: 'The Bookshelf',
     body: 'A slim volume sits out of line with the others. Between its pages lies a fragment of a handwritten poem.',
     fragment: 2,
-    image: '/manor-library/poem-fragment-3.png',
+    image: '/manor-library/poem-fragment-2.png',
   },
 }
 
