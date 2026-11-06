@@ -2335,3 +2335,72 @@ body { min-height:100dvh; }
   .temple-memory-point::before { width:56px !important; height:56px !important; margin:-28px 0 0 -28px !important; }
   .temple-memory-point .temple-memory-symbol { width:64px !important; height:64px !important; }
 }
+
+
+/* Final Temple marker layout: keep relic and halo in the same grid cell.
+   The image is a normal grid item (not independently positioned), so it
+   cannot drift away from the center of its glow. */
+.temple-memory-point {
+  position: absolute !important;
+  display: grid !important;
+  place-items: center !important;
+  align-content: center !important;
+  justify-items: center !important;
+  width: 100px !important;
+  height: 100px !important;
+  min-width: 100px !important;
+  min-height: 100px !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  transform: none !important;
+}
+.temple-memory-point::before {
+  position: absolute !important;
+  inset: 50% auto auto 50% !important;
+  width: 68px !important;
+  height: 68px !important;
+  margin: 0 !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 0 !important;
+}
+.temple-memory-point::after { display: none !important; content: none !important; }
+.temple-memory-point .temple-memory-symbol {
+  position: relative !important;
+  inset: auto !important;
+  display: block !important;
+  grid-area: 1 / 1 !important;
+  z-index: 1 !important;
+  width: 62px !important;
+  height: 62px !important;
+  max-width: 62px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform: none !important;
+  object-fit: contain !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 0 8px #e8c77b80) !important;
+  text-indent: 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.temple-memory-point:hover .temple-memory-symbol,
+.temple-memory-point.is-selected .temple-memory-symbol {
+  transform: scale(1.07) !important;
+  filter: drop-shadow(0 0 13px #f2d58e) !important;
+}
+.temple-memory-point.is-examined .temple-memory-symbol {
+  filter: drop-shadow(0 0 12px #e8d39b) brightness(1.08) !important;
+}
+@media(max-width:700px) {
+  .temple-memory-point { width: 82px !important; height: 82px !important; min-width:82px !important; min-height:82px !important; }
+  .temple-memory-point::before { width:58px !important; height:58px !important; }
+  .temple-memory-point .temple-memory-symbol { width:54px !important; height:54px !important; max-width:54px !important; }
+}
