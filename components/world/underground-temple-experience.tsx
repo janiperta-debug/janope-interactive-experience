@@ -60,6 +60,7 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
   const [examined, setExamined] = useState<MemoryId[]>([])
   const [selected, setSelected] = useState<MemoryId | null>(null)
   const [symbolPulse, setSymbolPulse] = useState<MemoryId | null>(null)
+  const [altarApproach, setAltarApproach] = useState(false)
   const [bookRevealed, setBookRevealed] = useState(false)
   const [bookOpened, setBookOpened] = useState(false)
 
@@ -144,7 +145,28 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
         <div className="temple-book-invitation">
           <p className="kicker">THE TEMPLE HAS REMEMBERED</p>
           <p>The five memories settle into the stone. Something long concealed begins to stir.</p>
-          <button className="enter-button" onClick={() => setBookRevealed(true)}><span>Approach the altar</span><ArrowRight aria-hidden="true" /></button>
+          <button className="enter-button" onClick={() => setAltarApproach(true)}><span>Approach the altar</span><ArrowRight aria-hidden="true" /></button>
+        </div>
+      )}
+
+
+      {altarApproach && (
+        <div
+          className="temple-altar-cinematic"
+          role="presentation"
+          onAnimationEnd={event => {
+            if (event.target === event.currentTarget) {
+              setAltarApproach(false)
+              setBookRevealed(true)
+            }
+          }}
+        >
+          <img src="/manor-underground-temple/temple-altar.png" alt="" />
+          <div className="temple-altar-vignette" aria-hidden="true" />
+          <div className="temple-altar-caption">
+            <p className="kicker">THE FINAL PASSAGE</p>
+            <span>The Temple yields its last secret.</span>
+          </div>
         </div>
       )}
 
