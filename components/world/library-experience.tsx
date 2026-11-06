@@ -164,8 +164,6 @@ export function LibraryExperience({ onBack, onArtifactUnlocked }: { onBack: () =
               {selected !== null && <p className="library-puzzle-instruction">Choose a position to place the selected verse. Selecting an occupied position exchanges the verses.</p>}
               {wrongOrder && <p className="library-wrong-order">The verses do not yet follow the order of the watchers. You can rearrange them.</p>}
             </> : <>
-              <p className="kicker">THE MISSING PAGE RESTORED</p>
-              <h2>The Three Watchers</h2>
               <img className="library-completed-page" src="/manor-library/bird-order-illustration.png" alt="The restored page of The Three Watchers, with all three verses in their correct order" />
               <p className="library-solved-note"><Check aria-hidden="true" /> The missing page has been restored.</p>
               <button className="enter-button hall-modal-action" onClick={() => { setPoint(null); setReveal(true) }}><span>Continue to the opened drawer</span><ArrowRight aria-hidden="true" /></button>
