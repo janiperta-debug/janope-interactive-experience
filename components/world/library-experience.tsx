@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { ArrowLeft, ArrowRight, BookOpen, Check, X } from 'lucide-react'
 import { ArchiveFrame } from '@/components/ui/archive-frame'
 
-type ResearchPoint = 'book' | 'backDesk' | 'staircase' | 'bookshelf' | null
+type ResearchPoint = 'book' | 'backDesk' | 'staircase' | 'bookshelf' | 'readingChair' | 'globe' | 'window' | null
 
 const fragments = [
   {
@@ -26,6 +26,21 @@ const fragments = [
     clue: 'The watchful gaze reaches from the highest skies.',
   },
 ]
+
+const ambientPoints: Record<'readingChair' | 'globe' | 'window', { title: string; body: string }> = {
+  readingChair: {
+    title: 'The Reading Chair',
+    body: 'The leather is worn smooth at the arms, and a narrow ribbon rests between the cushions. Someone seems to have left a book here in the middle of a thought. There is nothing to take, but the quiet corner feels well used.',
+  },
+  globe: {
+    title: 'The Brass Globe',
+    body: 'A brass meridian circles the old globe. The countries are drawn with a careful hand, though several names have faded almost beyond reading. It turns with a soft, measured movement before settling again.',
+  },
+  window: {
+    title: 'The Tall Window',
+    body: 'Beyond the glass, the grounds lie still. Dust catches in the narrow beam of light that reaches across the shelves. From here, the library feels far removed from the rest of the Manor.',
+  },
+}
 
 const fragmentPoints: Record<'backDesk' | 'staircase' | 'bookshelf', { title: string; body: string; fragment: number; image: string }> = {
   backDesk: {
@@ -112,6 +127,9 @@ export function LibraryExperience({ onBack, onArtifactUnlocked }: { onBack: () =
         <button className="library-hotspot library-hotspot-back-desk" onClick={() => setPoint('backDesk')} aria-label="Search the writing desk"><span>Find</span></button>
         <button className="library-hotspot library-hotspot-staircase" onClick={() => setPoint('staircase')} aria-label="Search the spiral staircase"><span>Find</span></button>
         <button className="library-hotspot library-hotspot-bookshelf" onClick={() => setPoint('bookshelf')} aria-label="Search the bookshelf"><span>Find</span></button>
+        <button className="library-hotspot library-hotspot-reading-chair" onClick={() => setPoint('readingChair')} aria-label="Examine the reading chair"><span>Look</span></button>
+        <button className="library-hotspot library-hotspot-globe" onClick={() => setPoint('globe')} aria-label="Examine the brass globe"><span>Look</span></button>
+        <button className="library-hotspot library-hotspot-window" onClick={() => setPoint('window')} aria-label="Look through the tall window"><span>Look</span></button>
       </div>
 
       {point && <div className="hall-modal-backdrop library-modal-backdrop" role="presentation" onClick={() => setPoint(null)}>
@@ -152,7 +170,7 @@ export function LibraryExperience({ onBack, onArtifactUnlocked }: { onBack: () =
               <p className="library-solved-note"><Check aria-hidden="true" /> The missing page has been restored.</p>
               <button className="enter-button hall-modal-action" onClick={() => { setPoint(null); setReveal(true) }}><span>Continue to the opened drawer</span><ArrowRight aria-hidden="true" /></button>
             </>}
-          </> : <>
+          </> : point === 'backDesk' || point === 'staircase' || point === 'bookshelf' ? <>
             <p className="kicker">LIBRARY · RESEARCH POINT</p>
             <h2 id="library-modal-title">{fragmentPoints[point].title}</h2>
             <div className="library-discovery-layout library-paper-discovery">
@@ -163,6 +181,11 @@ export function LibraryExperience({ onBack, onArtifactUnlocked }: { onBack: () =
               </div>
               <button className="enter-button hall-modal-action" onClick={() => collect(fragmentPoints[point].fragment)}><span>{found.includes(fragmentPoints[point].fragment) ? 'Return to the library' : 'Keep the page fragment'}</span><ArrowRight aria-hidden="true" /></button>
             </div>
+          </> : <>
+            <p className="kicker">LIBRARY · A CLOSER LOOK</p>
+            <h2 id="library-modal-title">{ambientPoints[point].title}</h2>
+            <p className="research-body library-ambient-note">{ambientPoints[point].body}</p>
+            <button className="enter-button hall-modal-action" onClick={closeBook}><span>Return to the library</span><ArrowRight aria-hidden="true" /></button>
           </>}
         </section>
       </div>}
