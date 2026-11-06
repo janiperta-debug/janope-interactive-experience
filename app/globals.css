@@ -2500,3 +2500,13 @@ body { min-height:100dvh; }
   .temple-altar-vignette,
   .temple-altar-caption { animation-duration: .8s; }
 }
+
+
+/* Main Hall cabinet alignment: coordinates measured from the supplied
+   1355x1161 cabinet reference. Keep artwork and overlay in one aspect space. */
+.cabinet-artboard{position:relative!important;width:100%!important;height:auto!important;aspect-ratio:1355/1161!important;min-height:0!important;max-height:100%!important;align-self:center!important;flex:0 1 auto!important}
+.cabinet-artboard .cabinet-artwork{position:absolute!important;inset:0!important;display:block!important;width:100%!important;height:100%!important;max-height:none!important;object-fit:fill!important}
+.cabinet-artboard .cabinet-overlay-grid{left:26.94%!important;top:24.03%!important;width:45.98%!important;height:54.69%!important;gap:1.25%!important}
+.cabinet-artboard .cabinet-overlay-cell{min-width:0!important;min-height:0!important;overflow:hidden!important}
+.cabinet-artboard .cabinet-overlay-cell img{width:100%!important;height:100%!important;object-fit:cover!important}
+@media(max-width:700px){.cabinet-artboard{width:min(100%,62vh)!important;max-height:54vh!important;aspect-ratio:1355/1161!important}.cabinet-artboard .cabinet-overlay-grid{left:26.94%!important;top:24.03%!important;width:45.98%!important;height:54.69%!important}}
