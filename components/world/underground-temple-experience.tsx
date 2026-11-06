@@ -195,7 +195,7 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
             }
           }}
         >
-          <img src="/manor-underground-temple/open-book.jpg" alt="" />
+          <img src="/manor-underground-temple/open-book.png" alt="" />
           <div className="temple-ending-cinematic-vignette" aria-hidden="true" />
           <div className="temple-ending-cinematic-copy">
             <p className="kicker">THE LAST PAGE · THE FIRST INVITATION</p>
