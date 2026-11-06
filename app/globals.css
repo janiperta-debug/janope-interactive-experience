@@ -2724,3 +2724,70 @@ body { min-height:100dvh; }
   background: transparent !important;
   border: 0 !important;
 }
+
+
+/* Final cinematic beat: the revealed book fills the scene before the
+   closing invitation fades in, then hands off to the final end card. */
+.temple-ending-cinematic{
+  position:fixed;z-index:220;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:clamp(12px,2.5vh,28px);
+  overflow:hidden;padding:5vh 6vw;
+  background:radial-gradient(ellipse at 50% 42%,#27333a 0%,#10191e 48%,#030608 100%);
+  animation:temple-ending-scene 6.8s ease both;
+}
+.temple-ending-cinematic>img{
+  position:relative;z-index:1;display:block;width:min(1000px,88vw);
+  max-height:58vh;object-fit:contain;mix-blend-mode:multiply;
+  filter:drop-shadow(0 22px 38px #000b);
+  animation:temple-ending-book 6.8s cubic-bezier(.2,.7,.2,1) both;
+}
+.temple-ending-cinematic-vignette{
+  position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 35%,#0009 100%);
+}
+.temple-ending-cinematic-copy{
+  position:relative;z-index:2;width:min(760px,90vw);text-align:center;
+  color:#e9ddc8;opacity:0;transform:translateY(18px);
+  animation:temple-ending-copy 6.8s ease both;
+}
+.temple-ending-cinematic-copy .kicker{color:#d7b875;margin:0 0 10px}
+.temple-ending-cinematic-copy h2{
+  max-width:720px;margin:0 auto 12px;color:#efd49b;
+  font:400 clamp(25px,3.4vw,42px)/1.18 Georgia,serif;
+  text-shadow:0 3px 18px #000;
+}
+.temple-ending-cinematic-copy>p:not(.kicker){
+  max-width:650px;margin:8px auto;color:#e0d5c2;
+  font:clamp(13px,1.25vw,16px)/1.65 Georgia,serif;
+  text-shadow:0 2px 12px #000;
+}
+.temple-ending-cinematic-copy blockquote{
+  max-width:620px;margin:18px auto 0;padding:12px 18px;
+  border-top:1px solid #b99a5c66;border-bottom:1px solid #b99a5c66;
+  color:#e6ce9f;font:italic clamp(16px,1.8vw,21px)/1.5 Georgia,serif;
+}
+@keyframes temple-ending-scene{
+  0%{opacity:0} 8%{opacity:1} 86%{opacity:1} 100%{opacity:0}
+}
+@keyframes temple-ending-book{
+  0%{opacity:0;transform:scale(.88) translateY(24px)}
+  16%{opacity:1;transform:scale(.96) translateY(0)}
+  76%{opacity:1;transform:scale(1.04) translateY(-8px)}
+  100%{opacity:0;transform:scale(1.08) translateY(-14px)}
+}
+@keyframes temple-ending-copy{
+  0%,30%{opacity:0;transform:translateY(18px)}
+  44%,78%{opacity:1;transform:translateY(0)}
+  100%{opacity:0;transform:translateY(-8px)}
+}
+@media(max-width:700px){
+  .temple-ending-cinematic{padding:7vh 18px;gap:18px}
+  .temple-ending-cinematic>img{width:100%;max-height:42vh}
+  .temple-ending-cinematic-copy{width:100%}
+  .temple-ending-cinematic-copy h2{font-size:clamp(24px,7vw,32px)}
+  .temple-ending-cinematic-copy>p:not(.kicker){font-size:13px}
+  .temple-ending-cinematic-copy blockquote{font-size:16px;margin-top:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .temple-ending-cinematic,.temple-ending-cinematic>img,.temple-ending-cinematic-copy{animation-duration:1.2s}
+}
