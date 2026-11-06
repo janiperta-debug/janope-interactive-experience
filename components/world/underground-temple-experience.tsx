@@ -62,7 +62,6 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
   const [symbolPulse, setSymbolPulse] = useState<MemoryId | null>(null)
   const [altarApproach, setAltarApproach] = useState(false)
   const [bookRevealed, setBookRevealed] = useState(false)
-  const [bookOpened, setBookOpened] = useState(false)
   const [endingCinematic, setEndingCinematic] = useState(false)
 
   const inspectMemory = (id: MemoryId) => {
@@ -185,43 +184,22 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
       )}
 
       {endingCinematic && (
-        <div
-          className="temple-ending-cinematic"
-          role="presentation"
-          onAnimationEnd={event => {
-            if (event.target === event.currentTarget) {
-              setEndingCinematic(false)
-              setBookOpened(true)
-            }
-          }}
-        >
+        <div className="temple-ending-cinematic">
           <img src="/manor-underground-temple/open-book.png" alt="" />
           <div className="temple-ending-cinematic-vignette" aria-hidden="true" />
           <div className="temple-ending-cinematic-copy">
             <p className="kicker">THE LAST PAGE · THE FIRST INVITATION</p>
             <h2>The Manor holds more than this journey could reveal.</h2>
-            <p>You have followed the fragments and uncovered what was hidden.</p>
-            <p>Yet beyond these halls, other rooms remain. Other stories wait in the quiet. And somewhere, another door is ready to be found.</p>
-            <blockquote>“This was never the whole story. It was an invitation.”</blockquote>
+            <p className="ending-line ending-line-one">You have followed the fragments and uncovered what was hidden.</p>
+            <p className="ending-line ending-line-two">Yet beyond these halls, other rooms remain. Other stories wait in the quiet. And somewhere, another door is ready to be found.</p>
+            <blockquote className="ending-line ending-line-three">“This was never the whole story. It was an invitation.”</blockquote>
+            <div className="ending-actions">
+              <a className="enter-button temple-gametable-link" href="https://www.gametable.fi/" target="_blank" rel="noreferrer">
+                <span>Continue your journey in GameTable</span><ArrowRight aria-hidden="true" />
+              </a>
+              <button className="temple-return-button" onClick={onBack}>Return to the Manor</button>
+            </div>
           </div>
-        </div>
-      )}
-
-      {bookOpened && (
-        <div className="temple-ending-backdrop">
-          <section className="temple-ending" role="dialog" aria-modal="true" aria-labelledby="temple-ending-title">
-            <p className="kicker">THE LAST PAGE · THE FIRST INVITATION</p>
-            <h2 id="temple-ending-title">The Manor holds more than this journey could reveal.</h2>
-            <div className="temple-ending-rule"><span>✧</span></div>
-            <p>You have followed the fragments and uncovered what was hidden.</p>
-            <p>Yet beyond these halls, other rooms remain. Other stories wait in the quiet. And somewhere, another door is ready to be found.</p>
-            <blockquote>“This was never the whole story. It was an invitation.”</blockquote>
-            <p className="temple-ending-signoff">Your next discovery is waiting.</p>
-            <a className="enter-button temple-gametable-link" href="https://www.gametable.fi/" target="_blank" rel="noreferrer">
-              <span>Continue your journey in GameTable</span><ArrowRight aria-hidden="true" />
-            </a>
-            <button className="temple-return-button" onClick={onBack}>Return to the Manor</button>
-          </section>
         </div>
       )}
     </main>
