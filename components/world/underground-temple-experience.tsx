@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowLeft, ArrowRight, BookOpen, Check, LockKeyhole, Sparkles, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen, Sparkles, X } from 'lucide-react'
 
 type MemoryId = 'fragment' | 'seed' | 'quill' | 'hourglass' | 'compass'
 
@@ -10,7 +10,6 @@ const memories: {
   title: string
   room: string
   image: string
-  symbol: string
   recollection: string
   meaning: string
 }[] = [
@@ -19,7 +18,6 @@ const memories: {
     title: 'The First Fragment',
     room: 'THE ARRIVAL',
     image: '/manor-arrival/first-fragment.png',
-    symbol: '✧',
     recollection: 'A small fragment was placed in your hands before you knew what it belonged to.',
     meaning: 'Every journey begins before its purpose is clear.',
   },
@@ -28,7 +26,6 @@ const memories: {
     title: 'Seed of Harmony',
     room: 'THE MAIN HALL',
     image: '/manor-main-hall/cabinet-open-seed.png',
-    symbol: '❖',
     recollection: 'Nine scattered pieces became one, revealing what the locked cabinet had kept hidden.',
     meaning: 'What seems incomplete may still hold the shape of something whole.',
   },
@@ -37,7 +34,6 @@ const memories: {
     title: 'The Archivist’s Quill',
     room: 'THE CONSERVATORY',
     image: '/manor-conservatory/archivists-quill.png',
-    symbol: '❧',
     recollection: 'Three plants found their proper places, and the Conservatory gave up one of its secrets.',
     meaning: 'Understanding often begins by noticing where things belong.',
   },
@@ -46,7 +42,6 @@ const memories: {
     title: 'Hourglass of Clarity',
     room: 'THE LIBRARY',
     image: '/manor-library/library-artifact.png',
-    symbol: '⌛',
     recollection: 'The Three Watchers revealed their order, and the Library entrusted you with the Hourglass of Clarity.',
     meaning: 'It sharpens perception, reveals the right moment, and grants the clarity to act when it matters most.',
   },
@@ -55,7 +50,6 @@ const memories: {
     title: 'Seeker’s Compass',
     room: 'THE CLOCK TOWER',
     image: '/manor-clock-tower/seekers-compass.png',
-    symbol: '✥',
     recollection: 'Four memories were placed in the order in which the Manor entrusted them to you. The great clock began to turn, revealing the Seeker’s Compass.',
     meaning: 'It does not point north. It points towards the question you have not yet dared to ask.',
   },
@@ -113,8 +107,7 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
             onClick={() => inspectMemory(memory.id)}
             aria-label={`Examine ${memory.title}`}
           >
-            <span className="temple-memory-symbol">{examined.includes(memory.id) ? <Check aria-hidden="true" /> : memory.symbol}</span>
-            <span className="temple-memory-label">{memory.title}</span>
+            <img className="temple-memory-symbol" src={memory.image} alt="" />
           </button>
         ))}
       </div>
