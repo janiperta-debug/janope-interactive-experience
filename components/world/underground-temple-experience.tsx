@@ -63,6 +63,7 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
   const [altarApproach, setAltarApproach] = useState(false)
   const [bookRevealed, setBookRevealed] = useState(false)
   const [bookOpened, setBookOpened] = useState(false)
+  const [endingCinematic, setEndingCinematic] = useState(false)
 
   const inspectMemory = (id: MemoryId) => {
     setSelected(id)
@@ -178,8 +179,31 @@ export function UndergroundTempleExperience({ onBack }: { onBack: () => void }) 
             <img src="/manor-underground-temple/the-unwritten-book.png" alt="An ancient book bearing the title The Unwritten" />
             <h2 id="temple-book-title">The Unwritten</h2>
             <p>The Temple has kept this book beyond the reach of time. Its pages hold more than this journey could reveal.</p>
-            <button className="enter-button" onClick={() => setBookOpened(true)}><span>Open the book</span><BookOpen aria-hidden="true" /></button>
+            <button className="enter-button" onClick={() => setEndingCinematic(true)}><span>Open the book</span><BookOpen aria-hidden="true" /></button>
           </section>
+        </div>
+      )}
+
+      {endingCinematic && (
+        <div
+          className="temple-ending-cinematic"
+          role="presentation"
+          onAnimationEnd={event => {
+            if (event.target === event.currentTarget) {
+              setEndingCinematic(false)
+              setBookOpened(true)
+            }
+          }}
+        >
+          <img src="/manor-underground-temple/open-book.png" alt="" />
+          <div className="temple-ending-cinematic-vignette" aria-hidden="true" />
+          <div className="temple-ending-cinematic-copy">
+            <p className="kicker">THE LAST PAGE · THE FIRST INVITATION</p>
+            <h2>The Manor holds more than this journey could reveal.</h2>
+            <p>You have followed the fragments and uncovered what was hidden.</p>
+            <p>Yet beyond these halls, other rooms remain. Other stories wait in the quiet. And somewhere, another door is ready to be found.</p>
+            <blockquote>“This was never the whole story. It was an invitation.”</blockquote>
+          </div>
         </div>
       )}
 
