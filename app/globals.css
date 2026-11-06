@@ -2404,3 +2404,15 @@ body { min-height:100dvh; }
   .temple-memory-point::before { width:58px !important; height:58px !important; }
   .temple-memory-point .temple-memory-symbol { width:54px !important; height:54px !important; max-width:54px !important; }
 }
+
+
+.temple-symbol-reaction{position:absolute;z-index:1;left:50%;top:37%;width:clamp(190px,25vw,340px);aspect-ratio:1;border-radius:50%;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.58);mix-blend-mode:screen}
+.temple-screen[class*="temple-symbol-pulse-"] .temple-symbol-reaction{animation:temple-seal-awaken 2.7s ease-out both}
+.temple-symbol-pulse-fragment .temple-symbol-reaction{background:radial-gradient(circle,#b9e8ff88 0%,#75c8ff50 24%,#5bb9ff18 52%,transparent 72%)}
+.temple-symbol-pulse-seed .temple-symbol-reaction{background:radial-gradient(circle,#f4d47e99 0%,#e9ae4d55 24%,#e9ae4d1b 52%,transparent 72%)}
+.temple-symbol-pulse-quill .temple-symbol-reaction{background:radial-gradient(circle,#9fe6bd88 0%,#55c98a50 24%,#55c98a1b 52%,transparent 72%)}
+.temple-symbol-pulse-hourglass .temple-symbol-reaction{background:radial-gradient(circle,#c5a8ff88 0%,#9870ed50 24%,#9870ed1b 52%,transparent 72%)}
+.temple-symbol-pulse-compass .temple-symbol-reaction{background:radial-gradient(circle,#ffad7c88 0%,#ee784c50 24%,#ee784c1b 52%,transparent 72%)}
+@keyframes temple-seal-awaken{0%{opacity:0;transform:translate(-50%,-50%) scale(.58)}22%{opacity:1;transform:translate(-50%,-50%) scale(1)}58%{opacity:.72;transform:translate(-50%,-50%) scale(1.08)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.2)}}
+@media(max-width:700px){.temple-symbol-reaction{top:43%;width:min(58vw,280px)}}
+@media(prefers-reduced-motion:reduce){.temple-screen[class*="temple-symbol-pulse-"] .temple-symbol-reaction{animation-duration:.01ms}}
