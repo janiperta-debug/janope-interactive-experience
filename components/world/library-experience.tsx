@@ -99,7 +99,7 @@ export function LibraryExperience({ onBack, onArtifactUnlocked }: { onBack: () =
     setSelected(null)
 
     if (next.every((value) => value !== null)) {
-      const correct = next[0] === 0 && next[1] === 2 && next[2] === 1
+      const correct = next[0] === 2 && next[1] === 0 && next[2] === 1
       if (correct) {
         setSolved(true)
       } else {
