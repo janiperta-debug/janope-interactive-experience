@@ -2193,3 +2193,21 @@ body { min-height:100dvh; }
     animation: none !important;
   }
 }
+
+/* Library ambient discoveries: optional observations, not puzzle fragments. */
+.library-hotspot-reading-chair { left: 14%; top: 68%; }
+.library-hotspot-globe { left: 62%; top: 25%; }
+.library-hotspot-window { left: 91%; top: 65%; }
+.library-ambient-note {
+  max-width: 620px;
+  margin: 18px auto 24px;
+  color: #e0d6e4;
+  font-size: 14px;
+  line-height: 1.8;
+}
+@media(max-width:700px) {
+  .library-hotspot-reading-chair { left: 12%; top: 70%; }
+  .library-hotspot-globe { left: 64%; top: 29%; }
+  .library-hotspot-window { left: 88%; top: 67%; }
+  .library-ambient-note { font-size: 13px; line-height: 1.7; }
+}
