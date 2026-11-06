@@ -4,6 +4,22 @@ import { useState } from 'react'
 import { ArrowLeft, ArrowRight, Check, Sparkles, X } from 'lucide-react'
 
 type GearId = 'arrival' | 'key' | 'plant' | 'bird'
+type AmbientId = 'pendulum' | 'telescope' | 'starChart'
+
+const ambientDiscoveries: Record<AmbientId, { title: string; body: string }> = {
+  pendulum: {
+    title: 'The Silent Pendulum',
+    body: 'A long brass weight hangs in the stillness. Its surface bears the soft marks of countless years, as though time itself has rested here between one movement and the next.',
+  },
+  telescope: {
+    title: 'The Old Telescope',
+    body: 'The telescope is turned towards the dark beyond the glass. A thin film of dust softens its polished brass, but the eyepiece has been kept clear by a careful hand.',
+  },
+  starChart: {
+    title: 'The Astronomer’s Chart',
+    body: 'Faded constellations cross the parchment in delicate ink. Some of the annotations have nearly disappeared, leaving the quiet impression of a sky remembered rather than observed.',
+  },
+}
 
 const gears: {
   id: GearId
@@ -47,6 +63,7 @@ const solution: GearId[] = ['arrival', 'key', 'plant', 'bird']
 export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: () => void; onArtifactUnlocked: () => void }) {
   const [found, setFound] = useState<GearId[]>([])
   const [activeGear, setActiveGear] = useState<GearId | null>(null)
+  const [activeAmbient, setActiveAmbient] = useState<AmbientId | null>(null)
   const [selectedGear, setSelectedGear] = useState<GearId | null>(null)
   const [selectedFromSlot, setSelectedFromSlot] = useState<number | null>(null)
   const [placed, setPlaced] = useState<(GearId | null)[]>([null, null, null, null])
@@ -126,6 +143,9 @@ export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: (
         <button className="clock-tower-hotspot clock-tower-hotspot-clock" onClick={() => setShowPuzzle(true)} aria-label="Examine the clock mechanism">
           <span>⚙</span>
         </button>
+        <button className="clock-tower-hotspot clock-tower-hotspot-ambient-1" onClick={() => setActiveAmbient('pendulum')} aria-label="Examine the silent pendulum"><span>✧</span></button>
+        <button className="clock-tower-hotspot clock-tower-hotspot-ambient-2" onClick={() => setActiveAmbient('telescope')} aria-label="Examine the old telescope"><span>✧</span></button>
+        <button className="clock-tower-hotspot clock-tower-hotspot-ambient-3" onClick={() => setActiveAmbient('starChart')} aria-label="Examine the astronomer’s chart"><span>✧</span></button>
       </div>
       <div className="clock-tower-tuning-note">CLOCK TOWER · HOTSPOT PLACEMENT MODE</div>
 
@@ -148,6 +168,19 @@ export function ClockTowerExperience({ onBack, onArtifactUnlocked }: { onBack: (
           </div>
         )
       })()}
+
+      {activeAmbient && (
+        <div className="hall-modal-backdrop clockwork-modal-backdrop" role="presentation" onClick={() => setActiveAmbient(null)}>
+          <section className="hall-modal clockwork-discovery clock-tower-ambient-discovery" role="dialog" aria-modal="true" aria-labelledby="clock-tower-ambient-title" onClick={event => event.stopPropagation()}>
+            <button className="hall-modal-close" onClick={() => setActiveAmbient(null)} aria-label="Close"><X /></button>
+            <p className="kicker">CLOCK TOWER · A CLOSER LOOK</p>
+            <div className="clockwork-discovery-symbol" aria-hidden="true">✧</div>
+            <h2 id="clock-tower-ambient-title">{ambientDiscoveries[activeAmbient].title}</h2>
+            <p className="research-body">{ambientDiscoveries[activeAmbient].body}</p>
+            <button className="enter-button hall-modal-action" onClick={() => setActiveAmbient(null)}><span>Return to the clock tower</span><ArrowRight /></button>
+          </section>
+        </div>
+      )}
 
       {showPuzzle && (
         <div className="hall-modal-backdrop clockwork-modal-backdrop" role="presentation" onClick={() => { if (!solved) { setShowPuzzle(false); setSelectedGear(null); setSelectedFromSlot(null) } }}>
